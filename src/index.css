@@ -4,3 +4,10 @@
 :root {
   /*Add global styles*/
 }
+
+body {
+  background-color: var(--primary-bg);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

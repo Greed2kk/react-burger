@@ -4,4 +4,6 @@
     --primary-text-light: #F2F2F3;
     --secondary-text-dark: #8585AD;
     --accent-color: #4C4CFF;
+
+    --content-header-max-width: 1280px;
 }

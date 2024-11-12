@@ -1,9 +1,13 @@
 import React from 'react'
 
+import AppHeader from '../header/app-header'
+
+
 function App() {
   return (
     <>
-      <main className='app'>Hello world!</main>
+      <AppHeader />
+      <main>Hello world!</main>
     </>
   )
 }
