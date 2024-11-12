@@ -1,4 +1,5 @@
 @import url('./styles/normalize.css');
+@import url('./styles/variables.css');
 
 :root {
   /*Add global styles*/
