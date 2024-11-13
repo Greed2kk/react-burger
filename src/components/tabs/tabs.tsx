@@ -1,5 +1,7 @@
 import React from 'react'
 
+import classNames from 'classnames'
+
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import styles from './tabs.module.css'
@@ -13,14 +15,20 @@ interface TabsProps {
   tabs: TabsOptions[]
   tabClickHandler?: (value: string) => void
   currentTab?: string
+  className?: string
 }
 
 class Tabs extends React.Component<TabsProps, {}> {
   render() {
-    const { currentTab = 'one', tabClickHandler = () => {}, tabs } = this.props
+    const {
+      currentTab = 'one',
+      tabClickHandler = () => {},
+      tabs,
+      className,
+    } = this.props
 
     return (
-      <div className={styles.tabsContainer}>
+      <div className={classNames(styles.tabsContainer, className)}>
         {tabs.map(({ name, value }) => (
           <Tab
             key={value}
