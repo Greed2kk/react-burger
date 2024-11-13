@@ -2,7 +2,23 @@
 @import url('./styles/variables.css');
 
 :root {
-  /*Add global styles*/
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--scroll-bar-background);
+    border-radius: 0;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--scroll-bar-background);
+    border-radius: 0;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scroll-bar-background);
+  }
 }
 
 body {
@@ -10,4 +26,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+
+  scrollbar-width: auto;
+  scrollbar-color: var(--scroll-bar) var(--scroll-bar-background);
 }
