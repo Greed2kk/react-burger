@@ -1,8 +1,8 @@
 import React from 'react'
 
-import Tabs from '../../../tabs/tabs'
+import Tabs from '../tabs/tabs'
 
-import { data } from '../../../../utils/data'
+import { data } from '../../utils/data'
 import IngredientsList from './ingredients-list/ingredients-list'
 
 export enum IngredientType {

@@ -1,0 +1,6 @@
+.ingredientsItems {
+  display: flex;
+  flex-direction: row;
+  gap: 24px 32px;
+  flex-wrap: wrap;
+}

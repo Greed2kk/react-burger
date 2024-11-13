@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 import { IngredientType } from '../burger-ingredients'
 import IngredientsCategory from './ingredients-category/Ingredients-category'
 
+import styles from './ingredients-list.module.css'
+
 export interface Categories {
   [IngredientType.BUN]: IngredientItem['_id'][]
   [IngredientType.MAIN]: IngredientItem['_id'][]
@@ -50,7 +52,7 @@ class IngredientsList extends React.Component<IngredientsListProps, {}> {
     ingredients.forEach(({ type, _id }) => categories[type].push(_id))
 
     return (
-      <section>
+      <section className={styles.ingredientsList}>
         {Object.entries(categories).map(([category, itemsId]) => {
           return (
             <IngredientsCategory

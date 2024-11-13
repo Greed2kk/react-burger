@@ -1,8 +1,11 @@
 import React from 'react'
 
 import { IngredientType } from '../../burger-ingredients'
+import IngredientsItems from '../ingredients-items/ingredients-items'
 
 import { IngredientItem } from '../ingredients-list'
+
+import styles from './ingredients-category.module.css'
 
 interface IngredientsCategoryProps {
   category: IngredientType
@@ -21,7 +24,7 @@ class IngredientsCategory extends React.Component<
   {}
 > {
   render() {
-    const { category } = this.props // itemsId // ingredients
+    const { category, itemsId, ingredients } = this.props
 
     const categoryNames: CategoriesNames = {
       [IngredientType.BUN]: 'Булки',
@@ -29,9 +32,15 @@ class IngredientsCategory extends React.Component<
       [IngredientType.SAUCE]: 'Соусы',
     }
 
+    const categoryIngredients = ingredients.filter(({ _id }) =>
+      itemsId.some((id) => _id === id)
+    )
+
     return (
-      <section>
+      <section className={styles.ingredientsCategory}>
         <p className='text text_type_main-medium'>{categoryNames[category]}</p>
+
+        <IngredientsItems categoryIngredients={categoryIngredients} />
       </section>
     )
   }

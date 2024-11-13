@@ -4,7 +4,7 @@ import { Component } from 'react'
 import ContentWrapper from '../../content-wrapper/content-wrapper'
 
 import styles from './burger-constructor-page.module.css'
-import BurgerIngredients from './burger-Ingredients/burger-ingredients'
+import BurgerIngredients from '../../burger-Ingredients/burger-ingredients'
 
 class BurgerConstructorPage extends Component {
   render() {
