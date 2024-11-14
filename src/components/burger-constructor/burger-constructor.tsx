@@ -37,7 +37,7 @@ class BurgerConstructor extends React.Component<BurgerConstructorProps, {}> {
     )
 
     return (
-      <section className={classNames(styles.burgerConstructor, 'mt-25')}>
+      <section className={classNames(styles.burgerConstructor, 'mt-25 ml-4 mr-4')}>
         <ConstructorElements allIngredients={allIngredients} />
 
         <TotalPrice total={totalPrice} />
