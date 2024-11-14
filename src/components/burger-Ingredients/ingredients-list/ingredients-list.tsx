@@ -1,7 +1,5 @@
 import React from 'react'
 
-import PropTypes from 'prop-types'
-
 import IngredientsCategory from './ingredients-category/Ingredients-category'
 
 import { IngredientType } from '../../pages/burger-constructor-page/types'
@@ -28,19 +26,6 @@ interface IngredientsListProps {
 }
 
 class IngredientsList extends React.Component<IngredientsListProps, {}> {
-  static propTypes = {
-    ingredients: PropTypes.arrayOf(
-      PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-        __v: PropTypes.number.isRequired,
-      })
-    ),
-  }
-
   render() {
     const categories: Categories = {
       [IngredientType.BUN]: [],
