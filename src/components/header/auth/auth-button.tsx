@@ -1,9 +1,11 @@
-import classNames from 'classnames'
 import React from 'react'
+
+import classNames from 'classnames'
 
 import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import Link from '../../link/link'
+
 import styles from '../nav/nav.module.css'
 
 class AuthButton extends React.Component<{}, {}> {

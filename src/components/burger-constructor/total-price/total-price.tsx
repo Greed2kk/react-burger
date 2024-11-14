@@ -1,7 +1,8 @@
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import React from 'react'
 
 import classNames from 'classnames'
-import React from 'react'
+
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import Button from '../../button/button'
 import { HtmlTypeButton, SizeButton } from '../../button/types'

@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Ingredients } from '../pages/burger-constructor-page/types'
 
 import Tabs from '../tabs/tabs'
