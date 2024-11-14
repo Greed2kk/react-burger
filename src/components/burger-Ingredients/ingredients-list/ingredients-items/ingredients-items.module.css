@@ -1,6 +1,5 @@
 .ingredientsItems {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 32px 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 32px;
 }
