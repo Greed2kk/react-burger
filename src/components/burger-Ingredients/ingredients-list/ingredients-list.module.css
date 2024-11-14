@@ -1,6 +1,6 @@
 .ingredientsList {
-  max-width: calc(var(--content-header-max-width) / 2);
+    max-width: calc(var(--content-header-max-width) / 2);
 
-  height: calc(100vh - 320px); /* Примерное значение */
-  overflow-x: scroll;
+    height: calc(100vh - 320px); /* Примерное значение */
+    overflow-x: scroll;
 }

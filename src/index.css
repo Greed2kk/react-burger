@@ -2,31 +2,31 @@
 @import url('./styles/variables.css');
 
 :root {
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
 
-  ::-webkit-scrollbar-track {
-    background: var(--scroll-bar-background);
-    border-radius: 0;
-  }
+    ::-webkit-scrollbar-track {
+        background: var(--scroll-bar-background);
+        border-radius: 0;
+    }
 
-  ::-webkit-scrollbar-thumb {
-    background-color: var(--scroll-bar-background);
-    border-radius: 0;
-  }
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--scroll-bar-background);
+        border-radius: 0;
+    }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: var(--scroll-bar-background);
-  }
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: var(--scroll-bar-background);
+    }
 }
 
 body {
-  background-color: var(--primary-bg);
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+    background-color: var(--primary-bg);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 
-  scrollbar-width: auto;
-  scrollbar-color: var(--scroll-bar) var(--scroll-bar-background);
+    scrollbar-width: auto;
+    scrollbar-color: var(--scroll-bar) var(--scroll-bar-background);
 }

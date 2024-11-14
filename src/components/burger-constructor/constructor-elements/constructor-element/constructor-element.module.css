@@ -1,17 +1,17 @@
 .constructorElement {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .constructorElementItem {
-  max-width: 100%;
-  background-color: var(--interface-bg);
+    max-width: 100%;
+    background-color: var(--interface-bg);
 }
 
 .dragElementItem:hover {
-  cursor: grab;
+    cursor: grab;
 }
 
 .dragElementItem:active {
-  cursor: grabbing;
+    cursor: grabbing;
 }

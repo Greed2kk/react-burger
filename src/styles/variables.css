@@ -1,12 +1,12 @@
 :root {
     --primary-bg: #131316;
-    --interface-bg: #1C1C21;
-    --primary-text-light: #F2F2F3;
-    --secondary-text-dark: #8585AD;
-    --accent-color: #4C4CFF;
+    --interface-bg: #1c1c21;
+    --primary-text-light: #f2f2f3;
+    --secondary-text-dark: #8585ad;
+    --accent-color: #4c4cff;
 
-    --scroll-bar-background: #2F2F37;
-    --scroll-bar: #8585AD;
+    --scroll-bar-background: #2f2f37;
+    --scroll-bar: #8585ad;
 
     --content-header-max-width: 1280px;
 }

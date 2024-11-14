@@ -24,7 +24,7 @@ class BurgerConstructorPage extends Component {
         >
           <BurgerIngredients ingredients={ingredients} />
 
-          <BurgerConstructor ingredients={ingredients}/>
+          <BurgerConstructor ingredients={ingredients} />
         </ContentWrapper>
       </ContentWrapper>
     )

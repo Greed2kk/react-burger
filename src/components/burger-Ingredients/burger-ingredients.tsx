@@ -13,7 +13,10 @@ interface IngredientsState {
   tabs: { activeTab: string }
 }
 
-class BurgerIngredients extends React.Component<IngredientsProps, IngredientsState> {
+class BurgerIngredients extends React.Component<
+  IngredientsProps,
+  IngredientsState
+> {
   state = { tabs: { activeTab: 'one' } }
 
   render() {

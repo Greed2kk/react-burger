@@ -21,7 +21,7 @@ class Nav extends React.Component<{}, {}> {
           <BurgerIcon type='primary' className={classNames('mr-2')} />
           <p
             className={classNames('text text_type_main-default', {
-              [styles.active]: true,  // refactor
+              [styles.active]: true, // refactor
             })}
           >
             Конструктор
@@ -38,7 +38,7 @@ class Nav extends React.Component<{}, {}> {
           />
           <p
             className={classNames('text text_type_main-default', {
-              [styles.inactive]: true,  // refactor
+              [styles.inactive]: true, // refactor
             })}
           >
             Лента заказов

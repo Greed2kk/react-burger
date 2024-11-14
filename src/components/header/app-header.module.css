@@ -1,12 +1,12 @@
 .appHeader {
-  background-color: var(--interface-bg);
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-evenly;
+    background-color: var(--interface-bg);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .headerLogo {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 1px);
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 1px);
 }
