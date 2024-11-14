@@ -1,8 +1,7 @@
 .link {
-    text-decoration: none;
-    color: var(--primary-text-light);
-
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    color: var(--primary-text-light);
+    text-decoration: none;
 }

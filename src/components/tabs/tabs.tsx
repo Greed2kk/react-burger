@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 
 import classNames from 'classnames'
 
@@ -18,30 +18,26 @@ interface TabsProps {
   className?: string
 }
 
-class Tabs extends React.Component<TabsProps, {}> {
-  render() {
-    const {
-      currentTab = 'one',
-      tabClickHandler = () => {},
-      tabs,
-      className,
-    } = this.props
+export const Tabs: FC<TabsProps> = (props) => {
+  const {
+    currentTab = 'one',
+    tabClickHandler = () => {},
+    tabs,
+    className,
+  } = props
 
-    return (
-      <div className={classNames(styles.tabsContainer, className)}>
-        {tabs.map(({ name, value }) => (
-          <Tab
-            key={value}
-            value={value}
-            active={currentTab === value}
-            onClick={tabClickHandler}
-          >
-            {name}
-          </Tab>
-        ))}
-      </div>
-    )
-  }
+  return (
+    <div className={classNames(styles.tabsContainer, className)}>
+      {tabs.map(({ name, value }) => (
+        <Tab
+          key={value}
+          value={value}
+          active={currentTab === value}
+          onClick={tabClickHandler}
+        >
+          {name}
+        </Tab>
+      ))}
+    </div>
+  )
 }
-
-export default Tabs

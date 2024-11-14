@@ -1,6 +1,6 @@
-import React from 'react'
+import { FC } from 'react'
 
-import IngredientsItems from '../ingredients-items/ingredients-items'
+import { IngredientsItems } from '../ingredients-items/ingredients-items'
 
 import { IngredientItem } from '../ingredients-list'
 
@@ -20,31 +20,24 @@ export type CategoriesNames = {
   [IngredientType.SAUCE]: 'Соусы'
 }
 
-class IngredientsCategory extends React.Component<
-  IngredientsCategoryProps,
-  {}
-> {
-  render() {
-    const { category, itemsId, ingredients } = this.props
+export const IngredientsCategory: FC<IngredientsCategoryProps> = (props) => {
+  const { category, itemsId, ingredients } = props
 
-    const categoryNames: CategoriesNames = {
-      [IngredientType.BUN]: 'Булки',
-      [IngredientType.MAIN]: 'Начинки',
-      [IngredientType.SAUCE]: 'Соусы',
-    }
-
-    const categoryIngredients = ingredients.filter(({ _id }) =>
-      itemsId.some((id) => _id === id)
-    )
-
-    return (
-      <section className={styles.ingredientsCategory}>
-        <p className='text text_type_main-medium'>{categoryNames[category]}</p>
-
-        <IngredientsItems categoryIngredients={categoryIngredients} />
-      </section>
-    )
+  const categoryNames: CategoriesNames = {
+    [IngredientType.BUN]: 'Булки',
+    [IngredientType.MAIN]: 'Начинки',
+    [IngredientType.SAUCE]: 'Соусы',
   }
-}
 
-export default IngredientsCategory
+  const categoryIngredients = ingredients.filter(({ _id }) =>
+    itemsId.some((id) => _id === id)
+  )
+
+  return (
+    <section className={styles.ingredientsCategory}>
+      <p className='text text_type_main-medium'>{categoryNames[category]}</p>
+
+      <IngredientsItems categoryIngredients={categoryIngredients} />
+    </section>
+  )
+}

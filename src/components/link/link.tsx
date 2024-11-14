@@ -1,30 +1,26 @@
-import React from 'react'
+import { FC, ReactNode } from 'react'
 
 import classNames from 'classnames'
 
 import styles from './link.module.css'
 
 interface LinkProps {
-  children: React.ReactNode
+  children: ReactNode
   className?: string
   href?: string
   ariaLabel?: string
 }
 
-class Link extends React.Component<LinkProps, {}> {
-  render() {
-    const { className, children, href = '/', ariaLabel = 'Ссылка' } = this.props
+export const Link: FC<LinkProps> = (props) => {
+  const { className, children, href = '/', ariaLabel = 'Ссылка' } = props
 
-    return (
-      <a
-        href={href}
-        className={classNames(styles.link, className)}
-        aria-label={ariaLabel}
-      >
-        {children}
-      </a>
-    )
-  }
+  return (
+    <a
+      href={href}
+      className={classNames(styles.link, className)}
+      aria-label={ariaLabel}
+    >
+      {children}
+    </a>
+  )
 }
-
-export default Link

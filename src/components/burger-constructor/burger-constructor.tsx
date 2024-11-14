@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 
 import classNames from 'classnames'
 
@@ -9,41 +9,40 @@ import {
 
 import styles from './burger-constructor.module.css'
 
-import ConstructorElements from './constructor-elements/constructor-elements'
-import TotalPrice from './total-price/total-price'
+import { ConstructorElements } from './constructor-elements/constructor-elements'
+import { TotalPrice } from './total-price/total-price'
 
 interface BurgerConstructorProps {
   ingredients: Ingredients[]
 }
 
-class BurgerConstructor extends React.Component<BurgerConstructorProps, {}> {
-  render() {
-    const { ingredients } = this.props
-    const bun = ingredients.find(({ type }) => type === IngredientType.BUN)
+export const BurgerConstructor: FC<BurgerConstructorProps> = (props) => {
+  const { ingredients } = props
 
-    const sauces = ingredients
-      .filter(({ type }) => type === IngredientType.SAUCE)
-      .slice(0, 2)
+  const bun = ingredients.find(({ type }) => type === IngredientType.BUN)
 
-    const main = ingredients
-      .filter(({ type }) => type === IngredientType.MAIN)
-      .slice(2, 5)
+  const sauces = ingredients
+    .filter(({ type }) => type === IngredientType.SAUCE)
+    .slice(0, 2)
 
-    const allIngredients = [bun, ...sauces, ...main] as Ingredients[]
+  const main = ingredients
+    .filter(({ type }) => type === IngredientType.MAIN)
+    .slice(2, 5)
 
-    const totalPrice = allIngredients.reduce(
-      (total, ingredient) => total + ingredient.price,
-      bun?.price || 0
-    )
+  const allIngredients = [bun, ...sauces, ...main] as Ingredients[]
 
-    return (
-      <section className={classNames(styles.burgerConstructor, 'mt-25 ml-4 mr-4')}>
-        <ConstructorElements allIngredients={allIngredients} />
+  const totalPrice = allIngredients.reduce(
+    (total, ingredient) => total + ingredient.price,
+    bun?.price || 0
+  )
 
-        <TotalPrice total={totalPrice} />
-      </section>
-    )
-  }
+  return (
+    <section
+      className={classNames(styles.burgerConstructor, 'mt-25 ml-4 mr-4')}
+    >
+      <ConstructorElements allIngredients={allIngredients} />
+
+      <TotalPrice total={totalPrice} />
+    </section>
+  )
 }
-
-export default BurgerConstructor

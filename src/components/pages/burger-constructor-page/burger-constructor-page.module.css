@@ -1,9 +1,9 @@
 .burgerConstructorPage {
     display: flex;
     flex: 1;
-    align-items: flex-start;
-    flex-wrap: nowrap;
     flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
     align-content: flex-start;
     gap: 40px;
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 
 import classNames from 'classnames'
 
@@ -9,10 +9,7 @@ import {
 
 import styles from './constructor-element.module.css'
 
-export enum ConstructorElementType {
-  TOP = 'top',
-  BOTTOM = 'bottom',
-}
+import { ConstructorElementType } from './types'
 
 interface ConstructorElementProps {
   text: string
@@ -23,34 +20,30 @@ interface ConstructorElementProps {
   className?: string
 }
 
-class ConstructorElement extends React.Component<ConstructorElementProps, {}> {
-  render() {
-    const { text, type, isLocked, thumbnail, price, className } = this.props
+export const ConstructorElement: FC<ConstructorElementProps> = (props) => {
+  const { text, type, isLocked, thumbnail, price, className } = props
 
-    return (
-      <div className={styles.constructorElement}>
-        {!isLocked && (
-          <DragIcon
-            type='primary'
-            className={classNames(styles.dragElementItem, 'mr-2')}
-          />
-        )}
-
-        <YaConstructorElement
-          type={type}
-          isLocked={isLocked}
-          text={text}
-          price={price}
-          thumbnail={thumbnail}
-          extraClass={classNames(
-            styles.constructorElementItem,
-            { 'ml-8': isLocked },
-            className
-          )}
+  return (
+    <div className={styles.constructorElement}>
+      {!isLocked && (
+        <DragIcon
+          type='primary'
+          className={classNames(styles.dragElementItem, 'mr-2')}
         />
-      </div>
-    )
-  }
-}
+      )}
 
-export default ConstructorElement
+      <YaConstructorElement
+        type={type}
+        isLocked={isLocked}
+        text={text}
+        price={price}
+        thumbnail={thumbnail}
+        extraClass={classNames(
+          styles.constructorElementItem,
+          { 'ml-8': isLocked },
+          className
+        )}
+      />
+    </div>
+  )
+}

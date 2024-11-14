@@ -1,23 +1,19 @@
-import React from 'react'
+import { FC } from 'react'
 
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import Link from '../link/link'
+import { Link } from '../link/link'
 
 interface BurgerLogoProps {
   className?: string
 }
 
-class BurgerLogo extends React.Component<BurgerLogoProps, {}> {
-  render() {
-    const { className } = this.props
+export const BurgerLogo: FC<BurgerLogoProps> = (props) => {
+  const { className } = props
 
-    return (
-      <Link ariaLabel='Обновить стриницу' className={className}>
-        <Logo />
-      </Link>
-    )
-  }
+  return (
+    <Link ariaLabel='Обновить стриницу' className={className}>
+      <Logo />
+    </Link>
+  )
 }
-
-export default BurgerLogo

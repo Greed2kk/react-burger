@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { FC } from 'react'
 
-import IngredientsCategory from './ingredients-category/Ingredients-category'
+import { IngredientsCategory } from './ingredients-category/Ingredients-category'
 
 import { IngredientType } from '../../pages/burger-constructor-page/types'
 
@@ -25,33 +25,29 @@ interface IngredientsListProps {
   ingredients: IngredientItem[]
 }
 
-class IngredientsList extends React.Component<IngredientsListProps, {}> {
-  render() {
-    const categories: Categories = {
-      [IngredientType.BUN]: [],
-      [IngredientType.MAIN]: [],
-      [IngredientType.SAUCE]: [],
-    }
-
-    const { ingredients } = this.props
-
-    ingredients.forEach(({ type, _id }) => categories[type].push(_id))
-
-    return (
-      <section className={styles.ingredientsList}>
-        {Object.entries(categories).map(([category, itemsId]) => {
-          return (
-            <IngredientsCategory
-              key={category}
-              category={category as IngredientType}
-              itemsId={itemsId}
-              ingredients={ingredients}
-            />
-          )
-        })}
-      </section>
-    )
+export const IngredientsList: FC<IngredientsListProps> = (props) => {
+  const categories: Categories = {
+    [IngredientType.BUN]: [],
+    [IngredientType.MAIN]: [],
+    [IngredientType.SAUCE]: [],
   }
-}
 
-export default IngredientsList
+  const { ingredients } = props
+
+  ingredients.forEach(({ type, _id }) => categories[type].push(_id))
+
+  return (
+    <section className={styles.ingredientsList}>
+      {Object.entries(categories).map(([category, itemsId]) => {
+        return (
+          <IngredientsCategory
+            key={category}
+            category={category as IngredientType}
+            itemsId={itemsId}
+            ingredients={ingredients}
+          />
+        )
+      })}
+    </section>
+  )
+}

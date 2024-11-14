@@ -1,6 +1,5 @@
-import React from 'react'
+import { AppHeader } from '../app-header/app-header'
 
-import AppHeader from '../header/app-header'
 import BurgerConstructorPage from '../pages/burger-constructor-page/burger-constructor-page'
 
 function App() {

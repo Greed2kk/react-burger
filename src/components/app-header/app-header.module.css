@@ -1,8 +1,8 @@
 .appHeader {
-    background-color: var(--interface-bg);
-    box-sizing: border-box;
     display: flex;
     justify-content: space-evenly;
+    box-sizing: border-box;
+    background-color: var(--interface-bg);
 }
 
 .headerLogo {
