@@ -1,0 +1,23 @@
+.ingredientCard {
+    display: flex;
+    flex: 0 1;
+    flex-direction: column;
+    align-items: center;
+}
+
+.price {
+    display: flex;
+}
+
+.counter {
+    position: absolute;
+}
+
+.imageContainer {
+    position: relative;
+}
+
+.name {
+    min-height: 43px;
+    text-align: center;
+}

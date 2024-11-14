@@ -1,0 +1,13 @@
+.nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.active {
+    color: var(--primary-text-light);
+}
+
+.inactive {
+    color: var(--secondary-text-dark);
+}
