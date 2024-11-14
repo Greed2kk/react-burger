@@ -29,7 +29,12 @@ class ConstructorElement extends React.Component<ConstructorElementProps, {}> {
 
     return (
       <div className={styles.constructorElement}>
-        {!isLocked && <DragIcon type='primary' className='mr-2' />}
+        {!isLocked && (
+          <DragIcon
+            type='primary'
+            className={classNames(styles.dragElementItem, 'mr-2')}
+          />
+        )}
 
         <YaConstructorElement
           type={type}

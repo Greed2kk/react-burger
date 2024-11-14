@@ -7,3 +7,11 @@
   max-width: 100%;
   background-color: var(--interface-bg);
 }
+
+.dragElementItem:hover {
+  cursor: grab;
+}
+
+.dragElementItem:active {
+  cursor: grabbing;
+}

@@ -7,6 +7,6 @@
 .editableConstructorElements {
   composes: constructorElements;
 
-  height: calc(100vh - 500px); /* занятое пространство другими элементами с макета 300px + 200px +- */
+  height: calc(100vh - 510px); /* занятое пространство другими элементами с макета 300px + 200px +- */
   overflow-x: scroll;
 }
