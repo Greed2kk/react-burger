@@ -1,0 +1,10 @@
+.totalPrice {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.totalPriceIcon {
+  width: 36px;
+  height: 36px;
+}

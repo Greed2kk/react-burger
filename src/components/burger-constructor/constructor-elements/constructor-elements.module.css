@@ -1,0 +1,12 @@
+.constructorElements {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.editableConstructorElements {
+  composes: constructorElements;
+
+  height: calc(100vh - 500px); /* занятое пространство другими элементами с макета 300px + 200px +- */
+  overflow-x: scroll;
+}

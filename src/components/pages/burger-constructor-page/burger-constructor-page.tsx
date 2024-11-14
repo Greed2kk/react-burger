@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import { Component } from 'react'
+import BurgerConstructor from '../../burger-constructor/burger-constructor'
 
 import ContentWrapper from '../../content-wrapper/content-wrapper'
 
@@ -10,8 +11,12 @@ class BurgerConstructorPage extends Component {
   render() {
     return (
       <ContentWrapper as='main'>
-        <ContentWrapper className={classNames(styles.burgerConstructorPage, 'pl-5 pr-5')}>
+        <ContentWrapper
+          className={classNames(styles.burgerConstructorPage, 'pl-5 pr-5')}
+        >
           <BurgerIngredients />
+
+          <BurgerConstructor />
         </ContentWrapper>
       </ContentWrapper>
     )

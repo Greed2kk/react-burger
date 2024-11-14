@@ -1,0 +1,9 @@
+.constructorElement {
+  display: flex;
+  align-items: center;
+}
+
+.constructorElementItem {
+  max-width: 100%;
+  background-color: var(--interface-bg);
+}
