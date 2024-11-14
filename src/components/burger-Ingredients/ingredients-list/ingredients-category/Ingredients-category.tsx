@@ -1,9 +1,10 @@
 import React from 'react'
 
-import { IngredientType } from '../../burger-ingredients'
 import IngredientsItems from '../ingredients-items/ingredients-items'
 
 import { IngredientItem } from '../ingredients-list'
+
+import { IngredientType } from '../../../pages/burger-constructor-page/types'
 
 import styles from './ingredients-category.module.css'
 

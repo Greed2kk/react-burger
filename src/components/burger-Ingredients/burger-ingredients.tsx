@@ -1,37 +1,25 @@
 import React from 'react'
+import { Ingredients } from '../pages/burger-constructor-page/types'
 
 import Tabs from '../tabs/tabs'
 
-import { data } from '../../utils/data'
 import IngredientsList from './ingredients-list/ingredients-list'
 
-export enum IngredientType {
-  BUN = 'bun',
-  MAIN = 'main',
-  SAUCE = 'sauce',
+interface IngredientsProps {
+  ingredients: Ingredients[]
 }
 
-interface Ingreidients {
-  _id: string
-  name: string
-  type: IngredientType
-  proteins: number
-  fat: number
-  carbohydrates: number
-  calories: number
-  price: number
-  image: string
-  image_mobile: string
-  image_large: string
-  __v: number
+interface IngredientsState {
+  tabs: { activeTab: string }
 }
 
-class BurgerIngredients extends React.Component<{}, {}> {
+class BurgerIngredients extends React.Component<IngredientsProps, IngredientsState> {
   state = { tabs: { activeTab: 'one' } }
 
   render() {
+    const { ingredients } = this.props
     const { tabs } = this.state
-    const ingredients = data as Ingreidients[]
+
     const ingredientsListData = ingredients.map(
       ({
         image_large,

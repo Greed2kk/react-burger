@@ -2,8 +2,9 @@ import React from 'react'
 
 import PropTypes from 'prop-types'
 
-import { IngredientType } from '../burger-ingredients'
 import IngredientsCategory from './ingredients-category/Ingredients-category'
+
+import { IngredientType } from '../../pages/burger-constructor-page/types'
 
 import styles from './ingredients-list.module.css'
 
