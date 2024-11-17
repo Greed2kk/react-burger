@@ -5,17 +5,17 @@ import classNames from 'classnames'
 import { BurgerConstructor } from '../../burger-constructor/burger-constructor'
 import { BurgerIngredients } from '../../burger-Ingredients/burger-ingredients'
 
-import { ContentWrapper  }from '../../content-wrapper/content-wrapper'
+import { ContentWrapper } from '../../content-wrapper/content-wrapper'
 
 import { Ingredients } from './types'
 
-import { data } from '../../../utils/data'
-
 import styles from './burger-constructor-page.module.css'
 
-const BurgerConstructorPage: FC = () => {
-  const ingredients = data as Ingredients[]
+interface IngredientsData {
+  ingredients: Ingredients[]
+}
 
+const BurgerConstructorPage: FC<IngredientsData> = ({ ingredients }) => {
   return (
     <ContentWrapper as='main'>
       <ContentWrapper
