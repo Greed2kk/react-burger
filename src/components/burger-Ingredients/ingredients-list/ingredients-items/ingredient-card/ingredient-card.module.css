@@ -5,6 +5,10 @@
     align-items: center;
 }
 
+.ingredientCard:hover {
+    cursor: pointer;
+}
+
 .price {
     display: flex;
 }

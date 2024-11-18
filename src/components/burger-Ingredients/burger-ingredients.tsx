@@ -13,18 +13,6 @@ interface IngredientsProps {
 export const BurgerIngredients: FC<IngredientsProps> = ({ ingredients }) => {
   const [activeTab, setActive] = useState('first')
 
-  const ingredientsListData = ingredients.map(
-    ({
-      image_large,
-      image_mobile,
-      calories,
-      carbohydrates,
-      fat,
-      proteins,
-      ...rest
-    }) => rest
-  )
-
   const ingredientsTabs = [
     { value: 'one', name: 'Булки' },
     { value: 'two', name: 'Соусы' },
@@ -46,7 +34,7 @@ export const BurgerIngredients: FC<IngredientsProps> = ({ ingredients }) => {
         className='mb-10'
       />
 
-      <IngredientsList ingredients={ingredientsListData} />
+      <IngredientsList ingredients={ingredients} />
     </section>
   )
 }

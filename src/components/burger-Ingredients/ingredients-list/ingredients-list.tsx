@@ -2,27 +2,18 @@ import React, { FC } from 'react'
 
 import { IngredientsCategory } from './ingredients-category/Ingredients-category'
 
-import { IngredientType } from '../../pages/burger-constructor-page/types'
+import { Ingredients, IngredientType } from '../../pages/burger-constructor-page/types'
 
 import styles from './ingredients-list.module.css'
 
 export interface Categories {
-  [IngredientType.BUN]: IngredientItem['_id'][]
-  [IngredientType.MAIN]: IngredientItem['_id'][]
-  [IngredientType.SAUCE]: IngredientItem['_id'][]
-}
-
-export type IngredientItem = {
-  _id: string
-  name: string
-  type: IngredientType
-  price: number
-  image: string
-  __v: number
+  [IngredientType.BUN]: Ingredients['_id'][]
+  [IngredientType.MAIN]: Ingredients['_id'][]
+  [IngredientType.SAUCE]: Ingredients['_id'][]
 }
 
 interface IngredientsListProps {
-  ingredients: IngredientItem[]
+  ingredients: Ingredients[]
 }
 
 export const IngredientsList: FC<IngredientsListProps> = (props) => {
