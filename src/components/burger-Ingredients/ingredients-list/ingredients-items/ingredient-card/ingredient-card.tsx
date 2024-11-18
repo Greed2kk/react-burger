@@ -69,7 +69,7 @@ export const IngredientCard: FC<IngredientItemProps> = ({
           image={image_large}
           name={name}
           closeModal={handleCloseDetails}
-          energyValue={{ calories, proteins, fat , carbohydrates,  }}
+          energyValue={{ calories, proteins, fat, carbohydrates }}
         />
       )}
     </>

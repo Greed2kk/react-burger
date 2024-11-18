@@ -33,8 +33,6 @@ export const BurgerConstructor: FC<BurgerConstructorProps> = ({
 
   const allIngredients = [bun, ...ingredients] as Ingredients[]
 
-  console.log(allIngredients)
-
   const totalPrice = allIngredients.reduce(
     (total, ingredient) => total + ingredient.price,
     bun?.price || 0

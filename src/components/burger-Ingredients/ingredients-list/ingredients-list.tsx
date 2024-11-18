@@ -2,7 +2,10 @@ import React, { FC } from 'react'
 
 import { IngredientsCategory } from './ingredients-category/Ingredients-category'
 
-import { Ingredients, IngredientType } from '../../pages/burger-constructor-page/types'
+import {
+  Ingredients,
+  IngredientType,
+} from '../../pages/burger-constructor-page/types'
 
 import styles from './ingredients-list.module.css'
 

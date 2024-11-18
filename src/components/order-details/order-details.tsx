@@ -34,7 +34,9 @@ export const OrderDetails: FC<OrderDetailsProps> = ({
           <OrderDone className={styles.orderIcon} />
 
           <p className='text text_type_main-small mt-15'>{status}</p>
-          <p className='text text_type_main-small text_color_inactive mt-2 mb-20'>{recommendation}</p>
+          <p className='text text_type_main-small text_color_inactive mt-2 mb-20'>
+            {recommendation}
+          </p>
         </Modal>
       )}
     </>
