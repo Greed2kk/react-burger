@@ -9,4 +9,8 @@
     --scroll-bar: #8585ad;
 
     --content-header-max-width: 1280px;
+
+    --modal-z-index: 1000;
+    /*--modal-backdrop-z-index: 999;*/
+    --modal-background-color: rgba(0, 0, 0, 0.6);
 }
