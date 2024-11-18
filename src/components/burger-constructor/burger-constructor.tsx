@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import classNames from 'classnames'
 
@@ -7,29 +7,33 @@ import {
   IngredientType,
 } from '../pages/burger-constructor-page/types'
 
-import styles from './burger-constructor.module.css'
-
+import { OrderDetails } from '../order-details/order-details'
 import { ConstructorElements } from './constructor-elements/constructor-elements'
 import { TotalPrice } from './total-price/total-price'
 
-interface BurgerConstructorProps {
-  ingredients: Ingredients[]
-}
+import { OrderData } from './total-price/types'
 
-export const BurgerConstructor: FC<BurgerConstructorProps> = (props) => {
-  const { ingredients } = props
+import styles from './burger-constructor.module.css'
+
+interface BurgerConstructorProps extends OrderData {}
+
+export const BurgerConstructor: FC<BurgerConstructorProps> = ({
+  id,
+  status,
+  recommendation,
+  ingredients,
+}) => {
+  const [orderComplete, setOrderComplete] = useState(false)
 
   const bun = ingredients.find(({ type }) => type === IngredientType.BUN)
 
-  const sauces = ingredients
-    .filter(({ type }) => type === IngredientType.SAUCE)
-    .slice(0, 2)
+  const onOrderAccept = () => {
+    setOrderComplete(!orderComplete)
+  }
 
-  const main = ingredients
-    .filter(({ type }) => type === IngredientType.MAIN)
-    .slice(2, 5)
+  const allIngredients = [bun, ...ingredients] as Ingredients[]
 
-  const allIngredients = [bun, ...sauces, ...main] as Ingredients[]
+  console.log(allIngredients)
 
   const totalPrice = allIngredients.reduce(
     (total, ingredient) => total + ingredient.price,
@@ -42,7 +46,17 @@ export const BurgerConstructor: FC<BurgerConstructorProps> = (props) => {
     >
       <ConstructorElements allIngredients={allIngredients} />
 
-      <TotalPrice total={totalPrice} />
+      <TotalPrice total={totalPrice} onOrderAccept={onOrderAccept} />
+
+      {orderComplete && (
+        <OrderDetails
+          isOpen={orderComplete}
+          orderNumber={id}
+          closeModal={onOrderAccept}
+          recommendation={recommendation}
+          status={status}
+        />
+      )}
     </section>
   )
 }

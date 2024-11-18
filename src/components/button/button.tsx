@@ -10,6 +10,7 @@ interface ButtonProps {
   htmlType?: HtmlTypeButton
   size?: SizeButton
   extraClass?: string
+  onClick?: () => void
 }
 
 export const Button: FC<ButtonProps> = (props) => {
@@ -19,6 +20,7 @@ export const Button: FC<ButtonProps> = (props) => {
     type = TypeButton.PRIMARY,
     size = SizeButton.MEDIUM,
     extraClass,
+    onClick,
   } = props
 
   return (
@@ -27,6 +29,7 @@ export const Button: FC<ButtonProps> = (props) => {
       type={type}
       size={size}
       extraClass={extraClass}
+      onClick={onClick}
     >
       {children}
     </YaButton>

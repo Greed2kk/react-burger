@@ -11,11 +11,10 @@ import styles from './total-price.module.css'
 
 interface TotalPriceProps {
   total: number
+  onOrderAccept: () => void
 }
 
-export const TotalPrice: FC<TotalPriceProps> = (props) => {
-  const { total } = props
-
+export const TotalPrice: FC<TotalPriceProps> = ({ onOrderAccept, total }) => {
   return (
     <section className={classNames(styles.totalPrice, 'mt-10')}>
       <p className='text text_type_digits-medium mr-2'>{total}</p>
@@ -24,7 +23,11 @@ export const TotalPrice: FC<TotalPriceProps> = (props) => {
         className={classNames(styles.totalPriceIcon, 'mr-10')}
       />
 
-      <Button htmlType={HtmlTypeButton.SUBMIT} size={SizeButton.LARGE}>
+      <Button
+        htmlType={HtmlTypeButton.SUBMIT}
+        size={SizeButton.LARGE}
+        onClick={onOrderAccept}
+      >
         Оформить заказ
       </Button>
     </section>

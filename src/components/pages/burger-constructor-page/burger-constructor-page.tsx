@@ -3,11 +3,14 @@ import { FC } from 'react'
 import classNames from 'classnames'
 
 import { BurgerConstructor } from '../../burger-constructor/burger-constructor'
+import { OrderData } from '../../burger-constructor/total-price/types'
 import { BurgerIngredients } from '../../burger-Ingredients/burger-ingredients'
 
 import { ContentWrapper } from '../../content-wrapper/content-wrapper'
 
 import { Ingredients } from './types'
+
+import { orderData } from '../../../utils/data'
 
 import styles from './burger-constructor-page.module.css'
 
@@ -23,7 +26,7 @@ const BurgerConstructorPage: FC<IngredientsData> = ({ ingredients }) => {
       >
         <BurgerIngredients ingredients={ingredients} />
 
-        <BurgerConstructor ingredients={ingredients} />
+        <BurgerConstructor {...(orderData as OrderData)} />
       </ContentWrapper>
     </ContentWrapper>
   )
