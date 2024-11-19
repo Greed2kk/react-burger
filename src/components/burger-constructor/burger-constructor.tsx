@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 
 import classNames from 'classnames'
+import { Modal } from '../modal/modal'
 
 import {
   Ingredients,
@@ -47,13 +48,13 @@ export const BurgerConstructor: FC<BurgerConstructorProps> = ({
       <TotalPrice total={totalPrice} onOrderAccept={onOrderAccept} />
 
       {orderComplete && (
-        <OrderDetails
-          isOpen={orderComplete}
-          orderNumber={id}
-          closeModal={onOrderAccept}
-          recommendation={recommendation}
-          status={status}
-        />
+        <Modal onCloseHandler={onOrderAccept} >
+          <OrderDetails
+            orderNumber={id}
+            recommendation={recommendation}
+            status={status}
+          />
+        </Modal>
       )}
     </section>
   )
