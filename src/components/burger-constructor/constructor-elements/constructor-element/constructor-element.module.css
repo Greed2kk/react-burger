@@ -1,6 +1,7 @@
 .constructorElement {
     display: flex;
     align-items: center;
+    scroll-snap-align: end;
 }
 
 .constructorElementItem {

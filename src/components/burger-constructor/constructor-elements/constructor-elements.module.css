@@ -11,4 +11,5 @@
         100vh - 510px
     ); /* занятое пространство другими элементами с макета 300px + 200px +- */
     overflow-x: scroll;
+    scroll-snap-type: y mandatory;
 }
