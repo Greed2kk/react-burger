@@ -1,0 +1,16 @@
+:root {
+    --primary-bg: #131316;
+    --interface-bg: #1c1c21;
+    --primary-text-light: #f2f2f3;
+    --secondary-text-dark: #8585ad;
+    --accent-color: #4c4cff;
+
+    --scroll-bar-background: #2f2f37;
+    --scroll-bar: #8585ad;
+
+    --content-header-max-width: 1280px;
+
+    --modal-z-index: 1000;
+    /*--modal-backdrop-z-index: 999;*/
+    --modal-background-color: rgba(0, 0, 0, 0.6);
+}

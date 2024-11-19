@@ -1,0 +1,16 @@
+.constructorElement {
+    display: flex;
+    align-items: center;
+}
+
+.constructorElementItem {
+    background-color: var(--interface-bg);
+}
+
+.dragElementItem:hover {
+    cursor: grab;
+}
+
+.dragElementItem:active {
+    cursor: grabbing;
+}
