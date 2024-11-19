@@ -6,7 +6,9 @@ import BurgerConstructorPage from '../pages/burger-constructor-page/burger-const
 
 import { Ingredients } from '../pages/burger-constructor-page/types'
 
-import { baseApiUrl, ingredientsApi } from '../../utils/constants'
+import { fetchApi } from '../../utils/helpers/fetch-api'
+
+import { ingredientsSlug } from '../../utils/constants'
 
 function App() {
   const [ingredients, setIngredients] = useState<Ingredients[]>()
@@ -16,15 +18,12 @@ function App() {
   useEffect(() => {
     const getIngredientsData = async () => {
       try {
-        const response = await fetch(`${baseApiUrl}/${ingredientsApi}`)
-
-        const { data } = await response.json()
-
+        const data = await fetchApi<Ingredients[]>(ingredientsSlug)
         setIngredients(data)
       } catch (e) {
         if (e instanceof Error) {
           console.error(e.message)
-          setError('Не удалось загрузить данные ингредиентов!')
+          setError('Не удалось загрузить данные ингредиентов')
         }
       } finally {
         setIsLoading(false)
