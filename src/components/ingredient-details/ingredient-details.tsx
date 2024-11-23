@@ -1,8 +1,8 @@
 import { FC } from 'react'
 
-import { Modal } from '../modal/modal'
+import { Ingredients } from '../../services/ingredients/types'
 
-import { Ingredients } from '../pages/burger-constructor-page/types'
+import { Modal } from '../modal/modal'
 
 import styles from './ingredient-details.module.css'
 

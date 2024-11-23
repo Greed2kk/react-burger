@@ -1,4 +1,4 @@
-import { Ingredients } from '../../pages/burger-constructor-page/types'
+import { Ingredients } from '../../../services/ingredients/types'
 
 export interface OrderData {
   id: string

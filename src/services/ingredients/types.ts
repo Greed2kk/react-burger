@@ -1,3 +1,12 @@
+import { EntityState } from '@reduxjs/toolkit'
+
+
+export interface IngredientsSchema extends EntityState<Ingredients, string> {
+  isLoading?: boolean
+  error?: string
+  _inited?: boolean
+}
+
 export enum IngredientType {
   BUN = 'bun',
   MAIN = 'main',

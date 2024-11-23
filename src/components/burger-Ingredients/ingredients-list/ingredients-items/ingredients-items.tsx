@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import classNames from 'classnames'
 
-import { Ingredients } from '../../../pages/burger-constructor-page/types'
+import { Ingredients } from '../../../../services/ingredients/types'
 
 import { IngredientCard } from './ingredient-card/ingredient-card'
 

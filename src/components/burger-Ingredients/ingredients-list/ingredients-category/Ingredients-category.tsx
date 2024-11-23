@@ -1,11 +1,11 @@
 import { FC } from 'react'
 
-import { IngredientsItems } from '../ingredients-items/ingredients-items'
-
 import {
   Ingredients,
   IngredientType,
-} from '../../../pages/burger-constructor-page/types'
+} from '../../../../services/ingredients/types'
+
+import { IngredientsItems } from '../ingredients-items/ingredients-items'
 
 import styles from './ingredients-category.module.css'
 
@@ -31,7 +31,8 @@ export const IngredientsCategory: FC<IngredientsCategoryProps> = props => {
   }
 
   const categoryIngredients = ingredients.filter(({ _id }) =>
-    itemsId.some(id => _id === id))
+    itemsId.some(id => _id === id),
+  )
 
   return (
     <section className={styles.ingredientsCategory}>

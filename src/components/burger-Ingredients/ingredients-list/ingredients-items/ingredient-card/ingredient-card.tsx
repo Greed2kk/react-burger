@@ -7,8 +7,9 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 
+import { Ingredients } from '../../../../../services/ingredients/types'
+
 import { IngredientDetails } from '../../../../ingredient-details/ingredient-details'
-import { Ingredients } from '../../../../pages/burger-constructor-page/types'
 
 import styles from './ingredient-card.module.css'
 

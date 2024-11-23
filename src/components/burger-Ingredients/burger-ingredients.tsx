@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 
-import { Ingredients } from '../pages/burger-constructor-page/types'
+import { Ingredients } from '../../services/ingredients/types'
 
 import { Tabs } from '../tabs/tabs'
 

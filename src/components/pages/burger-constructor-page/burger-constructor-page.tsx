@@ -2,13 +2,13 @@ import { FC } from 'react'
 
 import classNames from 'classnames'
 
+import { Ingredients } from '../../../services/ingredients/types'
+
 import { BurgerConstructor } from '../../burger-constructor/burger-constructor'
 import { OrderData } from '../../burger-constructor/total-price/types'
 import { BurgerIngredients } from '../../burger-Ingredients/burger-ingredients'
 
 import { ContentWrapper } from '../../content-wrapper/content-wrapper'
-
-import { Ingredients } from './types'
 
 import { orderData } from '../../../utils/data'
 

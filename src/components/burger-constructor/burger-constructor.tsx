@@ -1,12 +1,10 @@
 import { FC, useState } from 'react'
 
 import classNames from 'classnames'
-import { Modal } from '../modal/modal'
 
-import {
-  Ingredients,
-  IngredientType,
-} from '../pages/burger-constructor-page/types'
+import { Ingredients, IngredientType } from '../../services/ingredients/types'
+
+import { Modal } from '../modal/modal'
 
 import { OrderDetails } from '../order-details/order-details'
 import { ConstructorElements } from './constructor-elements/constructor-elements'

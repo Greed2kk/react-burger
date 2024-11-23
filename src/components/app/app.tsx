@@ -1,46 +1,42 @@
-import { useEffect, useState, Fragment, FC } from 'react'
+import React, { useEffect, FC, Fragment } from 'react'
+
+import { useSelector } from 'react-redux'
+
+import {
+  fetchIngredients,
+  getIngredientsError,
+  getIngredientsIsLoading,
+} from '../../services'
+
+import { selectAllIngredients } from '../../services/ingredients/ingredientsSlice'
+
+import { useAppDispatch } from '../../utils/hooks/useAppDispatch'
 
 import { AppHeader } from '../app-header/app-header'
-
 import BurgerConstructorPage from '../pages/burger-constructor-page/burger-constructor-page'
 
-import { Ingredients } from '../pages/burger-constructor-page/types'
-
-import { fetchApi } from '../../utils/helpers/fetch-api'
-
-import { ingredientsSlug } from '../../utils/constants'
-
 const App: FC = () => {
-  const [ingredients, setIngredients] = useState<Ingredients[]>()
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string>()
+  const dispatch = useAppDispatch()
+
+  const ingredients = useSelector(selectAllIngredients)
+  const isLoading = useSelector(getIngredientsIsLoading)
+  const error = useSelector(getIngredientsError)
 
   useEffect(() => {
-    const getIngredientsData = async (): Promise<void> => {
-      try {
-        const data = await fetchApi<Ingredients[]>(ingredientsSlug)
+    dispatch(fetchIngredients())
+  }, [dispatch])
 
-        setIngredients(data)
-      } catch (e) {
-        if (e instanceof Error) {
-          /* eslint-disable-next-line */
-          console.error(e.message)
-          setError('Не удалось загрузить данные ингредиентов')
-        }
-      } finally {
-        setIsLoading(false)
-      }
-    }
+  if (isLoading) {
+    return null
+  }
 
-    void getIngredientsData()
-  }, [])
+  if (error) return <h1>{error}</h1>
 
   return (
     <Fragment>
       <AppHeader />
-      {error && <h1>{error}</h1>}
 
-      {!isLoading && !!ingredients && !error && (
+      {!!ingredients.length && (
         <BurgerConstructorPage ingredients={ingredients} />
       )}
     </Fragment>

@@ -3,7 +3,7 @@ import { FC } from 'react'
 import {
   Ingredients,
   IngredientType,
-} from '../../pages/burger-constructor-page/types'
+} from '../../../services/ingredients/types'
 
 import { ConstructorElement } from './constructor-element/constructor-element'
 import { ConstructorElementType } from './constructor-element/types'
