@@ -13,7 +13,7 @@ interface ButtonProps {
   onClick?: () => void
 }
 
-export const Button: FC<ButtonProps> = (props) => {
+export const Button: FC<ButtonProps> = props => {
   const {
     children,
     htmlType = HtmlTypeButton.BUTTON,

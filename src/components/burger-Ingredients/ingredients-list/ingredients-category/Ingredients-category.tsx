@@ -21,7 +21,7 @@ export type CategoriesNames = {
   [IngredientType.SAUCE]: 'Соусы'
 }
 
-export const IngredientsCategory: FC<IngredientsCategoryProps> = (props) => {
+export const IngredientsCategory: FC<IngredientsCategoryProps> = props => {
   const { category, itemsId, ingredients } = props
 
   const categoryNames: CategoriesNames = {
@@ -31,12 +31,11 @@ export const IngredientsCategory: FC<IngredientsCategoryProps> = (props) => {
   }
 
   const categoryIngredients = ingredients.filter(({ _id }) =>
-    itemsId.some((id) => _id === id)
-  )
+    itemsId.some(id => _id === id))
 
   return (
     <section className={styles.ingredientsCategory}>
-      <p className='text text_type_main-medium'>{categoryNames[category]}</p>
+      <p className="text text_type_main-medium">{categoryNames[category]}</p>
 
       <IngredientsItems categoryIngredients={categoryIngredients} />
     </section>

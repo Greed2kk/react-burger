@@ -12,14 +12,14 @@ interface IngredientsItemsProps {
   categoryIngredients: Ingredients[]
 }
 
-export const IngredientsItems: FC<IngredientsItemsProps> = (props) => {
+export const IngredientsItems: FC<IngredientsItemsProps> = props => {
   const { categoryIngredients } = props
 
   return (
     <section
       className={classNames(styles.ingredientsItems, 'pt-6 pl-4 pb-10 pr-4')}
     >
-      {categoryIngredients.map((item) => (
+      {categoryIngredients.map(item => (
         <IngredientCard key={item._id} item={item} />
       ))}
     </section>

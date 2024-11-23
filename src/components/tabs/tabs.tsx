@@ -18,7 +18,7 @@ interface TabsProps {
   className?: string
 }
 
-export const Tabs: FC<TabsProps> = (props) => {
+export const Tabs: FC<TabsProps> = props => {
   const {
     currentTab = 'one',
     tabClickHandler = () => {},

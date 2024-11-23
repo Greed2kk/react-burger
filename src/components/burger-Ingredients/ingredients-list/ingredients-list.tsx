@@ -19,7 +19,7 @@ interface IngredientsListProps {
   ingredients: Ingredients[]
 }
 
-export const IngredientsList: FC<IngredientsListProps> = (props) => {
+export const IngredientsList: FC<IngredientsListProps> = props => {
   const categories: Categories = {
     [IngredientType.BUN]: [],
     [IngredientType.MAIN]: [],
@@ -32,16 +32,14 @@ export const IngredientsList: FC<IngredientsListProps> = (props) => {
 
   return (
     <section className={styles.ingredientsList}>
-      {Object.entries(categories).map(([category, itemsId]) => {
-        return (
-          <IngredientsCategory
-            key={category}
-            category={category as IngredientType}
-            itemsId={itemsId}
-            ingredients={ingredients}
-          />
-        )
-      })}
+      {Object.entries(categories).map(([category, itemsId]) => (
+        <IngredientsCategory
+          key={category}
+          category={category as IngredientType}
+          itemsId={itemsId}
+          ingredients={ingredients}
+        />
+      ))}
     </section>
   )
 }

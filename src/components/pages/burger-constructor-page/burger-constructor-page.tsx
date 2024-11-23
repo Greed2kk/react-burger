@@ -18,18 +18,16 @@ interface IngredientsData {
   ingredients: Ingredients[]
 }
 
-const BurgerConstructorPage: FC<IngredientsData> = ({ ingredients }) => {
-  return (
-    <ContentWrapper as='main'>
-      <ContentWrapper
-        className={classNames(styles.burgerConstructorPage, 'pl-5 pr-5')}
-      >
-        <BurgerIngredients ingredients={ingredients} />
+const BurgerConstructorPage: FC<IngredientsData> = ({ ingredients }) => (
+  <ContentWrapper as="main">
+    <ContentWrapper
+      className={classNames(styles.burgerConstructorPage, 'pl-5 pr-5')}
+    >
+      <BurgerIngredients ingredients={ingredients} />
 
-        <BurgerConstructor {...(orderData as OrderData)} />
-      </ContentWrapper>
+      <BurgerConstructor {...(orderData as OrderData)} />
     </ContentWrapper>
-  )
-}
+  </ContentWrapper>
+)
 
 export default BurgerConstructorPage

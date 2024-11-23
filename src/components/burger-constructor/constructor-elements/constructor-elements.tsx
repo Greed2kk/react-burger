@@ -14,13 +14,13 @@ interface ConstructorElementProps {
   allIngredients: Ingredients[]
 }
 
-export const ConstructorElements: FC<ConstructorElementProps> = (props) => {
+export const ConstructorElements: FC<ConstructorElementProps> = props => {
   const { allIngredients } = props
 
   const bun = allIngredients.find(({ type }) => type === IngredientType.BUN)
 
   const sauces = allIngredients.filter(
-    ({ type }) => type === IngredientType.SAUCE
+    ({ type }) => type === IngredientType.SAUCE,
   )
 
   const main = allIngredients.filter(({ type }) => type === IngredientType.MAIN)
@@ -30,13 +30,13 @@ export const ConstructorElements: FC<ConstructorElementProps> = (props) => {
       {bun && (
         <ConstructorElement
           type={ConstructorElementType.TOP}
-          isLocked={true}
+          isLocked
           text={bun.name}
           price={bun.price}
           thumbnail={bun.image_mobile}
         />
       )}
-
+      {/* eslint-disable react/no-array-index-key */}
       <section className={styles.editableConstructorElements}>
         {sauces.map(({ price, image_mobile, name, _id }, index) => (
           <ConstructorElement
@@ -46,7 +46,6 @@ export const ConstructorElements: FC<ConstructorElementProps> = (props) => {
             thumbnail={image_mobile}
           />
         ))}
-
         {main.map(({ price, name, image_mobile, _id }, index) => (
           <ConstructorElement
             key={`${_id}-${index}`}
@@ -60,7 +59,7 @@ export const ConstructorElements: FC<ConstructorElementProps> = (props) => {
       {bun && (
         <ConstructorElement
           type={ConstructorElementType.BOTTOM}
-          isLocked={true}
+          isLocked
           text={bun.name}
           price={bun.price}
           thumbnail={bun.image_mobile}

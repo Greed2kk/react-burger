@@ -20,14 +20,14 @@ interface ConstructorElementProps {
   className?: string
 }
 
-export const ConstructorElement: FC<ConstructorElementProps> = (props) => {
+export const ConstructorElement: FC<ConstructorElementProps> = props => {
   const { text, type, isLocked, thumbnail, price, className } = props
 
   return (
     <div className={styles.constructorElement}>
       {!isLocked && (
         <DragIcon
-          type='primary'
+          type="primary"
           className={classNames(styles.dragElementItem, 'mr-2')}
         />
       )}
@@ -41,7 +41,7 @@ export const ConstructorElement: FC<ConstructorElementProps> = (props) => {
         extraClass={classNames(
           styles.constructorElementItem,
           { 'ml-8': isLocked },
-          className
+          className,
         )}
       />
     </div>

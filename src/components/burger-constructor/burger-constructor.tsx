@@ -28,7 +28,7 @@ export const BurgerConstructor: FC<BurgerConstructorProps> = ({
 
   const bun = ingredients.find(({ type }) => type === IngredientType.BUN)
 
-  const onOrderAccept = () => {
+  const onOrderAccept = (): void => {
     setOrderComplete(!orderComplete)
   }
 
@@ -36,7 +36,7 @@ export const BurgerConstructor: FC<BurgerConstructorProps> = ({
 
   const totalPrice = allIngredients.reduce(
     (total, ingredient) => total + ingredient.price,
-    bun?.price || 0
+    bun?.price || 0,
   )
 
   return (
@@ -48,7 +48,7 @@ export const BurgerConstructor: FC<BurgerConstructorProps> = ({
       <TotalPrice total={totalPrice} onOrderAccept={onOrderAccept} />
 
       {orderComplete && (
-        <Modal onCloseHandler={onOrderAccept} >
+        <Modal onCloseHandler={onOrderAccept}>
           <OrderDetails
             orderNumber={id}
             recommendation={recommendation}

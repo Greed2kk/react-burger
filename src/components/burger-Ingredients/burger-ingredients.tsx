@@ -19,19 +19,19 @@ export const BurgerIngredients: FC<IngredientsProps> = ({ ingredients }) => {
     { value: 'three', name: 'Начинки' },
   ]
 
-  const tabClickHandler = (value: string) => {
+  const tabClickHandler = (value: string): void => {
     setActive(value)
   }
 
   return (
-    <section className='mt-10'>
-      <h1 className='text text_type_main-large mb-5'>Соберите бургер</h1>
+    <section className="mt-10">
+      <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
 
       <Tabs
         tabs={ingredientsTabs}
         currentTab={activeTab}
         tabClickHandler={tabClickHandler}
-        className='mb-10'
+        className="mb-10"
       />
 
       <IngredientsList ingredients={ingredients} />

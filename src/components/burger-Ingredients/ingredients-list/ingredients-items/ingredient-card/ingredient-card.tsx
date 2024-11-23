@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, Fragment, useState } from 'react'
 
 import classNames from 'classnames'
 
@@ -33,27 +33,28 @@ export const IngredientCard: FC<IngredientItemProps> = ({
 
   const hasCounter = !!__v
 
-  const handleDetailsClick = () => {
+  const handleDetailsClick = (): void => {
     setOpenDetails(true)
   }
 
-  const handleCloseDetails = () => {
+  const handleCloseDetails = (): void => {
     setOpenDetails(false)
   }
 
   return (
-    <>
+    <Fragment>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
       <div className={styles.ingredientCard} onClick={handleDetailsClick}>
         <div className={classNames(styles.imageContainer, 'mb-1 pl-4 pr-4')}>
           <img src={image} alt={image} />
           {hasCounter && (
-            <Counter count={__v} size='default' extraClass={styles.counter} />
+            <Counter count={__v} size="default" extraClass={styles.counter} />
           )}
         </div>
 
         <span className={classNames(styles.price, 'mb-1')}>
-          <p className='text text_type_digits-default mr-2'>{price}</p>
-          <CurrencyIcon type='primary' />
+          <p className="text text_type_digits-default mr-2">{price}</p>
+          <CurrencyIcon type="primary" />
         </span>
 
         <p
@@ -65,13 +66,12 @@ export const IngredientCard: FC<IngredientItemProps> = ({
 
       {openDetails && (
         <IngredientDetails
-          isOpen={openDetails}
           image={image_large}
           name={name}
           closeModal={handleCloseDetails}
           energyValue={{ calories, proteins, fat, carbohydrates }}
         />
       )}
-    </>
+    </Fragment>
   )
 }

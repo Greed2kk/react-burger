@@ -14,22 +14,20 @@ interface TotalPriceProps {
   onOrderAccept: () => void
 }
 
-export const TotalPrice: FC<TotalPriceProps> = ({ onOrderAccept, total }) => {
-  return (
-    <section className={classNames(styles.totalPrice, 'mt-10')}>
-      <p className='text text_type_digits-medium mr-2'>{total}</p>
-      <CurrencyIcon
-        type='primary'
-        className={classNames(styles.totalPriceIcon, 'mr-10')}
-      />
+export const TotalPrice: FC<TotalPriceProps> = ({ onOrderAccept, total }) => (
+  <section className={classNames(styles.totalPrice, 'mt-10')}>
+    <p className="text text_type_digits-medium mr-2">{total}</p>
+    <CurrencyIcon
+      type="primary"
+      className={classNames(styles.totalPriceIcon, 'mr-10')}
+    />
 
-      <Button
-        htmlType={HtmlTypeButton.SUBMIT}
-        size={SizeButton.LARGE}
-        onClick={onOrderAccept}
-      >
-        Оформить заказ
-      </Button>
-    </section>
-  )
-}
+    <Button
+      htmlType={HtmlTypeButton.SUBMIT}
+      size={SizeButton.LARGE}
+      onClick={onOrderAccept}
+    >
+      Оформить заказ
+    </Button>
+  </section>
+)

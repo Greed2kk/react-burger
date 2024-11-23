@@ -11,7 +11,7 @@ interface LinkProps {
   ariaLabel?: string
 }
 
-export const Link: FC<LinkProps> = (props) => {
+export const Link: FC<LinkProps> = props => {
   const { className, children, href = '/', ariaLabel = 'Ссылка' } = props
 
   return (
