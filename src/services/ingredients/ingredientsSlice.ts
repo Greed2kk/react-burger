@@ -25,7 +25,6 @@ export const ingredientsSlice = createSlice({
     ids: [],
     entities: {},
     error: '',
-    _inited: false,
   }),
   reducers: {},
   extraReducers: builder => {
@@ -42,12 +41,16 @@ export const ingredientsSlice = createSlice({
     })
     builder.addCase(fetchIngredients.rejected, (state, action) => {
       state.isLoading = false
-      state.error = action.payload || 'Something went wrong'
+      if (action.payload !== 'signal is aborted without reason') {
+        state.error = action.payload || 'Something went wrong'
+      }
     })
   },
 })
 
 export const { reducer: ingredientsReducer } = ingredientsSlice
 
-export const { selectAll: selectAllIngredients, selectById: selectIngredientById } =
-  ingredientsAdapter.getSelectors((state: RootState) => state.ingredients)
+export const {
+  selectAll: selectAllIngredients,
+  selectById: selectIngredientById,
+} = ingredientsAdapter.getSelectors((state: RootState) => state.ingredients)
