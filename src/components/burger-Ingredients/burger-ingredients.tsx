@@ -1,16 +1,22 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
-import { Ingredients } from '../../services/ingredients/types'
+import { useSelector } from 'react-redux'
+
+import {
+  fetchIngredients,
+  getIngredientsError,
+  getIngredientsIsLoading,
+} from '../../services'
+
+import { selectAllIngredients } from '../../services/ingredients/ingredientsSlice'
+
+import { useAppDispatch } from '../../utils/hooks/useAppDispatch'
 
 import { Tabs } from '../tabs/tabs'
 
 import { IngredientsList } from './ingredients-list/ingredients-list'
 
-interface IngredientsProps {
-  ingredients: Ingredients[]
-}
-
-export const BurgerIngredients: FC<IngredientsProps> = ({ ingredients }) => {
+export const BurgerIngredients: FC = () => {
   const [activeTab, setActive] = useState('first')
 
   const ingredientsTabs = [
@@ -18,6 +24,31 @@ export const BurgerIngredients: FC<IngredientsProps> = ({ ingredients }) => {
     { value: 'two', name: 'Соусы' },
     { value: 'three', name: 'Начинки' },
   ]
+
+  const dispatch = useAppDispatch()
+
+  const ingredients = useSelector(selectAllIngredients)
+  const isLoading = useSelector(getIngredientsIsLoading)
+  const error = useSelector(getIngredientsError)
+
+  useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller.signal
+
+    dispatch(fetchIngredients({ signal }))
+
+    return () => {
+      controller.abort()
+    }
+  }, [dispatch])
+
+  if (isLoading) {
+    return null
+  }
+
+  if (error) {
+    return <h1>{error}</h1>
+  }
 
   const tabClickHandler = (value: string): void => {
     setActive(value)

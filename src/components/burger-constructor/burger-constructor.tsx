@@ -10,18 +10,15 @@ import { OrderDetails } from '../order-details/order-details'
 import { ConstructorElements } from './constructor-elements/constructor-elements'
 import { TotalPrice } from './total-price/total-price'
 
+import { orderData } from '../../utils/data'
+
 import { OrderData } from './total-price/types'
 
 import styles from './burger-constructor.module.css'
 
-interface BurgerConstructorProps extends OrderData {}
+export const BurgerConstructor: FC = () => {
+  const { ingredients, id, status, recommendation } = orderData as OrderData
 
-export const BurgerConstructor: FC<BurgerConstructorProps> = ({
-  id,
-  status,
-  recommendation,
-  ingredients,
-}) => {
   const [orderComplete, setOrderComplete] = useState(false)
 
   const bun = ingredients.find(({ type }) => type === IngredientType.BUN)
