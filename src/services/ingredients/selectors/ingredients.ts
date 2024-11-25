@@ -1,7 +1,14 @@
+import { RootState } from '../../../components/app/store/store'
 import { StateSchema } from '../../../components/app/store/types'
 
-export const getIngredientsIsLoading = (state: StateSchema): boolean | undefined =>
-  state.ingredients?.isLoading
+import { selectIngredientById } from '../ingredients-slice'
+
+export const getIngredientsIsLoading = (
+  state: StateSchema,
+): boolean | undefined => state.ingredients?.isLoading
 
 export const getIngredientsError = (state: StateSchema): string | undefined =>
   state.ingredients?.error
+
+export const makeSelectIngredientById = (id: string) => (state: RootState) =>
+  selectIngredientById(state, id)

@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import {
-  Ingredients,
+  Ingredient,
   IngredientType,
 } from '../../../../services/ingredients/types'
 
@@ -11,7 +11,7 @@ import styles from './ingredients-category.module.css'
 
 interface IngredientsCategoryProps {
   category: IngredientType
-  ingredients: Ingredients[]
+  ingredients: Ingredient[]
   itemsId: string[]
 }
 

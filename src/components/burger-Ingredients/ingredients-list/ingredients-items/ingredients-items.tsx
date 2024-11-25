@@ -2,14 +2,14 @@ import { FC } from 'react'
 
 import classNames from 'classnames'
 
-import { Ingredients } from '../../../../services/ingredients/types'
+import { Ingredient } from '../../../../services/ingredients/types'
 
 import { IngredientCard } from './ingredient-card/ingredient-card'
 
 import styles from './ingredients-items.module.css'
 
 interface IngredientsItemsProps {
-  categoryIngredients: Ingredients[]
+  categoryIngredients: Ingredient[]
 }
 
 export const IngredientsItems: FC<IngredientsItemsProps> = props => {

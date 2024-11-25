@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import {
-  Ingredients,
+  Ingredient,
   IngredientType,
 } from '../../../services/ingredients/types'
 
@@ -11,7 +11,7 @@ import { ConstructorElementType } from './constructor-element/types'
 import styles from './constructor-elements.module.css'
 
 interface ConstructorElementProps {
-  allIngredients: Ingredients[]
+  allIngredients: Ingredient[]
 }
 
 export const ConstructorElements: FC<ConstructorElementProps> = props => {

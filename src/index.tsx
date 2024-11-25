@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client'
 
 import App from './components/app/app'
 
-import StoreProvider from './components/app/store/StoreProvider'
+import StoreProvider from './components/app/store/store-provider'
 
 import './index.css'
 

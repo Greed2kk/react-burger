@@ -7,28 +7,18 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import { Ingredients } from '../../../../../services/ingredients/types'
+import { Ingredient } from '../../../../../services/ingredients/types'
 
 import { IngredientDetails } from '../../../../ingredient-details/ingredient-details'
 
 import styles from './ingredient-card.module.css'
 
 interface IngredientItemProps {
-  item: Ingredients
+  item: Ingredient
 }
 
 export const IngredientCard: FC<IngredientItemProps> = ({
-  item: {
-    image,
-    name,
-    price,
-    __v,
-    image_large,
-    fat,
-    proteins,
-    carbohydrates,
-    calories,
-  },
+  item: { image, name, price, __v, _id },
 }) => {
   const [openDetails, setOpenDetails] = useState(false)
 
@@ -66,12 +56,7 @@ export const IngredientCard: FC<IngredientItemProps> = ({
       </div>
 
       {openDetails && (
-        <IngredientDetails
-          image={image_large}
-          name={name}
-          closeModal={handleCloseDetails}
-          energyValue={{ calories, proteins, fat, carbohydrates }}
-        />
+        <IngredientDetails id={_id} closeModal={handleCloseDetails} />
       )}
     </Fragment>
   )

@@ -1,6 +1,10 @@
 import { FC } from 'react'
 
-import { Ingredients } from '../../services/ingredients/types'
+import { useSelector } from 'react-redux'
+
+import { makeSelectIngredientById } from '../../services/ingredients/selectors/ingredients'
+
+import { Ingredient } from '../../services/ingredients/types'
 
 import { Modal } from '../modal/modal'
 
@@ -8,13 +12,13 @@ import styles from './ingredient-details.module.css'
 
 interface IngredientEnergyValue
   extends Pick<
-    Ingredients,
+    Ingredient,
     'carbohydrates' | 'proteins' | 'fat' | 'calories'
   > {}
 
-interface IngredientDetailsProps extends Pick<Ingredients, 'name' | 'image'> {
+interface IngredientDetailsProps {
+  id: Ingredient['_id']
   closeModal: () => void
-  energyValue: IngredientEnergyValue
 }
 
 const humanNames: Record<keyof IngredientEnergyValue, string> = {
@@ -25,16 +29,23 @@ const humanNames: Record<keyof IngredientEnergyValue, string> = {
 }
 
 export const IngredientDetails: FC<IngredientDetailsProps> = ({
-  name,
-  image,
   closeModal,
-  energyValue,
+  id,
 }) => {
-  const compound: [string, number][] = Object.entries(energyValue)
+  const { name, image_large, calories, proteins, fat, carbohydrates } = useSelector(
+    makeSelectIngredientById(id),
+  )
+
+  const compound: [string, number][] = Object.entries({
+    calories,
+    proteins,
+    fat,
+    carbohydrates,
+  })
 
   return (
     <Modal headerText="Детали ингредиента" onCloseHandler={closeModal}>
-      <img src={image} alt={name} className="pl-5 pr-5" />
+      <img src={image_large} alt={name} className="pl-5 pr-5" />
       <p className="text text_type_main-medium mt-4 mb-8">{name}</p>
 
       <div className={styles.energyValue}>

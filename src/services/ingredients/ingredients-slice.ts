@@ -3,13 +3,13 @@ import { RootState } from '../../components/app/store/store'
 
 import { StateSchema } from '../../components/app/store/types'
 
-import { fetchIngredients } from './fetchIngredients'
+import { fetchIngredients } from './fetch-ingredients'
 
-import { Ingredients, IngredientsSchema } from './types'
+import { Ingredient, IngredientsSchema } from './types'
 
 // @ts-ignore
-export const ingredientsAdapter = createEntityAdapter<Ingredients>({
-  selectId: (ingredients: Ingredients) => ingredients._id,
+export const ingredientsAdapter = createEntityAdapter<Ingredient>({
+  selectId: (ingredients: Ingredient) => ingredients._id,
 })
 
 export const getIngredients = ingredientsAdapter.getSelectors<StateSchema>(

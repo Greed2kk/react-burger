@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 
 import classNames from 'classnames'
 
-import { Ingredients, IngredientType } from '../../services/ingredients/types'
+import { Ingredient, IngredientType } from '../../services/ingredients/types'
 
 import { Modal } from '../modal/modal'
 
@@ -27,7 +27,7 @@ export const BurgerConstructor: FC = () => {
     setOrderComplete(!orderComplete)
   }
 
-  const allIngredients = [bun, ...ingredients] as Ingredients[]
+  const allIngredients = [bun, ...ingredients] as Ingredient[]
 
   const totalPrice = allIngredients.reduce(
     (total, ingredient) => total + ingredient.price,

@@ -1,4 +1,4 @@
-import { rtkApi } from '../../../services/rtkApi'
+import { rtkApi } from '../../../services/rtk-api'
 
 import { IngredientsSchema } from '../../../services/ingredients/types'
 

@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import { rootReducers } from '../../../services' // StateSchema
 
-import { rtkApi } from '../../../services/rtkApi'
+import { rtkApi } from '../../../services/rtk-api'
 
 import { $api, CustomApi } from '../../../utils/api/api'
 

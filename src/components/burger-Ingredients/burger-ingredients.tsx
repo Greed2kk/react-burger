@@ -8,9 +8,9 @@ import {
   getIngredientsIsLoading,
 } from '../../services'
 
-import { selectAllIngredients } from '../../services/ingredients/ingredientsSlice'
+import { selectAllIngredients } from '../../services/ingredients/ingredients-slice'
 
-import { useAppDispatch } from '../../utils/hooks/useAppDispatch'
+import { useAppDispatch } from '../../utils/hooks/use-app-dispatch'
 
 import { Tabs } from '../tabs/tabs'
 

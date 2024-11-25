@@ -2,10 +2,10 @@ import { FC } from 'react'
 
 import classNames from 'classnames'
 
-import { BurgerConstructor } from '../../burger-constructor/burger-constructor'
-import { BurgerIngredients } from '../../burger-Ingredients/burger-ingredients'
+import { BurgerConstructor } from '../../components/burger-constructor/burger-constructor'
+import { BurgerIngredients } from '../../components/burger-Ingredients/burger-ingredients'
 
-import { ContentWrapper } from '../../content-wrapper/content-wrapper'
+import { ContentWrapper } from '../../components/content-wrapper/content-wrapper'
 
 import styles from './burger-constructor-page.module.css'
 

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { Ingredients, IngredientType } from '../../../services/ingredients/types'
+import { Ingredient, IngredientType } from '../../../services/ingredients/types'
 
 import { IngredientsCategory } from './ingredients-category/Ingredients-category'
 
@@ -9,13 +9,13 @@ import { IngredientsCategory } from './ingredients-category/Ingredients-category
 import styles from './ingredients-list.module.css'
 
 export interface Categories {
-  [IngredientType.BUN]: Ingredients['_id'][]
-  [IngredientType.MAIN]: Ingredients['_id'][]
-  [IngredientType.SAUCE]: Ingredients['_id'][]
+  [IngredientType.BUN]: Ingredient['_id'][]
+  [IngredientType.MAIN]: Ingredient['_id'][]
+  [IngredientType.SAUCE]: Ingredient['_id'][]
 }
 
 interface IngredientsListProps {
-  ingredients: Ingredients[]
+  ingredients: Ingredient[]
 }
 
 export const IngredientsList: FC<IngredientsListProps> = props => {

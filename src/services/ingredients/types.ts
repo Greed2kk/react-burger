@@ -1,10 +1,8 @@
 import { EntityState } from '@reduxjs/toolkit'
 
-
-export interface IngredientsSchema extends EntityState<Ingredients, string> {
+export interface IngredientsSchema extends EntityState<Ingredient, string> {
   isLoading?: boolean
   error?: string
-  _inited?: boolean
 }
 
 export enum IngredientType {
@@ -13,7 +11,7 @@ export enum IngredientType {
   SAUCE = 'sauce',
 }
 
-export interface Ingredients {
+export interface Ingredient {
   _id: string
   name: string
   type: IngredientType
