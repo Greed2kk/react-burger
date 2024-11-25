@@ -1,22 +1,13 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../../components/app/store/store'
 
-import { StateSchema } from '../../components/app/store/types'
-
 import { fetchIngredients } from './fetch-ingredients'
 
 import { Ingredient, IngredientsSchema } from './types'
 
-// @ts-ignore
-export const ingredientsAdapter = createEntityAdapter<Ingredient>({
+export const ingredientsAdapter = createEntityAdapter({
   selectId: (ingredients: Ingredient) => ingredients._id,
 })
-
-export const getIngredients = ingredientsAdapter.getSelectors<StateSchema>(
-  state =>
-    state.ingredients ||
-    ingredientsAdapter.getInitialState({ isLoading: true }),
-)
 
 export const ingredientsSlice = createSlice({
   name: 'ingredients',
