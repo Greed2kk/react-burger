@@ -12,3 +12,6 @@ export const getIngredientsError = (state: StateSchema): string | undefined =>
 
 export const makeSelectIngredientById = (id: string) => (state: RootState) =>
   selectIngredientById(state, id)
+
+export const getIngredientQuantity = (_id: string) => (state: RootState) =>
+  selectIngredientById(state, _id).qty

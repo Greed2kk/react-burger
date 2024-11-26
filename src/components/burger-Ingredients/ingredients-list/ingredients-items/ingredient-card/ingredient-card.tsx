@@ -1,11 +1,19 @@
 import { FC, Fragment, useState } from 'react'
 
+import { v4 as uuidv4 } from 'uuid'
+
 import classNames from 'classnames'
+
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
   Counter,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
+
+import { addIngredient } from '../../../../../services/burger-constructor/burger-constructor-slice'
+import { increaseQuantity } from '../../../../../services/ingredients/ingredients-slice'
+import { getIngredientQuantity } from '../../../../../services/ingredients/selectors/ingredients'
 
 import { Ingredient } from '../../../../../services/ingredients/types'
 
@@ -22,10 +30,16 @@ export const IngredientCard: FC<IngredientItemProps> = ({
 }) => {
   const [openDetails, setOpenDetails] = useState(false)
 
-  const hasCounter = !!__v
+  const dispatch = useDispatch()
+  const quantity = useSelector(getIngredientQuantity(_id))
 
   const handleDetailsClick = (): void => {
-    setOpenDetails(true)
+    const itemId = uuidv4()
+
+    dispatch(addIngredient({ id: itemId, _id, isBun: false }))
+    dispatch(increaseQuantity({ _id }))
+
+    // setOpenDetails(true)
   }
 
   const handleCloseDetails = (): void => {
@@ -38,8 +52,12 @@ export const IngredientCard: FC<IngredientItemProps> = ({
       <div className={styles.ingredientCard} onClick={handleDetailsClick}>
         <div className={classNames(styles.imageContainer, 'mb-1 pl-4 pr-4')}>
           <img src={image} alt={image} />
-          {hasCounter && (
-            <Counter count={__v} size="default" extraClass={styles.counter} />
+          {!!quantity && (
+            <Counter
+              count={quantity}
+              size="default"
+              extraClass={styles.counter}
+            />
           )}
         </div>
 

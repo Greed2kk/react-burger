@@ -1,23 +1,66 @@
-import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
+import {
+  createEntityAdapter,
+  createSlice,
+  PayloadAction,
+} from '@reduxjs/toolkit'
+
 import { RootState } from '../../components/app/store/store'
+
+import { isBun } from '../../utils/helpers/isBun'
 
 import { fetchIngredients } from './fetch-ingredients'
 
-import { Ingredient, IngredientsSchema } from './types'
+import { Ingredient, IngredientsSchema, IngredientType } from './types'
 
 export const ingredientsAdapter = createEntityAdapter({
   selectId: (ingredients: Ingredient) => ingredients._id,
 })
 
+const initialState = ingredientsAdapter.getInitialState<IngredientsSchema>({
+  isLoading: false,
+  ids: [],
+  entities: {},
+  error: '',
+})
+
 export const ingredientsSlice = createSlice({
   name: 'ingredients',
-  initialState: ingredientsAdapter.getInitialState<IngredientsSchema>({
-    isLoading: false,
-    ids: [],
-    entities: {},
-    error: '',
-  }),
-  reducers: {},
+  initialState,
+  reducers: {
+    increaseQuantity: (state, action: PayloadAction<{ _id: string }>) => {
+      const ingredient = state.entities[action.payload._id]
+
+      if (!ingredient.qty) {
+        if (ingredient.type === IngredientType.BUN) {
+          ingredient.qty = 2
+        } else {
+          ingredient.qty = 1
+        }
+      } else {
+        if (isBun(ingredient)) {
+          ingredient.qty += 1
+        }
+      }
+    },
+    decreaseQuantity: (state, action: PayloadAction<{ _id: string }>) => {
+      const ingredient = state.entities[action.payload._id]
+
+      if (isBun(ingredient)) {
+        ingredient.qty = 0
+      }
+
+      if (ingredient.qty) {
+        ingredient.qty -= 1
+      }
+    },
+    clearQuantity: state => {
+      Object.values(state.entities).forEach(ingredient => {
+        if (ingredient) {
+          ingredient.qty = 0
+        }
+      })
+    },
+  },
   extraReducers: builder => {
     builder.addCase(fetchIngredients.pending, state => {
       state.error = undefined
@@ -39,7 +82,11 @@ export const ingredientsSlice = createSlice({
   },
 })
 
-export const { reducer: ingredientsReducer } = ingredientsSlice
+export const { reducer: ingredientsReducer, actions: ingredientsActions } =
+  ingredientsSlice
+
+export const { increaseQuantity, decreaseQuantity, clearQuantity } =
+  ingredientsActions
 
 export const {
   selectAll: selectAllIngredients,

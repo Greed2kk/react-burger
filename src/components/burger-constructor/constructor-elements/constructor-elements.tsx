@@ -1,29 +1,43 @@
 import { FC } from 'react'
 
-import {
-  Ingredient,
-  IngredientType,
-} from '../../../services/ingredients/types'
+import { useSelector } from 'react-redux'
+
+import { selectAllBurgerIngredients } from '../../../services/burger-constructor/burger-constructor-slice'
+import { BurgerIngredient } from '../../../services/burger-constructor/types'
+import { selectAllIngredients } from '../../../services/ingredients/ingredients-slice'
+
+import { Ingredient, IngredientType } from '../../../services/ingredients/types'
 
 import { ConstructorElement } from './constructor-element/constructor-element'
 import { ConstructorElementType } from './constructor-element/types'
 
 import styles from './constructor-elements.module.css'
 
-interface ConstructorElementProps {
-  allIngredients: Ingredient[]
+interface BurgerIngredientData extends Ingredient {
+  id: BurgerIngredient['id']
 }
 
-export const ConstructorElements: FC<ConstructorElementProps> = props => {
-  const { allIngredients } = props
+export const ConstructorElements: FC = props => {
+  const burgerIngredientsData: BurgerIngredientData[] = []
 
-  const bun = allIngredients.find(({ type }) => type === IngredientType.BUN)
+  const ingredients = useSelector(selectAllIngredients)
+  const burgerIngredients = useSelector(selectAllBurgerIngredients)
 
-  const sauces = allIngredients.filter(
-    ({ type }) => type === IngredientType.SAUCE,
+  burgerIngredients.forEach(({ _id, id }) => {
+    const ingredient = ingredients.find(item => item['_id'] === _id)
+
+    if (ingredient) {
+      burgerIngredientsData.push({ ...ingredient, id: id })
+    }
+  })
+
+  const bun = burgerIngredientsData.find(
+    ({ type }) => type === IngredientType.BUN,
   )
 
-  const main = allIngredients.filter(({ type }) => type === IngredientType.MAIN)
+  const notBun = burgerIngredientsData.filter(
+    ({ type }) => type !== IngredientType.BUN,
+  )
 
   return (
     <section className={styles.constructorElements}>
@@ -31,24 +45,20 @@ export const ConstructorElements: FC<ConstructorElementProps> = props => {
         <ConstructorElement
           type={ConstructorElementType.TOP}
           isLocked
+          _id={bun._id}
+          id={bun._id}
           text={bun.name}
           price={bun.price}
           thumbnail={bun.image_mobile}
         />
       )}
-      {/* eslint-disable react/no-array-index-key */}
+
       <section className={styles.editableConstructorElements}>
-        {sauces.map(({ price, image_mobile, name, _id }, index) => (
+        {notBun.map(({ price, image_mobile, name, id, _id }) => (
           <ConstructorElement
-            key={`${_id}-${index}`}
-            text={name}
-            price={price}
-            thumbnail={image_mobile}
-          />
-        ))}
-        {main.map(({ price, name, image_mobile, _id }, index) => (
-          <ConstructorElement
-            key={`${_id}-${index}`}
+            _id={_id}
+            id={id}
+            key={id}
             text={name}
             price={price}
             thumbnail={image_mobile}
@@ -58,6 +68,8 @@ export const ConstructorElements: FC<ConstructorElementProps> = props => {
 
       {bun && (
         <ConstructorElement
+          _id={bun._id}
+          id={bun._id}
           type={ConstructorElementType.BOTTOM}
           isLocked
           text={bun.name}
