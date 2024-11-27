@@ -1,6 +1,7 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
 import { RootState } from '../../components/app/store/store'
+import { ingredientsAdapter } from '../ingredients/ingredients-slice'
 
 import { BurgerConstructorSchema, BurgerIngredient } from './types'
 
@@ -8,17 +9,22 @@ export const burgerConstructorAdapter = createEntityAdapter({
   selectId: (burgerIngredient: BurgerIngredient) => burgerIngredient.id,
 })
 
+const initialState =
+  ingredientsAdapter.getInitialState<BurgerConstructorSchema>({
+    ids: [],
+    entities: {},
+    bun: null,
+    totalPrice: 0,
+    ingredients: burgerConstructorAdapter.getInitialState(),
+  })
+
 export const burgerConstructorSlice = createSlice({
   name: 'burger-constructor',
-  initialState:
-    burgerConstructorAdapter.getInitialState<BurgerConstructorSchema>({
-      ids: [],
-      entities: {},
-    }),
+  initialState,
   reducers: {
     addIngredient: burgerConstructorAdapter.addOne,
     removeIngredient: burgerConstructorAdapter.removeOne,
-    clearIngredients: () => burgerConstructorAdapter.getInitialState(),
+    clearIngredients: () => initialState,
   },
 })
 

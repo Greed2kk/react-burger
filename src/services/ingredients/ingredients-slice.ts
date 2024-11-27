@@ -10,9 +10,9 @@ import { isBun } from '../../utils/helpers/isBun'
 
 import { fetchIngredients } from './fetch-ingredients'
 
-import { Ingredient, IngredientsSchema, IngredientType } from './types'
+import { Ingredient, IngredientsSchema } from './types'
 
-export const ingredientsAdapter = createEntityAdapter({
+export const ingredientsAdapter = createEntityAdapter<Ingredient, string>({
   selectId: (ingredients: Ingredient) => ingredients._id,
 })
 
@@ -31,13 +31,13 @@ export const ingredientsSlice = createSlice({
       const ingredient = state.entities[action.payload._id]
 
       if (!ingredient.qty) {
-        if (ingredient.type === IngredientType.BUN) {
+        if (isBun(ingredient)) {
           ingredient.qty = 2
         } else {
           ingredient.qty = 1
         }
       } else {
-        if (isBun(ingredient)) {
+        if (!isBun(ingredient)) {
           ingredient.qty += 1
         }
       }

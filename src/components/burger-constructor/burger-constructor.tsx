@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 
 import classNames from 'classnames'
+import { clearIngredients } from '../../services/burger-constructor/burger-constructor-slice'
 import { clearQuantity } from '../../services/ingredients/ingredients-slice'
 import { useAppDispatch } from '../../utils/hooks/use-app-dispatch'
 
@@ -19,6 +20,7 @@ export const BurgerConstructor: FC = () => {
   const onOrderAccept = (): void => {
     console.log('call')
     dispatch(clearQuantity())
+    dispatch(clearIngredients())
 
     setOrderComplete(!orderComplete)
   }

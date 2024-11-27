@@ -12,12 +12,13 @@ import { ConstructorElement } from './constructor-element/constructor-element'
 import { ConstructorElementType } from './constructor-element/types'
 
 import styles from './constructor-elements.module.css'
+import { ConstructorPlaceholder } from './constructor-placeholder/constructor-placeholder'
 
 interface BurgerIngredientData extends Ingredient {
   id: BurgerIngredient['id']
 }
 
-export const ConstructorElements: FC = props => {
+export const ConstructorElements: FC = () => {
   const burgerIngredientsData: BurgerIngredientData[] = []
 
   const ingredients = useSelector(selectAllIngredients)
@@ -41,41 +42,49 @@ export const ConstructorElements: FC = props => {
 
   return (
     <section className={styles.constructorElements}>
-      {bun && (
+      {bun ? (
         <ConstructorElement
           type={ConstructorElementType.TOP}
           isLocked
           _id={bun._id}
           id={bun._id}
-          text={bun.name}
+          text={`${bun.name} - Верх'`}
           price={bun.price}
           thumbnail={bun.image_mobile}
         />
+      ) : (
+        <ConstructorPlaceholder isBun isTop />
       )}
 
       <section className={styles.editableConstructorElements}>
-        {notBun.map(({ price, image_mobile, name, id, _id }) => (
-          <ConstructorElement
-            _id={_id}
-            id={id}
-            key={id}
-            text={name}
-            price={price}
-            thumbnail={image_mobile}
-          />
-        ))}
+        {!!notBun.length ? (
+          notBun.map(({ price, image_mobile, name, id, _id }) => (
+            <ConstructorElement
+              _id={_id}
+              id={id}
+              key={id}
+              text={name}
+              price={price}
+              thumbnail={image_mobile}
+            />
+          ))
+        ) : (
+          <ConstructorPlaceholder />
+        )}
       </section>
 
-      {bun && (
+      {bun ? (
         <ConstructorElement
           _id={bun._id}
           id={bun._id}
           type={ConstructorElementType.BOTTOM}
           isLocked
-          text={bun.name}
+          text={`${bun.name} - Низ'`}
           price={bun.price}
           thumbnail={bun.image_mobile}
         />
+      ) : (
+        <ConstructorPlaceholder isBun />
       )}
     </section>
   )

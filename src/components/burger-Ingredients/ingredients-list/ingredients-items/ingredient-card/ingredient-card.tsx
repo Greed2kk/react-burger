@@ -36,7 +36,7 @@ export const IngredientCard: FC<IngredientItemProps> = ({
   const handleDetailsClick = (): void => {
     const itemId = uuidv4()
 
-    dispatch(addIngredient({ id: itemId, _id, isBun: false }))
+    dispatch(addIngredient({ id: itemId, _id, price }))
     dispatch(increaseQuantity({ _id }))
 
     // setOpenDetails(true)
