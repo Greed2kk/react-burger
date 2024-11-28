@@ -1,4 +1,7 @@
-import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
+import {
+  createEntityAdapter,
+  createSlice,
+} from '@reduxjs/toolkit'
 
 import { RootState } from '../../components/app/store/store'
 import { ingredientsAdapter } from '../ingredients/ingredients-slice'
@@ -9,17 +12,14 @@ export const burgerConstructorAdapter = createEntityAdapter({
   selectId: (burgerIngredient: BurgerIngredient) => burgerIngredient.id,
 })
 
-const initialState =
+export const initialState =
   ingredientsAdapter.getInitialState<BurgerConstructorSchema>({
     ids: [],
     entities: {},
-    bun: null,
-    totalPrice: 0,
-    ingredients: burgerConstructorAdapter.getInitialState(),
   })
 
 export const burgerConstructorSlice = createSlice({
-  name: 'burger-constructor',
+  name: 'burgerConstructor',
   initialState,
   reducers: {
     addIngredient: burgerConstructorAdapter.addOne,
@@ -28,14 +28,13 @@ export const burgerConstructorSlice = createSlice({
   },
 })
 
-export const { reducer: burgerConstructorReducer } = burgerConstructorSlice
+export const { reducer: burgerConstructorReducer, selectors } =
+  burgerConstructorSlice
 
 export const { addIngredient, removeIngredient, clearIngredients } =
   burgerConstructorSlice.actions
 
-export const {
-  selectAll: selectAllBurgerIngredients,
-  selectById: selectBurgerIngredientsById,
-} = burgerConstructorAdapter.getSelectors(
-  (state: RootState) => state.burgerConstructor,
-)
+export const { selectAll: selectAllBurgerIngredients } =
+  burgerConstructorAdapter.getSelectors(
+    (state: RootState) => state.burgerConstructor,
+  )

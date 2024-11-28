@@ -26,7 +26,7 @@ interface IngredientItemProps {
 }
 
 export const IngredientCard: FC<IngredientItemProps> = ({
-  item: { image, name, price, __v, _id },
+  item: { image, name, price, _id, type },
 }) => {
   const [openDetails, setOpenDetails] = useState(false)
 
@@ -36,7 +36,7 @@ export const IngredientCard: FC<IngredientItemProps> = ({
   const handleDetailsClick = (): void => {
     const itemId = uuidv4()
 
-    dispatch(addIngredient({ id: itemId, _id, price }))
+    dispatch(addIngredient({ id: itemId, _id, price, type }))
     dispatch(increaseQuantity({ _id }))
 
     // setOpenDetails(true)

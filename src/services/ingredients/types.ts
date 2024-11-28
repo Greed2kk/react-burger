@@ -11,6 +11,10 @@ export enum IngredientType {
   SAUCE = 'sauce',
 }
 
+export interface IngredientResponse {
+  data: Ingredient[]
+}
+
 export interface Ingredient {
   _id: string
   name: string

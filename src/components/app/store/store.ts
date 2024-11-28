@@ -8,11 +8,11 @@ import { $api, CustomApi } from '../../../utils/api/api'
 
 const initialState = {}
 
-export interface ThunkExtraArgs<T> {
-  api: CustomApi<T>
+export interface ThunkExtraArgs<T, B = {}> {
+  api: CustomApi<T, B>
 }
 
-const extraArgument: ThunkExtraArgs<any> = {
+const extraArgument: ThunkExtraArgs<any, any> = {
   api: $api,
 }
 

@@ -71,7 +71,7 @@ export const ingredientsSlice = createSlice({
     builder.addCase(fetchIngredients.fulfilled, (state, action) => {
       state.isLoading = false
 
-      ingredientsAdapter.setAll(state, action.payload)
+      ingredientsAdapter.setAll(state, action.payload.data)
     })
     builder.addCase(fetchIngredients.rejected, (state, action) => {
       state.isLoading = false

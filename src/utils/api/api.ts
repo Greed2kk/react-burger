@@ -2,8 +2,9 @@ import { baseApiUrl } from './constants'
 
 import { ApiResources } from './types'
 
-export interface CustomApi<T> {
+export interface CustomApi<T, B> {
   get: (slug: ApiResources, options?: RequestInit) => Promise<T>
+  post: (slug: ApiResources, body: B, options?: RequestInit) => Promise<T>
 }
 
 const customFetch = async <T>(
@@ -24,9 +25,7 @@ const customFetch = async <T>(
     throw new Error(`Request failed with status: ${response.status}`)
   }
 
-  const { data } = await response.json()
-
-  return data
+  return await response.json()
 }
 
 export const get = <T>(
@@ -34,6 +33,18 @@ export const get = <T>(
   options: RequestInit = {},
 ): Promise<T> => customFetch(slug, { method: 'GET', ...options })
 
-export const $api: CustomApi<void> = {
+export const post = <T, B>(
+  slug: ApiResources,
+  body: B,
+  options: RequestInit = {},
+): Promise<T> =>
+    customFetch(slug, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      ...options,
+    })
+
+export const $api: CustomApi<void, any> = {
   get,
+  post,
 }

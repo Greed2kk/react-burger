@@ -4,13 +4,13 @@ import { ThunkExtraArgs } from '../../components/app/store/store'
 
 import { ingredientsSlug } from '../../utils/api/constants'
 
-import { Ingredient } from './types'
+import { IngredientResponse } from './types'
 
 // @ts-ignore
 export const fetchIngredients = createAsyncThunk<
-  Ingredient[],
+  IngredientResponse,
   { signal: AbortSignal },
-  { rejectValue: string; extra: ThunkExtraArgs<Ingredient[]> }
+  { rejectValue: string; extra: ThunkExtraArgs<IngredientResponse> }
 >(
   'ingredients/fetchIngredients',
   async ({ signal }, { rejectWithValue, extra }) => {
