@@ -10,4 +10,6 @@ export interface BurgerIngredient {
 }
 
 export interface BurgerConstructorSchema
-  extends EntityState<BurgerIngredient, string> {}
+  extends EntityState<BurgerIngredient, string> {
+  totalPrice: number
+}

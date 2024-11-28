@@ -8,8 +8,8 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import { removeIngredient } from '../../../../services/burger-constructor/burger-constructor-slice'
 import { decreaseQuantity } from '../../../../services/ingredients/ingredients-slice'
+import { useAppDispatch } from '../../../app/store/store'
 
-import { useAppDispatch } from '../../../../utils/hooks/use-app-dispatch'
 
 import styles from './constructor-element.module.css'
 

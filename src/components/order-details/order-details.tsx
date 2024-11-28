@@ -1,15 +1,22 @@
 import { FC, Fragment } from 'react'
 
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../app/store/store'
 
 import { ReactComponent as OrderDone } from '../../images/order-done.svg'
-
 import { getOrderNumber } from '../../services/order-details/order-details-slice'
 
 import styles from './order-details.module.css'
 
 export const OrderDetails: FC = () => {
-  const orderNumber = useSelector(getOrderNumber)
+  const orderNumber = useAppSelector(getOrderNumber)
+
+  if (!orderNumber) {
+    return (
+      <p className="text text_type_main-large mt-15">
+        Ошибка, попробуйте снова!
+      </p>
+    )
+  }
 
   return (
     <Fragment>

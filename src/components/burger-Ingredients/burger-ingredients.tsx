@@ -1,16 +1,13 @@
 import { FC, useEffect, useState } from 'react'
 
-import { useSelector } from 'react-redux'
+import { useAppDispatch, useAppSelector } from '../app/store/store'
 
 import {
   fetchIngredients,
   getIngredientsError,
-  getIngredientsIsLoading,
 } from '../../services'
 
 import { selectAllIngredients } from '../../services/ingredients/ingredients-slice'
-
-import { useAppDispatch } from '../../utils/hooks/use-app-dispatch'
 
 import { Tabs } from '../tabs/tabs'
 
@@ -27,9 +24,8 @@ export const BurgerIngredients: FC = () => {
 
   const dispatch = useAppDispatch()
 
-  const ingredients = useSelector(selectAllIngredients)
-  const isLoading = useSelector(getIngredientsIsLoading)
-  const error = useSelector(getIngredientsError)
+  const ingredients = useAppSelector(selectAllIngredients)
+  const error = useAppSelector(getIngredientsError)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -41,10 +37,6 @@ export const BurgerIngredients: FC = () => {
       controller.abort()
     }
   }, [dispatch])
-
-  if (isLoading) {
-    return null
-  }
 
   if (error) {
     return <h1>{error}</h1>

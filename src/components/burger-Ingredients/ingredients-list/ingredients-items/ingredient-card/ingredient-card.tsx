@@ -4,8 +4,6 @@ import { v4 as uuidv4 } from 'uuid'
 
 import classNames from 'classnames'
 
-import { useDispatch, useSelector } from 'react-redux'
-
 import {
   Counter,
   CurrencyIcon,
@@ -16,6 +14,7 @@ import { increaseQuantity } from '../../../../../services/ingredients/ingredient
 import { getIngredientQuantity } from '../../../../../services/ingredients/selectors/ingredients'
 
 import { Ingredient } from '../../../../../services/ingredients/types'
+import { useAppDispatch, useAppSelector } from '../../../../app/store/store'
 
 import { IngredientDetails } from '../../../../ingredient-details/ingredient-details'
 
@@ -30,8 +29,8 @@ export const IngredientCard: FC<IngredientItemProps> = ({
 }) => {
   const [openDetails, setOpenDetails] = useState(false)
 
-  const dispatch = useDispatch()
-  const quantity = useSelector(getIngredientQuantity(_id))
+  const dispatch = useAppDispatch()
+  const quantity = useAppSelector(getIngredientQuantity(_id))
 
   const handleDetailsClick = (): void => {
     const itemId = uuidv4()

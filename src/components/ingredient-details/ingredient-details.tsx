@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../app/store/store'
 
 import { makeSelectIngredientById } from '../../services/ingredients/selectors/ingredients'
 
@@ -11,10 +11,7 @@ import { Modal } from '../modal/modal'
 import styles from './ingredient-details.module.css'
 
 interface IngredientEnergyValue
-  extends Pick<
-    Ingredient,
-    'carbohydrates' | 'proteins' | 'fat' | 'calories'
-  > {}
+  extends Pick<Ingredient, 'carbohydrates' | 'proteins' | 'fat' | 'calories'> {}
 
 interface IngredientDetailsProps {
   id: Ingredient['_id']
@@ -32,9 +29,8 @@ export const IngredientDetails: FC<IngredientDetailsProps> = ({
   closeModal,
   id,
 }) => {
-  const { name, image_large, calories, proteins, fat, carbohydrates } = useSelector(
-    makeSelectIngredientById(id),
-  )
+  const { name, image_large, calories, proteins, fat, carbohydrates } =
+    useAppSelector(makeSelectIngredientById(id))
 
   const compound: [string, number][] = Object.entries({
     calories,

@@ -3,11 +3,9 @@ import { FC } from 'react'
 import classNames from 'classnames'
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useSelector } from 'react-redux'
+import { selectTotalPrice } from '../../../services/burger-constructor/selectors/selectors'
 
-import { selectAllBurgerIngredients } from '../../../services/burger-constructor/burger-constructor-slice'
-import { selectAllIngredients } from '../../../services/ingredients/ingredients-slice'
-import { Ingredient, IngredientType } from '../../../services/ingredients/types'
+import { useAppSelector } from '../../app/store/store'
 
 import { Button } from '../../button/button'
 import { HtmlTypeButton, SizeButton } from '../../button/types'
@@ -19,27 +17,7 @@ interface TotalPriceProps {
 }
 
 export const TotalPrice: FC<TotalPriceProps> = ({ onOrderAccept }) => {
-  const burgerIngredientsData: Ingredient[] = []
-
-  const ingredients = useSelector(selectAllIngredients)
-  const burgerIngredients = useSelector(selectAllBurgerIngredients)
-
-  const bun = burgerIngredientsData.find(
-    ({ type }) => type === IngredientType.BUN,
-  )
-
-  burgerIngredients.forEach(({ _id }) => {
-    const ingredient = ingredients.find(item => item['_id'] === _id)
-
-    if (ingredient) {
-      burgerIngredientsData.push(ingredient)
-    }
-  })
-
-  const totalPrice = burgerIngredientsData.reduce(
-    (total, ingredient) => total + ingredient.price,
-    bun?.price || 0,
-  )
+  const totalPrice = useAppSelector(selectTotalPrice)
 
   return (
     <section className={classNames(styles.totalPrice, 'mt-10')}>

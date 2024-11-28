@@ -3,6 +3,8 @@ import { asyncThunkCreator, buildCreateSlice } from '@reduxjs/toolkit'
 import { ThunkExtraArgs } from '../../components/app/store/store'
 
 import { ordersSlug } from '../../utils/api/constants'
+import { clearIngredients } from '../burger-constructor/burger-constructor-slice'
+import { clearQuantity } from '../ingredients/ingredients-slice'
 
 import { OrderDetails, OrderDetailsSchema } from './types'
 
@@ -26,11 +28,18 @@ export const orderDetailsSlice = createSliceWithThunks({
         extra: ThunkExtraArgs<OrderDetails, { ingredients: string[] }>
       }
     >(
-      async ({ data }, { rejectWithValue, extra }) => {
+      async ({ data }, { rejectWithValue, extra, dispatch }) => {
         try {
-          return await extra.api.post(ordersSlug, {
+          const response = await extra.api.post(ordersSlug, {
             ingredients: data,
           })
+
+          if (response.success) {
+            dispatch(clearQuantity())
+            dispatch(clearIngredients())
+          }
+
+          return response
         } catch (error: any) {
           if (error.name !== 'AbortError') {
             return rejectWithValue('Request was aborted')

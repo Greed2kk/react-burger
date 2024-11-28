@@ -1,5 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+
 import { rootReducers } from '../../../services' // StateSchema
 
 import { rtkApi } from '../../../services/rtk-api'
@@ -30,3 +32,6 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+
+export const useAppDispatch: () => AppDispatch = useDispatch
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector

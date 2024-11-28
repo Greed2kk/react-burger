@@ -1,24 +1,32 @@
 import { createSelector } from '@reduxjs/toolkit'
+
 import { IngredientType } from '../../ingredients/types'
 
-import {
-  burgerConstructorAdapter,
-  initialState,
-} from '../burger-constructor-slice'
+import { selectAllBurgerIngredients } from '../burger-constructor-slice'
 
-const selectAllIngredients = burgerConstructorAdapter.getSelectors(
-  (state: { burgerConstructor: typeof initialState }) =>
-    state.burgerConstructor,
-).selectAll
-
-export const selectBun = createSelector(
-  selectAllIngredients,
+export const selectBunId = createSelector(
+  selectAllBurgerIngredients,
   ingredients =>
-    ingredients.filter(ingredient => ingredient.type === IngredientType.BUN)[0],
+    ingredients.filter(ingredient => ingredient.type === IngredientType.BUN)[0]
+      ?._id,
 )
 
-export const selectIngredients = createSelector(
-  selectAllIngredients,
+export const selectTotalPrice = createSelector(
+  selectAllBurgerIngredients,
   ingredients =>
-    ingredients.filter(ingredient => ingredient.type !== IngredientType.BUN),
+    ingredients.reduce((prev, cur) => {
+      if (cur.type === IngredientType.BUN) {
+        return prev + cur.price * 2
+      }
+
+      return prev + cur.price
+    }, 0),
+)
+
+export const selectIngredientsIds = createSelector(
+  selectAllBurgerIngredients,
+  ingredients =>
+    ingredients
+      .filter(ingredient => ingredient.type !== IngredientType.BUN)
+      .map(ingredient => ingredient?._id),
 )

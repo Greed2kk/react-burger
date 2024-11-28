@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../app/store/store'
 
 import { selectAllBurgerIngredients } from '../../../services/burger-constructor/burger-constructor-slice'
 import { BurgerIngredient } from '../../../services/burger-constructor/types'
@@ -11,8 +11,9 @@ import { Ingredient, IngredientType } from '../../../services/ingredients/types'
 import { ConstructorElement } from './constructor-element/constructor-element'
 import { ConstructorElementType } from './constructor-element/types'
 
-import styles from './constructor-elements.module.css'
 import { ConstructorPlaceholder } from './constructor-placeholder/constructor-placeholder'
+
+import styles from './constructor-elements.module.css'
 
 interface BurgerIngredientData extends Ingredient {
   id: BurgerIngredient['id']
@@ -21,8 +22,8 @@ interface BurgerIngredientData extends Ingredient {
 export const ConstructorElements: FC = () => {
   const burgerIngredientsData: BurgerIngredientData[] = []
 
-  const ingredients = useSelector(selectAllIngredients)
-  const burgerIngredients = useSelector(selectAllBurgerIngredients)
+  const ingredients = useAppSelector(selectAllIngredients)
+  const burgerIngredients = useAppSelector(selectAllBurgerIngredients)
 
   burgerIngredients.forEach(({ _id, id }) => {
     const ingredient = ingredients.find(item => item['_id'] === _id)
