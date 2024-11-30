@@ -2,6 +2,10 @@ import { FC } from 'react'
 
 import classNames from 'classnames'
 
+import { useDrop } from 'react-dnd'
+
+import { DndType } from '../../../burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
+
 import styles from './constructor-placeholder.module.css'
 
 interface ConstructorPlaceholderProps {
@@ -13,6 +17,14 @@ export const ConstructorPlaceholder: FC<ConstructorPlaceholderProps> = ({
   isBun,
   isTop,
 }) => {
+  const [{ isOver, canDrop }, ref] = useDrop({
+    accept: isBun ? DndType.BUN : DndType.INGREDIENT,
+    collect: monitor => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
+  })
+
   const tip = isBun ? 'Перетащите булку' : 'Перетащите соус или начинку'
 
   const positionClassName = isTop
@@ -21,8 +33,11 @@ export const ConstructorPlaceholder: FC<ConstructorPlaceholderProps> = ({
 
   return (
     <div
+      ref={ref}
       className={classNames(
         styles.constructorPlaceholder,
+        { [styles.dropOver]: isOver },
+        { [styles.canDrop]: canDrop },
         'ml-8',
         isBun && positionClassName,
       )}

@@ -7,6 +7,8 @@ export interface BurgerIngredient {
   _id: Ingredient['_id']
   price: Ingredient['price']
   type: Ingredient['type']
+  imageMobile: Ingredient['image_mobile']
+  name: Ingredient['name']
 }
 
 export interface BurgerConstructorSchema

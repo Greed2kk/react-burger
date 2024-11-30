@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import classNames from 'classnames'
 
@@ -17,8 +17,10 @@ const BurgerConstructorPage: FC = () => (
       <BurgerIngredients />
 
       <BurgerConstructor />
+
+
     </ContentWrapper>
   </ContentWrapper>
 )
 
-export default BurgerConstructorPage
+export default memo(BurgerConstructorPage)

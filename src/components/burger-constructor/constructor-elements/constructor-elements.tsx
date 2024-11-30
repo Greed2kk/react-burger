@@ -1,48 +1,59 @@
 import { FC } from 'react'
 
-import { useAppSelector } from '../../app/store/store'
+import { useDrop } from 'react-dnd'
 
-import { selectAllBurgerIngredients } from '../../../services/burger-constructor/burger-constructor-slice'
+import { v4 as uuidv4 } from 'uuid'
+
+import { addIngredient } from '../../../services/burger-constructor/burger-constructor-slice'
+
+import {
+  selectBun,
+  selectIngredients,
+} from '../../../services/burger-constructor/selectors/selectors'
 import { BurgerIngredient } from '../../../services/burger-constructor/types'
-import { selectAllIngredients } from '../../../services/ingredients/ingredients-slice'
+import {
+  decreaseQuantity,
+  increaseQuantity,
+} from '../../../services/ingredients/ingredients-slice'
+import { IngredientType } from '../../../services/ingredients/types'
 
-import { Ingredient, IngredientType } from '../../../services/ingredients/types'
+import { useAppDispatch, useAppSelector } from '../../app/store/store'
+
+import { DndType } from '../../burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
 
 import { ConstructorElement } from './constructor-element/constructor-element'
 import { ConstructorElementType } from './constructor-element/types'
 
-import { ConstructorPlaceholder } from './constructor-placeholder/constructor-placeholder'
-
 import styles from './constructor-elements.module.css'
 
-interface BurgerIngredientData extends Ingredient {
-  id: BurgerIngredient['id']
-}
+import { ConstructorPlaceholder } from './constructor-placeholder/constructor-placeholder'
 
 export const ConstructorElements: FC = () => {
-  const burgerIngredientsData: BurgerIngredientData[] = []
+  const dispatch = useAppDispatch()
 
-  const ingredients = useAppSelector(selectAllIngredients)
-  const burgerIngredients = useAppSelector(selectAllBurgerIngredients)
+  const ingredients = useAppSelector(selectIngredients)
+  const bun = useAppSelector(selectBun)
 
-  burgerIngredients.forEach(({ _id, id }) => {
-    const ingredient = ingredients.find(item => item['_id'] === _id)
+  const handleDrop = (item: BurgerIngredient): void => {
+    const { _id, price, type, imageMobile, name } = item
 
-    if (ingredient) {
-      burgerIngredientsData.push({ ...ingredient, id: id })
+    dispatch(
+      addIngredient({ id: uuidv4(), _id, price, type, imageMobile, name }),
+    )
+    if (bun && type === IngredientType.BUN) {
+      dispatch(decreaseQuantity({ _id: bun._id }))
     }
+
+    dispatch(increaseQuantity({ _id }))
+  }
+
+  const [, dropTarget] = useDrop({
+    accept: [DndType.BUN, DndType.INGREDIENT],
+    drop: handleDrop,
   })
 
-  const bun = burgerIngredientsData.find(
-    ({ type }) => type === IngredientType.BUN,
-  )
-
-  const notBun = burgerIngredientsData.filter(
-    ({ type }) => type !== IngredientType.BUN,
-  )
-
   return (
-    <section className={styles.constructorElements}>
+    <section className={styles.constructorElements} ref={dropTarget}>
       {bun ? (
         <ConstructorElement
           type={ConstructorElementType.TOP}
@@ -51,22 +62,22 @@ export const ConstructorElements: FC = () => {
           id={bun._id}
           text={`${bun.name} - Верх'`}
           price={bun.price}
-          thumbnail={bun.image_mobile}
+          thumbnail={bun.imageMobile}
         />
       ) : (
         <ConstructorPlaceholder isBun isTop />
       )}
 
       <section className={styles.editableConstructorElements}>
-        {!!notBun.length ? (
-          notBun.map(({ price, image_mobile, name, id, _id }) => (
+        {!!ingredients.length ? (
+          ingredients.map(({ price, imageMobile, name, id, _id }) => (
             <ConstructorElement
               _id={_id}
               id={id}
               key={id}
               text={name}
               price={price}
-              thumbnail={image_mobile}
+              thumbnail={imageMobile}
             />
           ))
         ) : (
@@ -82,7 +93,7 @@ export const ConstructorElements: FC = () => {
           isLocked
           text={`${bun.name} - Низ'`}
           price={bun.price}
-          thumbnail={bun.image_mobile}
+          thumbnail={bun.imageMobile}
         />
       ) : (
         <ConstructorPlaceholder isBun />

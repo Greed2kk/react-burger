@@ -15,3 +15,9 @@ export const makeSelectIngredientById = (id: string) => (state: RootState) =>
 
 export const getIngredientQuantity = (_id: string) => (state: RootState) =>
   selectIngredientById(state, _id).qty
+
+export const getIngredientName = (_id: string) => (state: RootState) =>
+  selectIngredientById(state, _id).name
+
+export const getIngredientImageMobile = (_id: string) => (state: RootState) =>
+  selectIngredientById(state, _id).image_mobile

@@ -30,3 +30,15 @@ export const selectIngredientsIds = createSelector(
       .filter(ingredient => ingredient.type !== IngredientType.BUN)
       .map(ingredient => ingredient?._id),
 )
+
+export const selectIngredients = createSelector(
+  selectAllBurgerIngredients,
+  ingredients =>
+    ingredients.filter(ingredient => ingredient.type !== IngredientType.BUN),
+)
+
+export const selectBun = createSelector(
+  selectAllBurgerIngredients,
+  ingredients =>
+    ingredients.filter(ingredient => ingredient.type === IngredientType.BUN)[0],
+)
