@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { forwardRef } from 'react'
 
 import {
   Ingredient,
@@ -21,7 +21,10 @@ export type CategoriesNames = {
   [IngredientType.SAUCE]: 'Соусы'
 }
 
-export const IngredientsCategory: FC<IngredientsCategoryProps> = props => {
+export const IngredientsCategory = forwardRef<
+  HTMLElement,
+  IngredientsCategoryProps
+>((props, ref) => {
   const { category, itemsId, ingredients } = props
 
   const categoryNames: CategoriesNames = {
@@ -35,10 +38,10 @@ export const IngredientsCategory: FC<IngredientsCategoryProps> = props => {
   )
 
   return (
-    <section className={styles.ingredientsCategory}>
+    <section className={styles.ingredientsCategory} ref={ref}>
       <p className="text text_type_main-medium">{categoryNames[category]}</p>
 
       <IngredientsItems categoryIngredients={categoryIngredients} />
     </section>
   )
-}
+})

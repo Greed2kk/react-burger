@@ -3,4 +3,5 @@
     max-width: calc(var(--content-header-max-width) / 2);
     overflow-x: scroll;
     scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
 }

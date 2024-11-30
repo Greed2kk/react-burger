@@ -1,11 +1,9 @@
 import { FC, useEffect, useState } from 'react'
+import { useRefContext } from '../../providers/category-ref-provider'
 
 import { useAppDispatch, useAppSelector } from '../app/store/store'
 
-import {
-  fetchIngredients,
-  getIngredientsError,
-} from '../../services'
+import { fetchIngredients, getIngredientsError } from '../../services'
 
 import { selectAllIngredients } from '../../services/ingredients/ingredients-slice'
 
@@ -14,12 +12,13 @@ import { Tabs } from '../tabs/tabs'
 import { IngredientsList } from './ingredients-list/ingredients-list'
 
 export const BurgerIngredients: FC = () => {
-  const [activeTab, setActive] = useState('first')
+  const [activeTab, setActive] = useState('bun')
+  const { bunRef, mainRef, sauceRef } = useRefContext()
 
   const ingredientsTabs = [
-    { value: 'one', name: 'Булки' },
-    { value: 'two', name: 'Соусы' },
-    { value: 'three', name: 'Начинки' },
+    { value: 'bun', name: 'Булки' },
+    { value: 'sauce', name: 'Соусы' },
+    { value: 'main', name: 'Начинки' },
   ]
 
   const dispatch = useAppDispatch()
@@ -44,6 +43,15 @@ export const BurgerIngredients: FC = () => {
 
   const tabClickHandler = (value: string): void => {
     setActive(value)
+
+    switch (value) {
+      case 'bun':
+        return bunRef?.current?.scrollIntoView()
+      case 'sauce':
+        return sauceRef?.current?.scrollIntoView()
+      case 'main':
+        return mainRef?.current?.scrollIntoView()
+    }
   }
 
   return (
