@@ -1,10 +1,14 @@
-import { FC } from 'react'
+import { FC, useCallback } from 'react'
 
 import { useDrop } from 'react-dnd'
 
 import { v4 as uuidv4 } from 'uuid'
 
-import { addIngredient } from '../../../services/burger-constructor/burger-constructor-slice'
+import {
+  addIngredient,
+  selectAllBurgerIngredients,
+  setIngredientsOrder,
+} from '../../../services/burger-constructor/burger-constructor-slice'
 
 import {
   selectBun,
@@ -33,24 +37,38 @@ export const ConstructorElements: FC = () => {
 
   const ingredients = useAppSelector(selectIngredients)
   const bun = useAppSelector(selectBun)
+  const allIngredients = useAppSelector(selectAllBurgerIngredients)
 
-  const handleDrop = (item: BurgerIngredient): void => {
-    const { _id, price, type, imageMobile, name } = item
+  const handleDrop = useCallback(
+    (item: BurgerIngredient): void => {
+      const { _id, price, type, imageMobile, name } = item
 
-    dispatch(
-      addIngredient({ id: uuidv4(), _id, price, type, imageMobile, name }),
-    )
-    if (bun && type === IngredientType.BUN) {
-      dispatch(decreaseQuantity({ _id: bun._id }))
-    }
+      dispatch(
+        addIngredient({ id: uuidv4(), _id, price, type, imageMobile, name }),
+      )
+      if (bun && type === IngredientType.BUN) {
+        dispatch(decreaseQuantity({ _id: bun._id }))
+      }
 
-    dispatch(increaseQuantity({ _id }))
-  }
+      dispatch(increaseQuantity({ _id }))
+    },
+    [bun, dispatch],
+  )
 
   const [, dropTarget] = useDrop({
     accept: [DndType.BUN, DndType.INGREDIENT],
     drop: handleDrop,
   })
+
+  const moveIngredient = (dragIndex: number, hoverIndex: number): void => {
+    const updatedIds = [...allIngredients.map(ingredient => ingredient.id)]
+
+    const [movedItem] = updatedIds.splice(dragIndex, 1)
+
+    updatedIds.splice(hoverIndex, 0, movedItem)
+
+    dispatch(setIngredientsOrder(updatedIds))
+  }
 
   return (
     <section className={styles.constructorElements} ref={dropTarget}>
@@ -70,14 +88,16 @@ export const ConstructorElements: FC = () => {
 
       <section className={styles.editableConstructorElements}>
         {!!ingredients.length ? (
-          ingredients.map(({ price, imageMobile, name, id, _id }) => (
+          ingredients.map(({ price, imageMobile, name, id, _id }, index) => (
             <ConstructorElement
               _id={_id}
+              index={index}
               id={id}
               key={id}
               text={name}
               price={price}
               thumbnail={imageMobile}
+              moveIngredient={moveIngredient}
             />
           ))
         ) : (

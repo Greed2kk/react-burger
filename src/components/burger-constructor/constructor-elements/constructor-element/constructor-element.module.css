@@ -15,3 +15,7 @@
 .dragElementItem:active {
     cursor: grabbing;
 }
+
+.isDragging {
+    opacity: 0.5;
+}

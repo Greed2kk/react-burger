@@ -30,7 +30,7 @@ export const ingredientsSlice = createSlice({
     increaseQuantity: (state, action: PayloadAction<{ _id: string }>) => {
       const ingredient = state.entities[action.payload._id]
 
-      if (!ingredient.qty) {
+      if (!ingredient?.qty) {
         if (isBun(ingredient)) {
           ingredient.qty = 2
         } else {
