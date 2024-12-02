@@ -20,7 +20,7 @@ interface TabsProps {
 
 export const Tabs: FC<TabsProps> = props => {
   const {
-    currentTab = 'one',
+    currentTab,
     tabClickHandler = () => {},
     tabs,
     className,

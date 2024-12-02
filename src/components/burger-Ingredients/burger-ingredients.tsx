@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react'
+
 import { useRefContext } from '../../providers/category-ref-provider'
 
 import { useAppDispatch, useAppSelector } from '../app/store/store'
@@ -11,20 +12,56 @@ import { Tabs } from '../tabs/tabs'
 
 import { IngredientsList } from './ingredients-list/ingredients-list'
 
-export const BurgerIngredients: FC = () => {
-  const [activeTab, setActive] = useState('bun')
-  const { bunRef, mainRef, sauceRef } = useRefContext()
+const ingredientsRefs = ['bun', 'main', 'sauce']
 
-  const ingredientsTabs = [
-    { value: 'bun', name: 'Булки' },
-    { value: 'sauce', name: 'Соусы' },
-    { value: 'main', name: 'Начинки' },
-  ]
+const ingredientsTabs = [
+  { value: 'bun', name: 'Булки' },
+  { value: 'sauce', name: 'Соусы' },
+  { value: 'main', name: 'Начинки' },
+]
+
+export const BurgerIngredients: FC = () => {
+  const [activeTab, setActive] = useState<string>('bun')
+  const refs = useRefContext()
 
   const dispatch = useAppDispatch()
 
   const ingredients = useAppSelector(selectAllIngredients)
   const error = useAppSelector(getIngredientsError)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        const visibilityData = entries.map(entry => ({
+          index: refs.findIndex(ref => ref.current === entry.target),
+          intersectionRatio: entry.intersectionRatio,
+        }))
+
+        const maxVisible = visibilityData.reduce((max, current) =>
+          current.intersectionRatio > max.intersectionRatio ? current : max,
+        )
+
+        if (maxVisible.intersectionRatio > 0.9) {
+          setActive(ingredientsRefs[maxVisible.index])
+        }
+      },
+      { threshold: [0, 0.5, 0.9, 1] },
+    )
+
+    refs.forEach(ref => {
+      if (ref.current) {
+        observer.observe(ref.current)
+      }
+    })
+
+    return () => {
+      refs.forEach(ref => {
+        if (ref.current) observer.unobserve(ref.current)
+      })
+
+      observer.disconnect()
+    }
+  }, [refs, ingredients])
 
   useEffect(() => {
     const controller = new AbortController()
@@ -43,6 +80,8 @@ export const BurgerIngredients: FC = () => {
 
   const tabClickHandler = (value: string): void => {
     setActive(value)
+
+    const [bunRef, mainRef, sauceRef] = refs
 
     switch (value) {
       case 'bun':
