@@ -8,21 +8,23 @@ import {
   useRef,
 } from 'react'
 
-const CategoryRefContext = createContext<{
-  bunRef: RefObject<HTMLElement> | null
-  sauceRef: RefObject<HTMLElement> | null
-  mainRef: RefObject<HTMLElement> | null
-}>({ bunRef: null, sauceRef: null, mainRef: null })
+type CategoryRefs = [
+  bunRef: RefObject<HTMLElement>,
+  mainRef: RefObject<HTMLElement>,
+  sauceRef: RefObject<HTMLElement>,
+]
+
+const CategoryRefContext = createContext<CategoryRefs | null>(null)
 
 export const CategoryRefProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const bunRef = useRef<HTMLElement>(null)
-  const sauceRef = useRef<HTMLElement>(null)
   const mainRef = useRef<HTMLElement>(null)
+  const sauceRef = useRef<HTMLElement>(null)
 
-  const value = useMemo(
-    () => ({ bunRef, sauceRef, mainRef }),
+  const value = useMemo<CategoryRefs>(
+    () => [bunRef, mainRef, sauceRef],
     [bunRef, sauceRef, mainRef],
   )
 
@@ -33,8 +35,16 @@ export const CategoryRefProvider: FC<{ children: ReactNode }> = ({
   )
 }
 
-export const useRefContext = (): {
-  bunRef: RefObject<HTMLElement> | null
-  sauceRef: RefObject<HTMLElement> | null
-  mainRef: RefObject<HTMLElement> | null
-} => useContext(CategoryRefContext)
+export const useRefContext = (): [
+  bunRef: RefObject<HTMLElement>,
+  mainRef: RefObject<HTMLElement>,
+  sauceRef: RefObject<HTMLElement>,
+] => {
+  const context = useContext(CategoryRefContext)
+
+  if (!context) {
+    throw new Error('useRefContext must be used within a CategoryRefProvider')
+  }
+
+  return context
+}
