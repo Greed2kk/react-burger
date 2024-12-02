@@ -59,7 +59,6 @@ export const BurgerIngredients: FC = () => {
 
         const index = refs.findIndex(ref => ref.current === mostVisible.target)
 
-
         setActive(ingredientsRefs[index])
       }
     }
@@ -92,11 +91,16 @@ export const BurgerIngredients: FC = () => {
 
     switch (value) {
       case 'bun':
-        return bunRef?.current?.scrollIntoView()
+        bunRef?.current?.scrollIntoView()
+        break
       case 'sauce':
-        return sauceRef?.current?.scrollIntoView()
+        sauceRef?.current?.scrollIntoView()
+        break
       case 'main':
-        return mainRef?.current?.scrollIntoView()
+        mainRef?.current?.scrollIntoView()
+        break
+      default:
+        break
     }
   }
 
