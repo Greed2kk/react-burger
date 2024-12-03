@@ -9,7 +9,7 @@ import {
 import { useDrag, useDrop } from 'react-dnd'
 
 import { removeIngredient } from '../../../../services/burger-constructor/burger-constructor-slice'
-import { decreaseQuantity } from '../../../../services/ingredients/ingredients-slice'
+import { decreaseQuantity } from '../../../../services/ingredients/ingredient-slice'
 import { useAppDispatch } from '../../../app/store/store'
 import { DndType } from '../../../burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
 

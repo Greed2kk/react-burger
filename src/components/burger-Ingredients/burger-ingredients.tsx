@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../app/store/store'
 
 import { fetchIngredients, getIngredientsError } from '../../services'
 
-import { selectAllIngredients } from '../../services/ingredients/ingredients-slice'
+import { selectAllIngredients } from '../../services/ingredients/ingredient-slice'
 
 import { Tabs } from '../tabs/tabs'
 
@@ -30,14 +30,7 @@ export const BurgerIngredients: FC = () => {
   const error = useAppSelector(getIngredientsError)
 
   useEffect(() => {
-    const controller = new AbortController()
-    const signal = controller.signal
-
-    dispatch(fetchIngredients({ signal }))
-
-    return () => {
-      controller.abort()
-    }
+    dispatch(fetchIngredients())
   }, [dispatch])
 
   useEffect(() => {
@@ -71,6 +64,7 @@ export const BurgerIngredients: FC = () => {
       }
     })
 
+    // eslint-disable-next-line consistent-return
     return () => {
       refs.forEach(ref => {
         if (ref.current) observer.unobserve(ref.current)

@@ -60,7 +60,7 @@
     ],
     "camelcase": "off",
     "no-void": "off",
-    "consistent-return": "off",
+    "consistent-return": "error",
     "default-param-last": "off",
     "arrow-parens": ["error", "as-needed"],
     "quotes": [

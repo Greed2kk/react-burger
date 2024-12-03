@@ -23,7 +23,7 @@ const initialState = ingredientsAdapter.getInitialState<IngredientsSchema>({
   error: '',
 })
 
-export const ingredientsSlice = createSlice({
+export const ingredientSlice = createSlice({
   name: 'ingredients',
   initialState,
   reducers: {
@@ -62,28 +62,26 @@ export const ingredientsSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addCase(fetchIngredients.pending, state => {
-      state.error = undefined
+    builder
+      .addCase(fetchIngredients.pending, state => {
+        state.error = undefined
 
-      state.isLoading = true
-    })
+        state.isLoading = true
+      })
+      .addCase(fetchIngredients.fulfilled, (state, action) => {
+        state.isLoading = false
 
-    builder.addCase(fetchIngredients.fulfilled, (state, action) => {
-      state.isLoading = false
-
-      ingredientsAdapter.setAll(state, action.payload.data)
-    })
-    builder.addCase(fetchIngredients.rejected, (state, action) => {
-      state.isLoading = false
-      if (action.payload !== 'signal is aborted without reason') {
-        state.error = action.payload || 'Something went wrong'
-      }
-    })
+        ingredientsAdapter.setAll(state, action.payload.data)
+      })
+      .addCase(fetchIngredients.rejected, state => {
+        state.isLoading = false
+        state.error = 'Something went wrong'
+      })
   },
 })
 
 export const { reducer: ingredientsReducer, actions: ingredientsActions } =
-  ingredientsSlice
+  ingredientSlice
 
 export const { increaseQuantity, decreaseQuantity, clearQuantity } =
   ingredientsActions

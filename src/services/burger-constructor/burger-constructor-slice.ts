@@ -1,7 +1,7 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
 import { RootState } from '../../components/app/store/store'
-import { ingredientsAdapter } from '../ingredients/ingredients-slice'
+import { ingredientsAdapter } from '../ingredients/ingredient-slice'
 import { IngredientType } from '../ingredients/types'
 
 import { BurgerConstructorSchema, BurgerIngredient } from './types'

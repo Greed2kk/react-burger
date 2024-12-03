@@ -1,7 +1,7 @@
 import { RootState } from '../../../components/app/store/store'
 import { StateSchema } from '../../../components/app/store/types'
 
-import { selectIngredientById } from '../ingredients-slice'
+import { selectIngredientById } from '../ingredient-slice'
 
 export const getIngredientsIsLoading = (
   state: StateSchema,

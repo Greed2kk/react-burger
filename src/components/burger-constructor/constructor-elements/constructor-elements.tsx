@@ -18,7 +18,7 @@ import { BurgerIngredient } from '../../../services/burger-constructor/types'
 import {
   decreaseQuantity,
   increaseQuantity,
-} from '../../../services/ingredients/ingredients-slice'
+} from '../../../services/ingredients/ingredient-slice'
 import { IngredientType } from '../../../services/ingredients/types'
 
 import { useAppDispatch, useAppSelector } from '../../app/store/store'

@@ -1,10 +1,8 @@
 import { asyncThunkCreator, buildCreateSlice } from '@reduxjs/toolkit'
 
-import { ThunkExtraArgs } from '../../components/app/store/store'
-
-import { ordersSlug } from '../../utils/api/constants'
+import { baseApiUrl, ordersSlug } from '../../utils/api/constants'
 import { clearIngredients } from '../burger-constructor/burger-constructor-slice'
-import { clearQuantity } from '../ingredients/ingredients-slice'
+import { clearQuantity } from '../ingredients/ingredient-slice'
 
 import { OrderDetails, OrderDetailsSchema } from './types'
 
@@ -20,33 +18,19 @@ export const orderDetailsSlice = createSliceWithThunks({
   name: 'orderDetails',
   initialState,
   reducers: create => ({
-    addOrderDetails: create.asyncThunk<
-      OrderDetails,
-      { data: string[] },
-      {
-        rejectValue: string
-        extra: ThunkExtraArgs<OrderDetails, { ingredients: string[] }>
-      }
-    >(
-      async ({ data }, { rejectWithValue, extra, dispatch }) => {
-        try {
-          const response = await extra.api.post(ordersSlug, {
-            ingredients: data,
-          })
+    addOrderDetails: create.asyncThunk<OrderDetails, { data: string[] }>(
+      async ({ data }, { dispatch }) => {
+        const response = await fetch(`${baseApiUrl}/${ordersSlug}`, {
+          method: 'POST',
+          body: JSON.stringify(data),
+        })
 
-          if (response.success) {
-            dispatch(clearQuantity())
-            dispatch(clearIngredients())
-          }
-
-          return response
-        } catch (error: any) {
-          if (error.name !== 'AbortError') {
-            return rejectWithValue('Request was aborted')
-          }
-
-          return rejectWithValue(error.message)
+        if (response.ok) {
+          dispatch(clearQuantity())
+          dispatch(clearIngredients())
         }
+
+        return response.json()
       },
       {
         pending: state => {
