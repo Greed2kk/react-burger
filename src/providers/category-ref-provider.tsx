@@ -8,43 +8,49 @@ import {
   useRef,
 } from 'react'
 
-type CategoryRefs = [
-  bunRef: RefObject<HTMLElement>,
-  mainRef: RefObject<HTMLElement>,
-  sauceRef: RefObject<HTMLElement>,
-]
+import { IngredientType } from '../services/ingredients/types'
 
-const CategoryRefContext = createContext<CategoryRefs | null>(null)
+export type RefCategory = RefObject<HTMLDivElement>
 
-export const CategoryRefProvider: FC<{ children: ReactNode }> = ({
-  children,
-}) => {
-  const bunRef = useRef<HTMLElement>(null)
-  const mainRef = useRef<HTMLElement>(null)
-  const sauceRef = useRef<HTMLElement>(null)
+type CategoryRefsContextType = Record<IngredientType, RefCategory>
 
-  const value = useMemo<CategoryRefs>(
-    () => [bunRef, mainRef, sauceRef],
-    [bunRef, sauceRef, mainRef],
+const CategoryRefContext = createContext<CategoryRefsContextType | null>(null)
+
+export const CategoryRefProvider: FC<{ children: ReactNode }> = ({ children }) => {
+  const bunRef = useRef<HTMLDivElement>(null)
+  const mainRef = useRef<HTMLDivElement>(null)
+  const sauceRef = useRef<HTMLDivElement>(null)
+
+  const categoryRefs = useMemo(
+    () => ({
+      [IngredientType.BUN]: bunRef,
+      [IngredientType.MAIN]: mainRef,
+      [IngredientType.SAUCE]: sauceRef,
+    }),
+    [],
   )
 
   return (
-    <CategoryRefContext.Provider value={value}>
+    <CategoryRefContext.Provider value={categoryRefs}>
       {children}
     </CategoryRefContext.Provider>
   )
 }
 
-export const useRefContext = (): [
-  bunRef: RefObject<HTMLElement>,
-  mainRef: RefObject<HTMLElement>,
-  sauceRef: RefObject<HTMLElement>,
-] => {
+export const useSectionsRefContext = (): {
+  bun: RefObject<HTMLDivElement>
+  main: RefObject<HTMLDivElement>
+  sauce: RefObject<HTMLDivElement>
+} => {
   const context = useContext(CategoryRefContext)
 
   if (!context) {
-    throw new Error('useRefContext must be used within a CategoryRefProvider')
+    throw new Error('useSectionsRefContext must be used within a CategoryRefProvider')
   }
 
-  return context
+  return {
+    [IngredientType.BUN]: context[IngredientType.BUN],
+    [IngredientType.MAIN]: context[IngredientType.MAIN],
+    [IngredientType.SAUCE]: context[IngredientType.SAUCE],
+  }
 }

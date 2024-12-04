@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { ReactElement } from 'react'
 
 import classNames from 'classnames'
 
@@ -6,25 +6,20 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import styles from './tabs.module.css'
 
-interface TabsOptions {
-  value: string
+export interface TabsOptions<T = string> {
+  value: T
   name: string
 }
 
-interface TabsProps {
-  tabs: TabsOptions[]
+interface TabsProps<T> {
+  tabs: TabsOptions<T>[]
   tabClickHandler?: (value: string) => void
-  currentTab?: string
+  currentTab?: T
   className?: string
 }
 
-export const Tabs: FC<TabsProps> = props => {
-  const {
-    currentTab,
-    tabClickHandler = () => {},
-    tabs,
-    className,
-  } = props
+export const Tabs = <T extends string>(props: TabsProps<T>): ReactElement => {
+  const { currentTab, tabClickHandler = () => {}, tabs, className } = props
 
   return (
     <div className={classNames(styles.tabsContainer, className)}>

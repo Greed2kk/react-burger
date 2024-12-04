@@ -1,7 +1,15 @@
+import { createSelector, Selector } from '@reduxjs/toolkit'
+
 import { RootState } from '../../../components/app/store/store'
 import { StateSchema } from '../../../components/app/store/types'
 
-import { selectIngredientById } from '../ingredient-slice'
+import {
+  selectAllIngredients,
+  selectIngredientById,
+  selectIngredientEntities,
+} from '../ingredient-slice'
+
+import { Categories, Ingredient, IngredientType } from '../types'
 
 export const getIngredientsIsLoading = (
   state: StateSchema,
@@ -16,8 +24,30 @@ export const makeSelectIngredientById = (id: string) => (state: RootState) =>
 export const getIngredientQuantity = (_id: string) => (state: RootState) =>
   selectIngredientById(state, _id).qty
 
-export const getIngredientName = (_id: string) => (state: RootState) =>
-  selectIngredientById(state, _id).name
+export const getIngredients = createSelector(
+  selectAllIngredients,
+  ingredients => {
+    const categories: Categories = {
+      [IngredientType.BUN]: [],
+      [IngredientType.MAIN]: [],
+      [IngredientType.SAUCE]: [],
+    }
 
-export const getIngredientImageMobile = (_id: string) => (state: RootState) =>
-  selectIngredientById(state, _id).image_mobile
+    ingredients.forEach(
+      ingredient =>
+        (categories[ingredient.type] = [
+          ...categories[ingredient.type],
+          ingredient._id,
+        ]),
+    )
+
+    return categories
+  },
+)
+
+export const getIngredientsByIds = (
+  ids: string[],
+): Selector<RootState, Ingredient[]> =>
+  createSelector([selectIngredientEntities], (entities): Ingredient[] =>
+    ids.map(id => entities[id]).filter(ingredient => ingredient !== undefined),
+  )

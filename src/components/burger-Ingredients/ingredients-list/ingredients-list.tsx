@@ -1,45 +1,36 @@
-import React, { FC } from 'react'
+import React, { forwardRef } from 'react'
 
-import { useRefContext } from '../../../providers/category-ref-provider'
+import { useSectionsRefContext } from '../../../providers/category-ref-provider'
 
-import { Ingredient, IngredientType } from '../../../services/ingredients/types'
+import { Categories, IngredientType } from '../../../services/ingredients/types'
 
 import { IngredientsCategory } from './ingredients-category/Ingredients-category'
 
 import styles from './ingredients-list.module.css'
 
-export interface Categories {
-  [IngredientType.BUN]: Ingredient['_id'][]
-  [IngredientType.MAIN]: Ingredient['_id'][]
-  [IngredientType.SAUCE]: Ingredient['_id'][]
-}
-
 interface IngredientsListProps {
-  ingredients: Ingredient[]
+  ingredients: Categories
 }
 
-export const IngredientsList: FC<IngredientsListProps> = ({ ingredients }) => {
-  const categories: Categories = {
-    [IngredientType.BUN]: [],
-    [IngredientType.MAIN]: [],
-    [IngredientType.SAUCE]: [],
-  }
+export type Ref = HTMLElement
 
-  const refs = useRefContext()
+export const IngredientsList = forwardRef<Ref, IngredientsListProps>(
+  ({ ingredients }, ref) => {
+    const refs = useSectionsRefContext()
 
-  ingredients.forEach(({ type, _id }) => categories[type].push(_id))
-
-  return (
-    <section className={styles.ingredientsList}>
-      {Object.entries(categories).map(([category, itemsId], index) => (
-        <IngredientsCategory
-          ref={refs[index]}
-          key={category}
-          category={category as IngredientType}
-          itemsId={itemsId}
-          ingredients={ingredients}
-        />
-      ))}
-    </section>
-  )
-}
+    return (
+      <section className={styles.ingredientsList} ref={ref}>
+        {Object.entries(ingredients).map(
+          ([category, ingredientsIds], index) => (
+            <IngredientsCategory
+              ref={Object.values(refs)[index]}
+              key={category}
+              category={category as IngredientType}
+              ingredientsIds={ingredientsIds}
+            />
+          ),
+        )}
+      </section>
+    )
+  },
+)

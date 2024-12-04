@@ -13,7 +13,7 @@ import { fetchIngredients } from './fetch-ingredients'
 import { Ingredient, IngredientsSchema } from './types'
 
 export const ingredientsAdapter = createEntityAdapter<Ingredient, string>({
-  selectId: (ingredients: Ingredient) => ingredients._id,
+  selectId: (ingredient: Ingredient) => ingredient._id,
 })
 
 const initialState = ingredientsAdapter.getInitialState<IngredientsSchema>({
@@ -89,4 +89,5 @@ export const { increaseQuantity, decreaseQuantity, clearQuantity } =
 export const {
   selectAll: selectAllIngredients,
   selectById: selectIngredientById,
+  selectEntities: selectIngredientEntities,
 } = ingredientsAdapter.getSelectors((state: RootState) => state.ingredients)

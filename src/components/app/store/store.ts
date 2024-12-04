@@ -2,12 +2,9 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
-import { rootReducers } from '../../../services' // StateSchema
-
-const initialState = {}
+import { rootReducers } from '../../../services'
 
 export const store = configureStore({
-  preloadedState: initialState,
   reducer: rootReducers,
   devTools: process.env.NODE_ENV === 'development',
 })

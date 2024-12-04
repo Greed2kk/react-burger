@@ -30,3 +30,9 @@ export interface Ingredient {
   __v: number
   qty?: number
 }
+
+export interface Categories {
+  [IngredientType.BUN]: Ingredient['_id'][]
+  [IngredientType.MAIN]: Ingredient['_id'][]
+  [IngredientType.SAUCE]: Ingredient['_id'][]
+}

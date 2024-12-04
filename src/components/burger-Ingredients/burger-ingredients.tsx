@@ -1,101 +1,93 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useRef, useState } from 'react'
 
-import { useRefContext } from '../../providers/category-ref-provider'
+import { useSectionsRefContext } from '../../providers/category-ref-provider'
+import { getIngredients } from '../../services/ingredients/selectors/ingredients'
+import { IngredientType } from '../../services/ingredients/types'
+import { throttle } from '../../utils/helpers/throttle'
 
 import { useAppDispatch, useAppSelector } from '../app/store/store'
 
 import { fetchIngredients, getIngredientsError } from '../../services'
 
-import { selectAllIngredients } from '../../services/ingredients/ingredient-slice'
-
-import { Tabs } from '../tabs/tabs'
+import { Tabs, TabsOptions } from '../tabs/tabs'
 
 import { IngredientsList } from './ingredients-list/ingredients-list'
 
-const ingredientsRefs = ['bun', 'main', 'sauce']
-
-const ingredientsTabs = [
-  { value: 'bun', name: 'Булки' },
-  { value: 'sauce', name: 'Соусы' },
-  { value: 'main', name: 'Начинки' },
-]
-
 export const BurgerIngredients: FC = () => {
-  const [activeTab, setActive] = useState<string>('bun')
-  const refs = useRefContext()
+  const [activeTab, setActive] = useState(IngredientType.BUN)
+  const sectionsRefs = useSectionsRefContext()
+  const containerRef = useRef<HTMLElement>(null)
+
+  const ingredientsTabs: TabsOptions[] = [
+    { value: Object.keys(sectionsRefs)[0], name: 'Булки' },
+    { value: Object.keys(sectionsRefs)[1], name: 'Начинки' },
+    { value: Object.keys(sectionsRefs)[2], name: 'Соусы' },
+  ]
 
   const dispatch = useAppDispatch()
-
-  const ingredients = useAppSelector(selectAllIngredients)
-  const error = useAppSelector(getIngredientsError)
 
   useEffect(() => {
     dispatch(fetchIngredients())
   }, [dispatch])
 
-  useEffect(() => {
-    if (ingredients.length === 0) return
+  const ingredients = useAppSelector(getIngredients)
 
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: Array.from({ length: 101 }, (_, i) => i / 100),
-    }
+  const error = useAppSelector(getIngredientsError)
 
-    const observerCallback: IntersectionObserverCallback = entries => {
-      const visibleEntries = entries.filter(entry => entry.isIntersecting)
+  const handleScroll = useCallback((): void => {
+    console.log('call')
+    const container = containerRef.current
 
-      if (visibleEntries.length > 0) {
-        const mostVisible = visibleEntries.reduce((max, entry) =>
-          entry.intersectionRatio > max.intersectionRatio ? entry : max,
-        )
+    if (!container) return
 
-        const index = refs.findIndex(ref => ref.current === mostVisible.target)
+    const offsets = Object.entries(sectionsRefs).map(([key, ref]) => {
+      const sectionRef = ref.current
 
-        setActive(ingredientsRefs[index])
-      }
-    }
+      if (!sectionRef) return { key, offset: Infinity }
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions)
+      const rect = sectionRef.getBoundingClientRect()
 
-    refs.forEach(ref => {
-      if (ref.current) {
-        observer.observe(ref.current)
+      return {
+        key,
+        offset: Math.abs(rect.top - container.getBoundingClientRect().top),
       }
     })
 
-    // eslint-disable-next-line consistent-return
-    return () => {
-      refs.forEach(ref => {
-        if (ref.current) observer.unobserve(ref.current)
-      })
+    const validOffsets = offsets.filter(offset => offset !== undefined)
 
-      observer.disconnect()
+    if (validOffsets.length > 0) {
+      const closestSection = validOffsets.reduce((prev, curr) =>
+        prev.offset < curr.offset ? prev : curr,
+      ).key as IngredientType
+
+      setActive(closestSection)
     }
-  })
+  }, [sectionsRefs])
+
+  const throttledHandleScroll = throttle(handleScroll, 200)
+
+  useEffect(() => {
+    const container = containerRef.current
+
+    if (container) {
+      container.addEventListener('scroll', throttledHandleScroll)
+
+      return () => {
+        container.removeEventListener('scroll', throttledHandleScroll)
+      }
+    }
+
+    return () => {}
+  }, [throttledHandleScroll])
 
   if (error) {
     return <h1>{error}</h1>
   }
 
-  const tabClickHandler = (value: string): void => {
-    setActive(value)
+  const tabClickHandler = (section: string): void => {
+    setActive(section as IngredientType)
 
-    const [bunRef, mainRef, sauceRef] = refs
-
-    switch (value) {
-      case 'bun':
-        bunRef?.current?.scrollIntoView()
-        break
-      case 'sauce':
-        sauceRef?.current?.scrollIntoView()
-        break
-      case 'main':
-        mainRef?.current?.scrollIntoView()
-        break
-      default:
-        break
-    }
+    sectionsRefs[section as IngredientType]?.current?.scrollIntoView()
   }
 
   return (
@@ -109,7 +101,7 @@ export const BurgerIngredients: FC = () => {
         className="mb-10"
       />
 
-      <IngredientsList ingredients={ingredients} />
+      <IngredientsList ingredients={ingredients} ref={containerRef} />
     </section>
   )
 }

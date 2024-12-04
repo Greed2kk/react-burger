@@ -24,13 +24,14 @@ import { DndType } from './types'
 import styles from './ingredient-card.module.css'
 
 interface IngredientItemProps {
-  item: Ingredient
+  ingredient: Ingredient
 }
 
 export const IngredientCard: FC<IngredientItemProps> = ({
-  item: { image, name, price, _id, type, image_mobile },
+  ingredient: { image, name, price, _id, type, image_mobile },
 }) => {
   const [openDetails, setOpenDetails] = useState(false)
+
   const quantity = useAppSelector(getIngredientQuantity(_id))
 
   const [{ isDrag }, dragRef] = useDrag(() => ({
