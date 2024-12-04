@@ -35,33 +35,32 @@ export const BurgerIngredients: FC = () => {
   const error = useAppSelector(getIngredientsError)
 
   const handleScroll = useCallback((): void => {
-    console.log('call')
     const container = containerRef.current
 
     if (!container) return
 
-    const offsets = Object.entries(sectionsRefs).map(([key, ref]) => {
-      const sectionRef = ref.current
+    const containerRect = container.getBoundingClientRect()
 
-      if (!sectionRef) return { key, offset: Infinity }
+    const visibleSections = Object.entries(sectionsRefs).map(([key, ref]) => {
+      if (!ref.current) return { key, visibleHeight: 0 }
 
-      const rect = sectionRef.getBoundingClientRect()
+      const sectionRect = ref.current.getBoundingClientRect()
+
+      const visibleHeight =
+        Math.min(containerRect.bottom, sectionRect.bottom) -
+        Math.max(containerRect.top, sectionRect.top)
 
       return {
         key,
-        offset: Math.abs(rect.top - container.getBoundingClientRect().top),
+        visibleHeight: visibleHeight > 0 ? visibleHeight : 0,
       }
     })
 
-    const validOffsets = offsets.filter(offset => offset !== undefined)
+    const mostVisibleSection = visibleSections.reduce((prev, curr) =>
+      prev.visibleHeight > curr.visibleHeight ? prev : curr,
+    ).key
 
-    if (validOffsets.length > 0) {
-      const closestSection = validOffsets.reduce((prev, curr) =>
-        prev.offset < curr.offset ? prev : curr,
-      ).key as IngredientType
-
-      setActive(closestSection)
-    }
+    setActive(mostVisibleSection as IngredientType)
   }, [sectionsRefs])
 
   const throttledHandleScroll = throttle(handleScroll, 200)
