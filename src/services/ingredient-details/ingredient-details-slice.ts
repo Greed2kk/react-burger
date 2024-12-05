@@ -1,10 +1,10 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-import { Ingredient, IngredientType } from '../ingredients/types'
+import { type Ingredient, IngredientType } from '../ingredients/types'
 
-import { type IngredientDetailsState } from './types'
+import type { IngredientDetailsSchema } from './types'
 
-const initialState: IngredientDetailsState = {
+const initialState: IngredientDetailsSchema = {
   ingredientDetails: {
     _id: '',
     name: '',
@@ -33,10 +33,6 @@ export const ingredientDetailsSlice = createSlice({
     },
   },
 })
-
-export const getIngredientData = (state: {
-  ingredientDetails: IngredientDetailsState
-}): Ingredient => state.ingredientDetails.ingredientDetails
 
 const { reducer: ingredientDetailsReducer, actions } = ingredientDetailsSlice
 

@@ -14,9 +14,13 @@ import styles from './total-price.module.css'
 
 interface TotalPriceProps {
   onOrderAccept: () => void
+  disabled?: boolean
 }
 
-export const TotalPrice: FC<TotalPriceProps> = ({ onOrderAccept }) => {
+export const TotalPrice: FC<TotalPriceProps> = ({
+  onOrderAccept,
+  disabled,
+}) => {
   const totalPrice = useAppSelector(selectTotalPrice)
 
   return (
@@ -31,6 +35,7 @@ export const TotalPrice: FC<TotalPriceProps> = ({ onOrderAccept }) => {
         htmlType={HtmlTypeButton.SUBMIT}
         size={SizeButton.LARGE}
         onClick={onOrderAccept}
+        disabled={disabled}
       >
         Оформить заказ
       </Button>

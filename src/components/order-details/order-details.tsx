@@ -1,16 +1,21 @@
 import { FC, Fragment } from 'react'
 
+import {
+  getOrderError,
+  getOrderNumber,
+} from '../../services/order-details/selectors'
+
 import { useAppSelector } from '../app/store/store'
 
 import { ReactComponent as OrderDone } from '../../images/order-done.svg'
-import { getOrderNumber } from '../../services/order-details/order-details-slice'
 
 import styles from './order-details.module.css'
 
 export const OrderDetails: FC = () => {
   const orderNumber = useAppSelector(getOrderNumber)
+  const error = useAppSelector(getOrderError)
 
-  if (!orderNumber) {
+  if (!orderNumber && error) {
     return (
       <p className="text text_type_main-large mt-15">
         Ошибка, попробуйте снова!

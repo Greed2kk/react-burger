@@ -1,29 +1,28 @@
-import { FC, useCallback, useEffect, useRef, useState } from 'react'
-
-import { useSectionsRefContext } from '../../providers/category-ref-provider'
-import { getIngredients } from '../../services/ingredients/ingredients'
-import { IngredientType } from '../../services/ingredients/types'
-import { throttle } from '../../utils/helpers/throttle'
+import { FC, UIEvent, useCallback, useEffect, useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from '../app/store/store'
 
-import { fetchIngredients, getIngredientsError } from '../../services'
+import { useSectionsRefContext } from '../../providers/category-ref-provider'
 
-import { Tabs, TabsOptions } from '../tabs/tabs'
+import { Tabs } from '../tabs/tabs'
+
+import { fetchIngredients } from '../../services/ingredients/fetch-ingredients'
+
+import {
+  getIngredients,
+  getIngredientsError,
+} from '../../services/ingredients/selectors'
+
+import { throttle } from '../../utils/helpers/throttle'
 
 import { IngredientsList } from './ingredients-list/ingredients-list'
+
+import { IngredientType } from '../../services/ingredients/types'
+import type { TabsOptions } from '../tabs/tabs'
 
 export const BurgerIngredients: FC = () => {
   const [activeTab, setActive] = useState(IngredientType.BUN)
   const sectionsRefs = useSectionsRefContext()
-  const containerRef = useRef<HTMLElement>(null)
-
-  const ingredientsTabs: TabsOptions[] = [
-    { value: Object.keys(sectionsRefs)[0], name: 'Булки' },
-    { value: Object.keys(sectionsRefs)[1], name: 'Начинки' },
-    { value: Object.keys(sectionsRefs)[2], name: 'Соусы' },
-  ]
-
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -34,50 +33,49 @@ export const BurgerIngredients: FC = () => {
 
   const error = useAppSelector(getIngredientsError)
 
-  const handleScroll = useCallback((): void => {
-    const container = containerRef.current
+  const ingredientsTabs: TabsOptions[] = [
+    { value: Object.keys(sectionsRefs)[0], name: 'Булки' },
+    { value: Object.keys(sectionsRefs)[1], name: 'Начинки' },
+    { value: Object.keys(sectionsRefs)[2], name: 'Соусы' },
+  ]
 
-    if (!container) return
+  const handleScroll = useCallback(
+    (e: UIEvent<HTMLElement>): void => {
+      const container = e.currentTarget
 
-    const containerRect = container.getBoundingClientRect()
+      if (!container) return
 
-    const visibleSections = Object.entries(sectionsRefs).map(([key, ref]) => {
-      if (!ref.current) return { key, visibleHeight: 0 }
+      const containerRect = container.getBoundingClientRect()
 
-      const sectionRect = ref.current.getBoundingClientRect()
+      let mostVisibleSection: string | null = null
+      let maxVisibleHeight = 0
 
-      const visibleHeight =
-        Math.min(containerRect.bottom, sectionRect.bottom) -
-        Math.max(containerRect.top, sectionRect.top)
+      Object.entries(sectionsRefs).forEach(([key, ref]) => {
+        const section = ref.current
 
-      return {
-        key,
-        visibleHeight: visibleHeight > 0 ? visibleHeight : 0,
+        if (!section) return
+
+        const sectionRect = section.getBoundingClientRect()
+        const visibleHeight = Math.max(
+          0,
+          Math.min(containerRect.bottom, sectionRect.bottom) -
+            Math.max(containerRect.top, sectionRect.top),
+        )
+
+        if (visibleHeight > maxVisibleHeight) {
+          maxVisibleHeight = visibleHeight
+          mostVisibleSection = key
+        }
+      })
+
+      if (mostVisibleSection) {
+        setActive(mostVisibleSection as IngredientType)
       }
-    })
-
-    const mostVisibleSection = visibleSections.reduce((prev, curr) =>
-      prev.visibleHeight > curr.visibleHeight ? prev : curr,
-    ).key
-
-    setActive(mostVisibleSection as IngredientType)
-  }, [sectionsRefs])
+    },
+    [sectionsRefs],
+  )
 
   const throttledHandleScroll = throttle(handleScroll, 200)
-
-  useEffect(() => {
-    const container = containerRef.current
-
-    if (container) {
-      container.addEventListener('scroll', throttledHandleScroll)
-
-      return () => {
-        container.removeEventListener('scroll', throttledHandleScroll)
-      }
-    }
-
-    return () => {}
-  }, [throttledHandleScroll])
 
   if (error) {
     return <h1>{error}</h1>
@@ -100,7 +98,10 @@ export const BurgerIngredients: FC = () => {
         className="mb-10"
       />
 
-      <IngredientsList ingredients={ingredients} ref={containerRef} />
+      <IngredientsList
+        ingredients={ingredients}
+        handleScroll={throttledHandleScroll}
+      />
     </section>
   )
 }

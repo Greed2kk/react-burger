@@ -1,5 +1,5 @@
 import { Ingredient } from '../ingredients/types'
 
-export type IngredientDetailsState = {
+export type IngredientDetailsSchema = {
   ingredientDetails: Ingredient
 }

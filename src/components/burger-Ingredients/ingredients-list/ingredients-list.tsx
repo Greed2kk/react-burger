@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React, { FC, UIEvent } from 'react'
 
 import { useSectionsRefContext } from '../../../providers/category-ref-provider'
 
@@ -10,27 +10,25 @@ import styles from './ingredients-list.module.css'
 
 interface IngredientsListProps {
   ingredients: Categories
+  handleScroll: (e: UIEvent<HTMLElement> ) => void
 }
 
-export type Ref = HTMLElement
+export const IngredientsList: FC<IngredientsListProps> = ({
+  ingredients,
+  handleScroll,
+}) => {
+  const refs = useSectionsRefContext()
 
-export const IngredientsList = forwardRef<Ref, IngredientsListProps>(
-  ({ ingredients }, ref) => {
-    const refs = useSectionsRefContext()
-
-    return (
-      <section className={styles.ingredientsList} ref={ref}>
-        {Object.entries(ingredients).map(
-          ([category, ingredientsIds], index) => (
-            <IngredientsCategory
-              ref={Object.values(refs)[index]}
-              key={category}
-              category={category as IngredientType}
-              ingredientsIds={ingredientsIds}
-            />
-          ),
-        )}
-      </section>
-    )
-  },
-)
+  return (
+    <section className={styles.ingredientsList} onScroll={handleScroll}>
+      {Object.entries(ingredients).map(([category, ingredientsIds], index) => (
+        <IngredientsCategory
+          ref={Object.values(refs)[index]}
+          key={category}
+          category={category as IngredientType}
+          ingredientsIds={ingredientsIds}
+        />
+      ))}
+    </section>
+  )
+}

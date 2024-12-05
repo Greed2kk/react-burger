@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from 'uuid'
 
 import {
   addIngredient,
-  selectAllBurgerIngredients,
   setIngredientsOrder,
 } from '../../../services/burger-constructor/burger-constructor-slice'
 
@@ -14,11 +13,14 @@ import {
   selectBun,
   selectIngredients,
 } from '../../../services/burger-constructor/selectors'
+
 import { BurgerIngredient } from '../../../services/burger-constructor/types'
+
 import {
   decreaseQuantity,
   increaseQuantity,
 } from '../../../services/ingredients/ingredient-slice'
+
 import { IngredientType } from '../../../services/ingredients/types'
 
 import { useAppDispatch, useAppSelector } from '../../app/store/store'
@@ -37,7 +39,6 @@ export const ConstructorElements: FC = () => {
 
   const ingredients = useAppSelector(selectIngredients)
   const bun = useAppSelector(selectBun)
-  const allIngredients = useAppSelector(selectAllBurgerIngredients)
 
   const handleDrop = useCallback(
     (item: BurgerIngredient): void => {
@@ -61,13 +62,13 @@ export const ConstructorElements: FC = () => {
   })
 
   const moveIngredient = (dragIndex: number, hoverIndex: number): void => {
-    const updatedIds = [...allIngredients.map(ingredient => ingredient.id)]
+    const updatedIds = [...ingredients.map(ingredient => ingredient.id)]
 
     const [movedItem] = updatedIds.splice(dragIndex, 1)
 
     updatedIds.splice(hoverIndex, 0, movedItem)
 
-    dispatch(setIngredientsOrder(updatedIds))
+    dispatch(setIngredientsOrder([bun.id, ...updatedIds, bun.id]))
   }
 
   return (

@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { baseApiUrl, ingredientsSlug } from '../../utils/api/constants'
 
-import { IngredientResponse } from './types'
+import type { IngredientResponse } from './types'
 
 export const fetchIngredients = createAsyncThunk<IngredientResponse>(
   'ingredients/fetchIngredients',

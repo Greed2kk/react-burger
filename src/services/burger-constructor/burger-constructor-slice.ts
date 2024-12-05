@@ -1,6 +1,6 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
-import { RootState } from '../../components/app/store/store'
+import { StateSchema } from '../../components/app/store/types'
 import { ingredientsAdapter } from '../ingredients/ingredient-slice'
 import { IngredientType } from '../ingredients/types'
 
@@ -55,7 +55,7 @@ export const {
 
 export const { selectAll: selectAllBurgerIngredients } =
   burgerConstructorAdapter.getSelectors(
-    (state: RootState) => state.burgerConstructor,
+    (state: StateSchema) => state.burgerConstructor,
   )
 
 export default burgerConstructorReducer

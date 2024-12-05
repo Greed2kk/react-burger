@@ -12,7 +12,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import { addIngredientData } from '../../../../../services/ingredient-details/ingredient-details-slice'
 
-import { getIngredientQuantity } from '../../../../../services/ingredients/ingredients'
+import { getIngredientQuantity } from '../../../../../services/ingredients/selectors'
 
 import {
   type Ingredient,

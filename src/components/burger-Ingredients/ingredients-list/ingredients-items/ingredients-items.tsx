@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import classNames from 'classnames'
 
-import { getIngredientsByIds } from '../../../../services/ingredients/ingredients'
+import { getIngredientsByIds } from '../../../../services/ingredients/selectors'
 
 import { useAppSelector } from '../../../app/store/store'
 

@@ -2,15 +2,17 @@ import { FC } from 'react'
 
 import classNames from 'classnames'
 
+import { useDrag, useDrop } from 'react-dnd'
+
 import {
   ConstructorElement as YaConstructorElement,
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useDrag, useDrop } from 'react-dnd'
 
 import { removeIngredient } from '../../../../services/burger-constructor/burger-constructor-slice'
 import { decreaseQuantity } from '../../../../services/ingredients/ingredient-slice'
 import { useAppDispatch } from '../../../app/store/store'
+
 import { DndType } from '../../../burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
 
 import styles from './constructor-element.module.css'
@@ -31,18 +33,7 @@ interface ConstructorElementProps {
 }
 
 export const ConstructorElement: FC<ConstructorElementProps> = props => {
-  const {
-    text,
-    type,
-    isLocked,
-    thumbnail,
-    price,
-    className,
-    id,
-    _id,
-    index = 0,
-    moveIngredient,
-  } = props
+  const { id, _id, index = 0, moveIngredient, isLocked, className, ...otherProps } = props
 
   const dispatch = useAppDispatch()
 
@@ -85,17 +76,14 @@ export const ConstructorElement: FC<ConstructorElementProps> = props => {
       )}
 
       <YaConstructorElement
-        type={type}
-        isLocked={isLocked}
-        text={text}
-        price={price}
         handleClose={handleDelete}
-        thumbnail={thumbnail}
+        isLocked={isLocked}
         extraClass={classNames(
           styles.constructorElementItem,
           { 'ml-8': isLocked },
           className,
         )}
+        {...otherProps}
       />
     </div>
   )

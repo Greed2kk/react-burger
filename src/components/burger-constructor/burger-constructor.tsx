@@ -2,13 +2,16 @@ import { FC, useState } from 'react'
 
 import classNames from 'classnames'
 
+import { createOrder } from '../../services/order-details/create-order'
+import { clearDetailsData } from '../../services/order-details/order-details-slice'
+import { getOrderIsLoading } from '../../services/order-details/selectors'
+
 import { useAppDispatch, useAppSelector } from '../app/store/store'
 
 import {
   selectBunId,
   selectIngredientsIds,
 } from '../../services/burger-constructor/selectors'
-import { addOrderDetails } from '../../services/order-details/order-details-slice'
 
 import { Modal } from '../modal/modal'
 
@@ -20,21 +23,27 @@ import styles from './burger-constructor.module.css'
 
 export const BurgerConstructor: FC = () => {
   const [orderComplete, setOrderComplete] = useState(false)
+
   const dispatch = useAppDispatch()
+  const isLoading = useAppSelector(getOrderIsLoading)
 
   const bunId = useAppSelector(selectBunId)
   const ingredientsIds = useAppSelector(selectIngredientsIds)
 
   const orderIngredients = [bunId, ...ingredientsIds, bunId]
 
-  const onOrderAccept = (): void => {
-    dispatch(addOrderDetails({ data: orderIngredients }))
+  const disableOrder = isLoading || !bunId || !ingredientsIds.length
 
+  const onOrderAccept = (): void => {
     setOrderComplete(!orderComplete)
+
+    dispatch(createOrder({ data: orderIngredients }))
   }
 
   const onCloseModal = (): void => {
     setOrderComplete(!orderComplete)
+
+    dispatch(clearDetailsData())
   }
 
   return (
@@ -43,9 +52,9 @@ export const BurgerConstructor: FC = () => {
     >
       <ConstructorElements />
 
-      <TotalPrice onOrderAccept={onOrderAccept} />
+      <TotalPrice onOrderAccept={onOrderAccept} disabled={disableOrder} />
 
-      {orderComplete && (
+      {!isLoading && orderComplete && (
         <Modal onCloseHandler={onCloseModal}>
           <OrderDetails />
         </Modal>

@@ -4,7 +4,7 @@ import {
   PayloadAction,
 } from '@reduxjs/toolkit'
 
-import { RootState } from '../../components/app/store/store'
+import { StateSchema } from '../../components/app/store/types'
 
 import { isBun } from '../../utils/helpers/isBun'
 
@@ -88,6 +88,6 @@ export const {
   selectAll: selectAllIngredients,
   selectById,
   selectEntities: selectIngredientEntities,
-} = ingredientsAdapter.getSelectors((state: RootState) => state.ingredients)
+} = ingredientsAdapter.getSelectors((state: StateSchema) => state.ingredients)
 
 export default ingredientReducer

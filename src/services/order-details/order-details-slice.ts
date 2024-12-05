@@ -1,67 +1,48 @@
-import { asyncThunkCreator, buildCreateSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-import { baseApiUrl, ordersSlug } from '../../utils/api/constants'
-import { clearIngredients } from '../burger-constructor/burger-constructor-slice'
-import { clearQuantity } from '../ingredients/ingredient-slice'
+import { createOrder } from './create-order'
 
-import { OrderDetails, OrderDetailsSchema } from './types'
-
-const createSliceWithThunks = buildCreateSlice({
-  creators: { asyncThunk: asyncThunkCreator },
-})
+import type { OrderDetailsSchema } from './types'
 
 const initialState: OrderDetailsSchema = {
   isLoading: false,
+  orderDetails: {
+    order: {
+      number: 0,
+    },
+    name: '',
+    success: false,
+  },
 }
 
-export const orderDetailsSlice = createSliceWithThunks({
+export const orderDetailsSlice = createSlice({
   name: 'orderDetails',
   initialState,
-  reducers: create => ({
-    addOrderDetails: create.asyncThunk<OrderDetails, { data: string[] }>(
-      async ({ data }, { dispatch }) => {
-        const response = await fetch(`${baseApiUrl}/${ordersSlug}`, {
-          method: 'POST',
-          body: JSON.stringify(data),
-        })
-
-        if (response.ok) {
-          dispatch(clearQuantity())
-          dispatch(clearIngredients())
-        }
-
-        return response.json()
-      },
-      {
-        pending: state => {
-          state.isLoading = true
-        },
-        rejected: (state, action) => {
-          state.error = action.payload ?? action.error
-        },
-        fulfilled: (state, { payload }) => {
-          const { name, order } = payload
-
-          state.name = name
-          state.order = order
-        },
-        settled: state => {
-          state.isLoading = false
-        },
-      },
-    ),
-  }),
-
-  selectors: {
-    getOrderNumber: state => state.order?.number,
-    getOrderName: state => state.name,
+  reducers: {
+    clearDetailsData: state => {
+      state.isLoading = false
+      state.error = undefined
+      state.orderDetails = initialState.orderDetails
+    },
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(createOrder.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(createOrder.fulfilled, (state, { payload }) => {
+        state.orderDetails = payload
+        state.isLoading = false
+      })
+      .addCase(createOrder.rejected, state => {
+        state.isLoading = false
+        state.error = 'Something went wrong'
+      })
   },
 })
 
-const { reducer: orderDetailsReducer, selectors, actions } = orderDetailsSlice
+const { reducer: orderDetailsReducer, actions } = orderDetailsSlice
 
-export const { addOrderDetails } = actions
-
-export const { getOrderNumber } = selectors
+export const { clearDetailsData } = actions
 
 export default orderDetailsReducer

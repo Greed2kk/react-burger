@@ -4,12 +4,10 @@ import { useAppDispatch, useAppSelector } from '../app/store/store'
 
 import { Modal } from '../modal/modal'
 
-import {
-  clearIngredientData,
-  getIngredientData,
-} from '../../services/ingredient-details/ingredient-details-slice'
+import { getIngredientData } from '../../services/ingredient-details/selectors'
+import { clearIngredientData } from '../../services/ingredient-details/ingredient-details-slice'
 
-import { type Ingredient } from '../../services/ingredients/types'
+import type { Ingredient } from '../../services/ingredients/types'
 
 import styles from './ingredient-details.module.css'
 
