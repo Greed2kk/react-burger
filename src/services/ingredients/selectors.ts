@@ -14,6 +14,9 @@ import { Categories, Ingredient, IngredientType } from './types'
 export const getIngredientsError = (state: StateSchema): string | undefined =>
   state.ingredients?.error
 
+export const getIngredientsIsLoading = (state: StateSchema): boolean =>
+  state.ingredients.isLoading
+
 export const getIngredientQuantity = (_id: string) => (state: RootState) =>
   selectById(state, _id).qty
 
@@ -22,8 +25,8 @@ export const getIngredients = createSelector(
   ingredients => {
     const categories: Categories = {
       [IngredientType.BUN]: [],
-      [IngredientType.MAIN]: [],
       [IngredientType.SAUCE]: [],
+      [IngredientType.MAIN]: [],
     }
 
     ingredients.forEach(

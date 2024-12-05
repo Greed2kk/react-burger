@@ -1,28 +1,27 @@
-import { FC, UIEvent, useCallback, useEffect, useState } from 'react'
-
-import { useAppDispatch, useAppSelector } from '../app/store/store'
-
-import { useSectionsRefContext } from '../../providers/category-ref-provider'
-
-import { Tabs } from '../tabs/tabs'
+import { FC, useCallback, useEffect, useState } from 'react'
 
 import { fetchIngredients } from '../../services/ingredients/fetch-ingredients'
 
 import {
   getIngredients,
   getIngredientsError,
+  getIngredientsIsLoading,
 } from '../../services/ingredients/selectors'
 
-import { throttle } from '../../utils/helpers/throttle'
+import { IngredientType } from '../../services/ingredients/types'
+
+import { useAppDispatch, useAppSelector } from '../app/store/store'
+
+import type { TabsOptions } from '../tabs/tabs'
+import { Tabs } from '../tabs/tabs'
 
 import { IngredientsList } from './ingredients-list/ingredients-list'
 
-import { IngredientType } from '../../services/ingredients/types'
-import type { TabsOptions } from '../tabs/tabs'
+const ingredientsOrder = ['bun', 'sauce', 'main']
 
 export const BurgerIngredients: FC = () => {
   const [activeTab, setActive] = useState(IngredientType.BUN)
-  const sectionsRefs = useSectionsRefContext()
+  const [categoriesInView, setCategoriesInView] = useState<IngredientType[]>([])
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -32,76 +31,61 @@ export const BurgerIngredients: FC = () => {
   const ingredients = useAppSelector(getIngredients)
 
   const error = useAppSelector(getIngredientsError)
+  const isLoading = useAppSelector(getIngredientsIsLoading)
 
   const ingredientsTabs: TabsOptions[] = [
-    { value: Object.keys(sectionsRefs)[0], name: 'Булки' },
-    { value: Object.keys(sectionsRefs)[1], name: 'Начинки' },
-    { value: Object.keys(sectionsRefs)[2], name: 'Соусы' },
+    { value: IngredientType.BUN, name: 'Булки' },
+    { value: IngredientType.SAUCE, name: 'Соусы' },
+    { value: IngredientType.MAIN, name: 'Начинки' },
   ]
 
-  const handleScroll = useCallback(
-    (e: UIEvent<HTMLElement>): void => {
-      const container = e.currentTarget
-
-      if (!container) return
-
-      const containerRect = container.getBoundingClientRect()
-
-      let mostVisibleSection: string | null = null
-      let maxVisibleHeight = 0
-
-      Object.entries(sectionsRefs).forEach(([key, ref]) => {
-        const section = ref.current
-
-        if (!section) return
-
-        const sectionRect = section.getBoundingClientRect()
-        const visibleHeight = Math.max(
-          0,
-          Math.min(containerRect.bottom, sectionRect.bottom) -
-            Math.max(containerRect.top, sectionRect.top),
-        )
-
-        if (visibleHeight > maxVisibleHeight) {
-          maxVisibleHeight = visibleHeight
-          mostVisibleSection = key
+  const setActiveTab = useCallback(
+    (category: IngredientType, inView: boolean): void => {
+      setCategoriesInView(prev => {
+        if (inView && !prev.includes(category)) {
+          return [...prev, category]
         }
-      })
 
-      if (mostVisibleSection) {
-        setActive(mostVisibleSection as IngredientType)
-      }
+        if (!inView) {
+          return [...prev].filter(cure => cure !== category)
+        }
+
+        return prev
+      })
     },
-    [sectionsRefs],
+    [],
   )
 
-  const throttledHandleScroll = throttle(handleScroll, 200)
+  useEffect(() => {
+    console.log(categoriesInView)
+
+    if (categoriesInView.length > 0) {
+      setActive(
+        categoriesInView.sort(
+          (a, b) => ingredientsOrder.indexOf(a) - ingredientsOrder.indexOf(b),
+        )[0],
+      )
+    }
+  }, [categoriesInView, categoriesInView.length])
 
   if (error) {
     return <h1>{error}</h1>
-  }
-
-  const tabClickHandler = (section: string): void => {
-    setActive(section as IngredientType)
-
-    sectionsRefs[section as IngredientType]?.current?.scrollIntoView()
   }
 
   return (
     <section className="mt-10">
       <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
 
-      <Tabs
-        tabs={ingredientsTabs}
-        currentTab={activeTab}
-        tabClickHandler={tabClickHandler}
-        className="mb-10"
-      />
+      <Tabs tabs={ingredientsTabs} currentTab={activeTab} className="mb-10" />
 
-      <IngredientsList
-        ingredients={ingredients}
-        handleScroll={throttledHandleScroll}
-      />
+      {!isLoading ? (
+        <IngredientsList
+          ingredients={ingredients}
+          setActiveTab={setActiveTab}
+        />
+      ) : (
+        <h1>Загрузка...</h1>
+      )}
     </section>
   )
 }

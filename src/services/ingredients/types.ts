@@ -1,14 +1,14 @@
 import { EntityState } from '@reduxjs/toolkit'
 
 export interface IngredientsSchema extends EntityState<Ingredient, string> {
-  isLoading?: boolean
+  isLoading: boolean
   error?: string
 }
 
 export enum IngredientType {
   BUN = 'bun',
-  MAIN = 'main',
   SAUCE = 'sauce',
+  MAIN = 'main',
 }
 
 export interface IngredientResponse {
@@ -33,6 +33,6 @@ export interface Ingredient {
 
 export interface Categories {
   [IngredientType.BUN]: Ingredient['_id'][]
-  [IngredientType.MAIN]: Ingredient['_id'][]
   [IngredientType.SAUCE]: Ingredient['_id'][]
+  [IngredientType.MAIN]: Ingredient['_id'][]
 }
