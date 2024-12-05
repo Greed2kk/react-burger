@@ -8,14 +8,12 @@ export interface CustomApi<T, B> {
     slug: ApiResources,
     body: B,
     options?: RequestInit,
-    callback?: () => void,
   ) => Promise<T>
 }
 
 const customFetch = async <T>(
   slug: ApiResources,
   options: RequestInit = {},
-  callback?: () => void,
 ): Promise<T> => {
   const headers = {
     'Content-Type': 'application/json',
@@ -31,8 +29,6 @@ const customFetch = async <T>(
     throw new Error(`Request failed with status: ${response.status}`)
   }
 
-  callback && callback()
-
   return await response.json()
 }
 
@@ -45,7 +41,6 @@ export const post = <T, B>(
   slug: ApiResources,
   body: B,
   options: RequestInit = {},
-  callback?: () => void,
 ): Promise<T> =>
     customFetch(
       slug,
@@ -55,7 +50,6 @@ export const post = <T, B>(
 
         ...options,
       },
-      callback,
     )
 
 export const api: CustomApi<void, any> = {
