@@ -57,8 +57,6 @@ export const BurgerIngredients: FC = () => {
   )
 
   useEffect(() => {
-    console.log(categoriesInView)
-
     if (categoriesInView.length > 0) {
       setActive(
         categoriesInView.sort(
