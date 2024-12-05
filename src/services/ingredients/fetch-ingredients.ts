@@ -8,5 +8,5 @@ import type { IngredientResponse } from './types'
 
 export const fetchIngredients = createAsyncThunk<IngredientResponse>(
   'ingredients/fetchIngredients',
-  async () => await api.get(ingredientsSlug).then(),
+  async () => await api.get(ingredientsSlug),
 )

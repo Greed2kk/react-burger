@@ -2,6 +2,9 @@ import { FC, useState } from 'react'
 
 import classNames from 'classnames'
 
+import { clearIngredients } from '../../services/burger-constructor/burger-constructor-slice'
+import { clearQuantity } from '../../services/ingredients/ingredient-slice'
+
 import { createOrder } from '../../services/order-details/create-order'
 import { clearDetailsData } from '../../services/order-details/order-details-slice'
 import { getOrderIsLoading } from '../../services/order-details/selectors'
@@ -37,7 +40,10 @@ export const BurgerConstructor: FC = () => {
   const onOrderAccept = (): void => {
     setOrderComplete(!orderComplete)
 
-    dispatch(createOrder({ data: orderIngredients }))
+    dispatch(createOrder({ data: orderIngredients })).then(() => {
+      dispatch(clearQuantity())
+      dispatch(clearIngredients())
+    })
   }
 
   const onCloseModal = (): void => {

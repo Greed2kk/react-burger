@@ -10,5 +10,5 @@ export const createOrder = createAsyncThunk<OrderResponse, { data: string[] }>(
   async ({ data }) =>
     await api.post(ordersSlug, {
       ingredients: data,
-    }).then(),
+    }),
 )

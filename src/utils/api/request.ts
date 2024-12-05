@@ -1,14 +1,10 @@
 import { baseApiUrl } from './constants'
 
-import { ApiResources } from './types'
+import type { ApiResources } from './types'
 
-export interface CustomApi<T, B> {
-  get: (slug: ApiResources, options?: RequestInit) => Promise<T>
-  post: (
-    slug: ApiResources,
-    body: B,
-    options?: RequestInit,
-  ) => Promise<T>
+export interface CustomApi {
+  get: <T>(slug: ApiResources, options?: RequestInit) => Promise<T>
+  post: <T, B>(slug: ApiResources, body: B, options?: RequestInit) => Promise<T>
 }
 
 const customFetch = async <T>(
@@ -17,42 +13,50 @@ const customFetch = async <T>(
 ): Promise<T> => {
   const headers = {
     'Content-Type': 'application/json',
-    ...options.headers,
+    ...(options.headers || {}),
   }
 
-  const response = await fetch(`${baseApiUrl}/${slug}`, {
-    ...options,
-    headers,
-  })
+  try {
+    const response = await fetch(`${baseApiUrl}/${slug}`, {
+      ...options,
+      headers,
+    })
 
-  if (!response.ok) {
-    throw new Error(`Request failed with status: ${response.status}`)
+    if (!response.ok) {
+      const errorDetails = await response.text()
+
+      throw new Error(
+        `Request to ${slug} failed with status: ${response.status} - ${errorDetails}`,
+      )
+    }
+
+    return await response.json()
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('API Error:', error.message)
+      throw error
+    }
+    throw new Error('An unknown error occurred')
   }
-
-  return await response.json()
 }
 
-export const get = <T>(
+export const get = async <T>(
   slug: ApiResources,
   options: RequestInit = {},
-): Promise<T> => customFetch(slug, { method: 'GET', ...options })
+): Promise<T> => customFetch<T>(slug, { method: 'GET', ...options })
 
-export const post = <T, B>(
+export const post = async <T, B>(
   slug: ApiResources,
   body: B,
   options: RequestInit = {},
 ): Promise<T> =>
-    customFetch(
-      slug,
-      {
-        method: 'POST',
-        body: JSON.stringify(body),
+  customFetch<T>(slug, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    ...options,
+  })
 
-        ...options,
-      },
-    )
-
-export const api: CustomApi<void, any> = {
+export const api: CustomApi = {
   get,
   post,
 }
