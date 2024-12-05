@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../app/store/store'
 import {
   selectBunId,
   selectIngredientsIds,
-} from '../../services/burger-constructor/selectors/selectors'
+} from '../../services/burger-constructor/selectors'
 import { addOrderDetails } from '../../services/order-details/order-details-slice'
 
 import { Modal } from '../modal/modal'

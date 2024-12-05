@@ -44,17 +44,18 @@ export const burgerConstructorSlice = createSlice({
   },
 })
 
-export const { reducer: burgerConstructorReducer, selectors } =
-  burgerConstructorSlice
+const { reducer: burgerConstructorReducer, actions } = burgerConstructorSlice
 
 export const {
   addIngredient,
   removeIngredient,
   clearIngredients,
   setIngredientsOrder,
-} = burgerConstructorSlice.actions
+} = actions
 
 export const { selectAll: selectAllBurgerIngredients } =
   burgerConstructorAdapter.getSelectors(
     (state: RootState) => state.burgerConstructor,
   )
+
+export default burgerConstructorReducer

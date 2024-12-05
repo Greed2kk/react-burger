@@ -1,7 +1,7 @@
 export {
   getIngredientsError,
   getIngredientsIsLoading,
-} from './ingredients/selectors/ingredients'
+} from './ingredients/ingredients'
 
 export { fetchIngredients } from './ingredients/fetch-ingredients'
 

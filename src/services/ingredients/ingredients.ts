@@ -1,15 +1,15 @@
 import { createSelector, Selector } from '@reduxjs/toolkit'
 
-import { RootState } from '../../../components/app/store/store'
-import { StateSchema } from '../../../components/app/store/types'
+import { RootState } from '../../components/app/store/store'
+import { StateSchema } from '../../components/app/store/types'
 
 import {
   selectAllIngredients,
-  selectIngredientById,
   selectIngredientEntities,
-} from '../ingredient-slice'
+  selectById,
+} from './ingredient-slice'
 
-import { Categories, Ingredient, IngredientType } from '../types'
+import { Categories, Ingredient, IngredientType } from './types'
 
 export const getIngredientsIsLoading = (
   state: StateSchema,
@@ -18,11 +18,11 @@ export const getIngredientsIsLoading = (
 export const getIngredientsError = (state: StateSchema): string | undefined =>
   state.ingredients?.error
 
-export const makeSelectIngredientById = (id: string) => (state: RootState) =>
-  selectIngredientById(state, id)
+export const selectIngredientById = (id: string) => (state: RootState) =>
+  selectById(state, id)
 
 export const getIngredientQuantity = (_id: string) => (state: RootState) =>
-  selectIngredientById(state, _id).qty
+  selectById(state, _id).qty
 
 export const getIngredients = createSelector(
   selectAllIngredients,

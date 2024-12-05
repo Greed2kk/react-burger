@@ -80,14 +80,14 @@ export const ingredientSlice = createSlice({
   },
 })
 
-export const { reducer: ingredientsReducer, actions: ingredientsActions } =
-  ingredientSlice
+const { reducer: ingredientReducer, actions } = ingredientSlice
 
-export const { increaseQuantity, decreaseQuantity, clearQuantity } =
-  ingredientsActions
+export const { increaseQuantity, decreaseQuantity, clearQuantity } = actions
 
 export const {
   selectAll: selectAllIngredients,
-  selectById: selectIngredientById,
+  selectById,
   selectEntities: selectIngredientEntities,
 } = ingredientsAdapter.getSelectors((state: RootState) => state.ingredients)
+
+export default ingredientReducer

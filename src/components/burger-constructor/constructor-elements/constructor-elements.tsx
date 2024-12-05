@@ -13,7 +13,7 @@ import {
 import {
   selectBun,
   selectIngredients,
-} from '../../../services/burger-constructor/selectors/selectors'
+} from '../../../services/burger-constructor/selectors'
 import { BurgerIngredient } from '../../../services/burger-constructor/types'
 import {
   decreaseQuantity,

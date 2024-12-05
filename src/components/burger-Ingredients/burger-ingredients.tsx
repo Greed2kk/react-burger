@@ -1,7 +1,7 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
 
 import { useSectionsRefContext } from '../../providers/category-ref-provider'
-import { getIngredients } from '../../services/ingredients/selectors/ingredients'
+import { getIngredients } from '../../services/ingredients/ingredients'
 import { IngredientType } from '../../services/ingredients/types'
 import { throttle } from '../../utils/helpers/throttle'
 

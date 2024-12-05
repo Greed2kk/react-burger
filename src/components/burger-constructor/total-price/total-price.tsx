@@ -3,7 +3,7 @@ import { FC } from 'react'
 import classNames from 'classnames'
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { selectTotalPrice } from '../../../services/burger-constructor/selectors/selectors'
+import { selectTotalPrice } from '../../../services/burger-constructor/selectors'
 
 import { useAppSelector } from '../../app/store/store'
 

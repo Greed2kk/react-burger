@@ -58,12 +58,10 @@ export const orderDetailsSlice = createSliceWithThunks({
   },
 })
 
-export const {
-  reducer: orderDetailsReducer,
-  selectors: orderDetailsSelectors,
-  actions: orderDetailsActions,
-} = orderDetailsSlice
+const { reducer: orderDetailsReducer, selectors, actions } = orderDetailsSlice
 
-export const { addOrderDetails } = orderDetailsActions
+export const { addOrderDetails } = actions
 
-export const { getOrderNumber } = orderDetailsSelectors
+export const { getOrderNumber } = selectors
+
+export default orderDetailsReducer

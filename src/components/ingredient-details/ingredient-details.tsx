@@ -1,12 +1,15 @@
 import { FC } from 'react'
 
-import { useAppSelector } from '../app/store/store'
-
-import { makeSelectIngredientById } from '../../services/ingredients/selectors/ingredients'
-
-import { Ingredient } from '../../services/ingredients/types'
+import { useAppDispatch, useAppSelector } from '../app/store/store'
 
 import { Modal } from '../modal/modal'
+
+import {
+  clearIngredientData,
+  getIngredientData,
+} from '../../services/ingredient-details/ingredient-details-slice'
+
+import { type Ingredient } from '../../services/ingredients/types'
 
 import styles from './ingredient-details.module.css'
 
@@ -14,7 +17,6 @@ interface IngredientEnergyValue
   extends Pick<Ingredient, 'carbohydrates' | 'proteins' | 'fat' | 'calories'> {}
 
 interface IngredientDetailsProps {
-  id: Ingredient['_id']
   closeModal: () => void
 }
 
@@ -27,10 +29,11 @@ const humanNames: Record<keyof IngredientEnergyValue, string> = {
 
 export const IngredientDetails: FC<IngredientDetailsProps> = ({
   closeModal,
-  id,
 }) => {
-  const { name, image_large, calories, proteins, fat, carbohydrates } =
-    useAppSelector(makeSelectIngredientById(id))
+  const dispatch = useAppDispatch()
+
+  const { calories, proteins, fat, carbohydrates, name, image_large } =
+    useAppSelector(getIngredientData)
 
   const compound: [string, number][] = Object.entries({
     calories,
@@ -39,9 +42,16 @@ export const IngredientDetails: FC<IngredientDetailsProps> = ({
     carbohydrates,
   })
 
+  const onCloseHandler = (): void => {
+    closeModal()
+
+    dispatch(clearIngredientData())
+  }
+
   return (
-    <Modal headerText="Детали ингредиента" onCloseHandler={closeModal}>
+    <Modal headerText="Детали ингредиента" onCloseHandler={onCloseHandler}>
       <img src={image_large} alt={name} className="pl-5 pr-5" />
+
       <p className="text text_type_main-medium mt-4 mb-8">{name}</p>
 
       <div className={styles.energyValue}>

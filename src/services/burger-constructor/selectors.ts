@@ -1,8 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-import { IngredientType } from '../../ingredients/types'
+import { IngredientType } from '../ingredients/types'
 
-import { selectAllBurgerIngredients } from '../burger-constructor-slice'
+import { selectAllBurgerIngredients } from './burger-constructor-slice'
 
 export const selectBunId = createSelector(
   selectAllBurgerIngredients,

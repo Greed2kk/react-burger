@@ -4,18 +4,20 @@ import classNames from 'classnames'
 
 import { useDrag } from 'react-dnd'
 
+import { useAppDispatch, useAppSelector } from '../../../../app/store/store'
+
 import {
   Counter,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
+import { addIngredientData } from '../../../../../services/ingredient-details/ingredient-details-slice'
 
-import { getIngredientQuantity } from '../../../../../services/ingredients/selectors/ingredients'
+import { getIngredientQuantity } from '../../../../../services/ingredients/ingredients'
 
 import {
-  Ingredient,
+  type Ingredient,
   IngredientType,
 } from '../../../../../services/ingredients/types'
-import { useAppSelector } from '../../../../app/store/store'
 
 import { IngredientDetails } from '../../../../ingredient-details/ingredient-details'
 
@@ -27,10 +29,11 @@ interface IngredientItemProps {
   ingredient: Ingredient
 }
 
-export const IngredientCard: FC<IngredientItemProps> = ({
-  ingredient: { image, name, price, _id, type, image_mobile },
-}) => {
+export const IngredientCard: FC<IngredientItemProps> = ({ ingredient }) => {
+  const { image, name, price, _id, type, image_mobile } = ingredient
   const [openDetails, setOpenDetails] = useState(false)
+
+  const dispatch = useAppDispatch()
 
   const quantity = useAppSelector(getIngredientQuantity(_id))
 
@@ -50,6 +53,8 @@ export const IngredientCard: FC<IngredientItemProps> = ({
   }))
 
   const handleDetailsClick = (): void => {
+    dispatch(addIngredientData(ingredient))
+
     setOpenDetails(true)
   }
 
@@ -89,9 +94,7 @@ export const IngredientCard: FC<IngredientItemProps> = ({
         </p>
       </div>
 
-      {openDetails && (
-        <IngredientDetails id={_id} closeModal={handleCloseDetails} />
-      )}
+      {openDetails && <IngredientDetails closeModal={handleCloseDetails} />}
     </Fragment>
   )
 }
