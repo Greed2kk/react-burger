@@ -1,44 +1,47 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 
-import { IngredientsItems } from '../ingredients-items/ingredients-items'
+import { useInView } from 'react-intersection-observer'
 
 import {
-  Ingredients,
+  Ingredient,
   IngredientType,
-} from '../../../pages/burger-constructor-page/types'
+} from '../../../../services/ingredients/types'
+
+import { IngredientsItems } from '../ingredients-items/ingredients-items'
 
 import styles from './ingredients-category.module.css'
 
 interface IngredientsCategoryProps {
   category: IngredientType
-  ingredients: Ingredients[]
-  itemsId: string[]
+  ingredientsIds: Ingredient['_id'][]
+  setActiveTab: (
+    category: IngredientType,
+    inView: boolean,
+  ) => void
 }
 
-export type CategoriesNames = {
-  [IngredientType.BUN]: 'Булки'
-  [IngredientType.MAIN]: 'Начинки'
-  [IngredientType.SAUCE]: 'Соусы'
+const categoryNames = {
+  [IngredientType.BUN]: 'Булки',
+  [IngredientType.SAUCE]: 'Соусы',
+  [IngredientType.MAIN]: 'Начинки',
 }
 
-export const IngredientsCategory: FC<IngredientsCategoryProps> = (props) => {
-  const { category, itemsId, ingredients } = props
+export const IngredientsCategory: FC<IngredientsCategoryProps> = ({
+  ingredientsIds,
+  category,
+  setActiveTab,
+}) => {
+  const { ref, inView } = useInView({ threshold: 0.1 })
 
-  const categoryNames: CategoriesNames = {
-    [IngredientType.BUN]: 'Булки',
-    [IngredientType.MAIN]: 'Начинки',
-    [IngredientType.SAUCE]: 'Соусы',
-  }
-
-  const categoryIngredients = ingredients.filter(({ _id }) =>
-    itemsId.some((id) => _id === id)
-  )
+  useEffect(() => {
+    setActiveTab(category, inView)
+  }, [category, inView, setActiveTab])
 
   return (
-    <section className={styles.ingredientsCategory}>
-      <p className='text text_type_main-medium'>{categoryNames[category]}</p>
+    <section className={styles.ingredientsCategory} ref={ref}>
+      <p className="text text_type_main-medium">{categoryNames[category]}</p>
 
-      <IngredientsItems categoryIngredients={categoryIngredients} />
+      <IngredientsItems ingredientsIds={ingredientsIds} />
     </section>
   )
 }

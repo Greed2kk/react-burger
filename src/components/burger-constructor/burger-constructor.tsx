@@ -1,59 +1,68 @@
 import { FC, useState } from 'react'
 
 import classNames from 'classnames'
-import { Modal } from '../modal/modal'
+
+import { clearIngredients } from '../../services/burger-constructor/burger-constructor-slice'
+import { clearQuantity } from '../../services/ingredients/ingredient-slice'
+
+import { createOrder } from '../../services/order-details/create-order'
+import { clearDetailsData } from '../../services/order-details/order-details-slice'
+import { getOrderIsLoading } from '../../services/order-details/selectors'
+
+import { useAppDispatch, useAppSelector } from '../app/store/store'
 
 import {
-  Ingredients,
-  IngredientType,
-} from '../pages/burger-constructor-page/types'
+  selectBunId,
+  selectIngredientsIds,
+} from '../../services/burger-constructor/selectors'
+
+import { Modal } from '../modal/modal'
 
 import { OrderDetails } from '../order-details/order-details'
 import { ConstructorElements } from './constructor-elements/constructor-elements'
 import { TotalPrice } from './total-price/total-price'
 
-import { OrderData } from './total-price/types'
-
 import styles from './burger-constructor.module.css'
 
-interface BurgerConstructorProps extends OrderData {}
-
-export const BurgerConstructor: FC<BurgerConstructorProps> = ({
-  id,
-  status,
-  recommendation,
-  ingredients,
-}) => {
+export const BurgerConstructor: FC = () => {
   const [orderComplete, setOrderComplete] = useState(false)
 
-  const bun = ingredients.find(({ type }) => type === IngredientType.BUN)
+  const dispatch = useAppDispatch()
+  const isLoading = useAppSelector(getOrderIsLoading)
 
-  const onOrderAccept = () => {
+  const bunId = useAppSelector(selectBunId)
+  const ingredientsIds = useAppSelector(selectIngredientsIds)
+
+  const orderIngredients = [bunId, ...ingredientsIds, bunId]
+
+  const disableOrder = isLoading || !bunId || !ingredientsIds.length
+
+  const onOrderAccept = (): void => {
     setOrderComplete(!orderComplete)
+
+    dispatch(createOrder({ data: orderIngredients })).then(() => {
+      dispatch(clearQuantity())
+      dispatch(clearIngredients())
+    })
   }
 
-  const allIngredients = [bun, ...ingredients] as Ingredients[]
+  const onCloseModal = (): void => {
+    setOrderComplete(!orderComplete)
 
-  const totalPrice = allIngredients.reduce(
-    (total, ingredient) => total + ingredient.price,
-    bun?.price || 0
-  )
+    dispatch(clearDetailsData())
+  }
 
   return (
     <section
       className={classNames(styles.burgerConstructor, 'mt-25 ml-4 mr-4')}
     >
-      <ConstructorElements allIngredients={allIngredients} />
+      <ConstructorElements />
 
-      <TotalPrice total={totalPrice} onOrderAccept={onOrderAccept} />
+      <TotalPrice onOrderAccept={onOrderAccept} disabled={disableOrder} />
 
-      {orderComplete && (
-        <Modal onCloseHandler={onOrderAccept} >
-          <OrderDetails
-            orderNumber={id}
-            recommendation={recommendation}
-            status={status}
-          />
+      {!isLoading && orderComplete && (
+        <Modal onCloseHandler={onCloseModal}>
+          <OrderDetails />
         </Modal>
       )}
     </section>

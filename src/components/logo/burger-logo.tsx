@@ -8,11 +8,12 @@ interface BurgerLogoProps {
   className?: string
 }
 
-export const BurgerLogo: FC<BurgerLogoProps> = (props) => {
+export const BurgerLogo: FC<BurgerLogoProps> = props => {
   const { className } = props
 
   return (
-    <Link ariaLabel='Обновить стриницу' className={className}>
+    // eslint-disable-next-line jsx-a11y/anchor-is-valid
+    <Link ariaLabel="Обновить стриницу" className={className}>
       <Logo />
     </Link>
   )

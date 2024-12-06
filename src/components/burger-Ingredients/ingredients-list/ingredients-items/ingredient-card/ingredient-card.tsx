@@ -1,59 +1,90 @@
-import { FC, useState } from 'react'
+import { FC, Fragment, useState } from 'react'
 
 import classNames from 'classnames'
+
+import { useDrag } from 'react-dnd'
+
+import { useAppDispatch, useAppSelector } from '../../../../app/store/store'
 
 import {
   Counter,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
+import { addIngredientData } from '../../../../../services/ingredient-details/ingredient-details-slice'
+
+import { getIngredientQuantity } from '../../../../../services/ingredients/selectors'
+
+import {
+  type Ingredient,
+  IngredientType,
+} from '../../../../../services/ingredients/types'
 
 import { IngredientDetails } from '../../../../ingredient-details/ingredient-details'
-import { Ingredients } from '../../../../pages/burger-constructor-page/types'
+
+import { DndType } from './types'
 
 import styles from './ingredient-card.module.css'
 
 interface IngredientItemProps {
-  item: Ingredients
+  ingredient: Ingredient
 }
 
-export const IngredientCard: FC<IngredientItemProps> = ({
-  item: {
-    image,
-    name,
-    price,
-    __v,
-    image_large,
-    fat,
-    proteins,
-    carbohydrates,
-    calories,
-  },
-}) => {
+export const IngredientCard: FC<IngredientItemProps> = ({ ingredient }) => {
+  const { image, name, price, _id, type, image_mobile } = ingredient
   const [openDetails, setOpenDetails] = useState(false)
 
-  const hasCounter = !!__v
+  const dispatch = useAppDispatch()
 
-  const handleDetailsClick = () => {
+  const quantity = useAppSelector(getIngredientQuantity(_id))
+
+  const [{ isDrag }, dragRef] = useDrag(() => ({
+    type: type === IngredientType.BUN ? DndType.BUN : DndType.INGREDIENT,
+    item: {
+      _id,
+      price,
+      type,
+      name,
+      imageMobile: image_mobile,
+    },
+    collect: monitor => ({
+      isDrag: monitor.isDragging(),
+      handlerId: monitor.getHandlerId(),
+    }),
+  }))
+
+  const handleDetailsClick = (): void => {
+    dispatch(addIngredientData(ingredient))
+
     setOpenDetails(true)
   }
 
-  const handleCloseDetails = () => {
+  const handleCloseDetails = (): void => {
     setOpenDetails(false)
   }
 
   return (
-    <>
-      <div className={styles.ingredientCard} onClick={handleDetailsClick}>
+    <Fragment>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+      <div
+        ref={dragRef}
+        className={classNames(styles.ingredientCard, { [styles.drag]: isDrag })}
+        onClick={handleDetailsClick}
+        draggable
+      >
         <div className={classNames(styles.imageContainer, 'mb-1 pl-4 pr-4')}>
           <img src={image} alt={image} />
-          {hasCounter && (
-            <Counter count={__v} size='default' extraClass={styles.counter} />
+          {!!quantity && (
+            <Counter
+              count={quantity}
+              size="default"
+              extraClass={styles.counter}
+            />
           )}
         </div>
 
         <span className={classNames(styles.price, 'mb-1')}>
-          <p className='text text_type_digits-default mr-2'>{price}</p>
-          <CurrencyIcon type='primary' />
+          <p className="text text_type_digits-default mr-2">{price}</p>
+          <CurrencyIcon type="primary" />
         </span>
 
         <p
@@ -63,15 +94,7 @@ export const IngredientCard: FC<IngredientItemProps> = ({
         </p>
       </div>
 
-      {openDetails && (
-        <IngredientDetails
-          isOpen={openDetails}
-          image={image_large}
-          name={name}
-          closeModal={handleCloseDetails}
-          energyValue={{ calories, proteins, fat, carbohydrates }}
-        />
-      )}
-    </>
+      {openDetails && <IngredientDetails closeModal={handleCloseDetails} />}
+    </Fragment>
   )
 }

@@ -1,0 +1,151 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["react-app"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  },
+  "rules": {
+    "semi": ["error", "never"],
+    "jsx-a11y/anchor-is-valid": "off",
+    "arrow-body-style": ["error", "as-needed"],
+    "jsx-quotes": ["error", "prefer-double"],
+    "global-require": "off",
+    "guard-for-in": "off",
+    "implicit-arrow-linebreak": "off",
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 100,
+        "ignoreComments": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true
+      }
+    ],
+    "no-await-in-loop": "off",
+    "no-continue": "off",
+    "no-shadow": "off",
+    "no-nested-ternary": "off",
+    "no-param-reassign": "off",
+    "no-plusplus": "off",
+    "no-restricted-syntax": "off",
+    "no-underscore-dangle": "off",
+    "no-unused-vars": "off",
+    "no-empty": [
+      "error",
+      {
+        "allowEmptyCatch": true
+      }
+    ],
+    "object-curly-newline": [
+      "warn",
+      {
+        "multiline": true,
+        "consistent": true
+      }
+    ],
+    "camelcase": "off",
+    "no-void": "off",
+    "consistent-return": "error",
+    "default-param-last": "off",
+    "arrow-parens": ["error", "as-needed"],
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "newline-before-return": "warn",
+    "newline-after-var": "warn",
+    "import/prefer-default-export": "off",
+    "import/extensions": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
+    "import/no-unresolved": "off",
+    "@typescript-eslint/no-unused-vars": ["warn"],
+    "@typescript-eslint/no-shadow": ["error"],
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/member-delimiter-style": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/prefer-regexp-exec": "off",
+    "@typescript-eslint/unbound-method": "off",
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/explicit-function-return-type": [
+      1,
+      {
+        "allowExpressions": true
+      }
+    ],
+    "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "jsx-a11y/no-static-element-interactions": "warn",
+    "react/jsx-key": "error",
+    "react/prop-types": "off",
+    "react/no-unused-prop-types": "off",
+    "react/require-default-props": "off",
+    "react/display-name": "off",
+    "react/jsx-uses-vars": "error",
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": true
+      }
+    ],
+    "react/jsx-filename-extension": "off",
+    "react/jsx-wrap-multilines": "off",
+    "react/jsx-indent-props": ["error", 2],
+    "react/jsx-indent": ["error", 2],
+    "react/jsx-fragments": ["error", "element"],
+    "react/jsx-one-expression-per-line": [
+      "error",
+      {
+        "allow": "single-child"
+      }
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "react/no-unstable-nested-components": "off",
+    "react/jsx-no-constructed-context-values": "warn",
+    "react/jsx-no-useless-fragment": "warn",
+    "react/jsx-uses-react": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/function-component-definition": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.test.tsx", "*.test.ts"],
+      "rules": {
+        "i18next/no-literal-string": "off"
+      }
+    }
+  ]
+}

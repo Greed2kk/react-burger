@@ -10,7 +10,7 @@ interface ContentWrapperProps {
   as?: 'div' | 'main'
 }
 
-export const ContentWrapper: FC<ContentWrapperProps> = (props) => {
+export const ContentWrapper: FC<ContentWrapperProps> = props => {
   const { children, className, as = 'div' } = props
 
   switch (as) {

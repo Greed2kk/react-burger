@@ -25,3 +25,7 @@
     min-height: 43px;
     text-align: center;
 }
+
+.drag {
+    opacity: 0.5;
+}

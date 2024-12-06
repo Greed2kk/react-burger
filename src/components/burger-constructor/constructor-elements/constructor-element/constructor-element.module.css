@@ -1,6 +1,9 @@
 .constructorElement {
     display: flex;
     align-items: center;
+    scroll-snap-align: end;
+    width: 100%;
+    justify-content: flex-end;
 }
 
 .constructorElementItem {
@@ -13,4 +16,8 @@
 
 .dragElementItem:active {
     cursor: grabbing;
+}
+
+.isDragging {
+    opacity: 0.5;
 }

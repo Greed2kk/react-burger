@@ -1,70 +1,123 @@
-import { FC } from 'react'
+import { FC, useCallback } from 'react'
+
+import { useDrop } from 'react-dnd'
+
+import { v4 as uuidv4 } from 'uuid'
 
 import {
-  Ingredients,
-  IngredientType,
-} from '../../pages/burger-constructor-page/types'
+  addIngredient,
+  setIngredientsOrder,
+} from '../../../services/burger-constructor/burger-constructor-slice'
+
+import {
+  selectBun,
+  selectIngredients,
+} from '../../../services/burger-constructor/selectors'
+
+import { BurgerIngredient } from '../../../services/burger-constructor/types'
+
+import {
+  decreaseQuantity,
+  increaseQuantity,
+} from '../../../services/ingredients/ingredient-slice'
+
+import { IngredientType } from '../../../services/ingredients/types'
+
+import { useAppDispatch, useAppSelector } from '../../app/store/store'
+
+import { DndType } from '../../burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
 
 import { ConstructorElement } from './constructor-element/constructor-element'
 import { ConstructorElementType } from './constructor-element/types'
 
 import styles from './constructor-elements.module.css'
 
-interface ConstructorElementProps {
-  allIngredients: Ingredients[]
-}
+import { ConstructorPlaceholder } from './constructor-placeholder/constructor-placeholder'
 
-export const ConstructorElements: FC<ConstructorElementProps> = (props) => {
-  const { allIngredients } = props
+export const ConstructorElements: FC = () => {
+  const dispatch = useAppDispatch()
 
-  const bun = allIngredients.find(({ type }) => type === IngredientType.BUN)
+  const ingredients = useAppSelector(selectIngredients)
+  const bun = useAppSelector(selectBun)
 
-  const sauces = allIngredients.filter(
-    ({ type }) => type === IngredientType.SAUCE
+  const handleDrop = useCallback(
+    (item: BurgerIngredient): void => {
+      const { _id, price, type, imageMobile, name } = item
+
+      dispatch(
+        addIngredient({ id: uuidv4(), _id, price, type, imageMobile, name }),
+      )
+      if (bun && type === IngredientType.BUN) {
+        dispatch(decreaseQuantity({ _id: bun._id }))
+      }
+
+      dispatch(increaseQuantity({ _id }))
+    },
+    [bun, dispatch],
   )
 
-  const main = allIngredients.filter(({ type }) => type === IngredientType.MAIN)
+  const [, dropTarget] = useDrop({
+    accept: [DndType.BUN, DndType.INGREDIENT],
+    drop: handleDrop,
+  })
+
+  const moveIngredient = (dragIndex: number, hoverIndex: number): void => {
+    const updatedIds = [...ingredients.map(ingredient => ingredient.id)]
+
+    const [movedItem] = updatedIds.splice(dragIndex, 1)
+
+    updatedIds.splice(hoverIndex, 0, movedItem)
+
+    dispatch(setIngredientsOrder([bun.id, ...updatedIds, bun.id]))
+  }
 
   return (
-    <section className={styles.constructorElements}>
-      {bun && (
+    <section className={styles.constructorElements} ref={dropTarget}>
+      {bun ? (
         <ConstructorElement
           type={ConstructorElementType.TOP}
-          isLocked={true}
-          text={bun.name}
+          isLocked
+          _id={bun._id}
+          id={bun._id}
+          text={`${bun.name} - Верх'`}
           price={bun.price}
-          thumbnail={bun.image_mobile}
+          thumbnail={bun.imageMobile}
         />
+      ) : (
+        <ConstructorPlaceholder isBun isTop />
       )}
 
       <section className={styles.editableConstructorElements}>
-        {sauces.map(({ price, image_mobile, name, _id }, index) => (
-          <ConstructorElement
-            key={`${_id}-${index}`}
-            text={name}
-            price={price}
-            thumbnail={image_mobile}
-          />
-        ))}
-
-        {main.map(({ price, name, image_mobile, _id }, index) => (
-          <ConstructorElement
-            key={`${_id}-${index}`}
-            text={name}
-            price={price}
-            thumbnail={image_mobile}
-          />
-        ))}
+        {!!ingredients.length ? (
+          ingredients.map(({ price, imageMobile, name, id, _id }, index) => (
+            <ConstructorElement
+              _id={_id}
+              index={index}
+              id={id}
+              key={id}
+              text={name}
+              price={price}
+              thumbnail={imageMobile}
+              moveIngredient={moveIngredient}
+            />
+          ))
+        ) : (
+          <ConstructorPlaceholder />
+        )}
       </section>
 
-      {bun && (
+      {bun ? (
         <ConstructorElement
+          _id={bun._id}
+          id={bun._id}
           type={ConstructorElementType.BOTTOM}
-          isLocked={true}
-          text={bun.name}
+          isLocked
+          text={`${bun.name} - Низ'`}
           price={bun.price}
-          thumbnail={bun.image_mobile}
+          thumbnail={bun.imageMobile}
         />
+      ) : (
+        <ConstructorPlaceholder isBun />
       )}
     </section>
   )

@@ -2,4 +2,6 @@
     height: calc(100vh - 320px); /* Примерное значение */
     max-width: calc(var(--content-header-max-width) / 2);
     overflow-x: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
 }
