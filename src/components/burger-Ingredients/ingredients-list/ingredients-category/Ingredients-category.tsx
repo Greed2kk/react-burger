@@ -38,10 +38,10 @@ export const IngredientsCategory: FC<IngredientsCategoryProps> = ({
   }, [category, inView, setActiveTab])
 
   return (
-    <section className={styles.ingredientsCategory} ref={ref}>
+    <li className={styles.ingredientsCategory} ref={ref}>
       <p className="text text_type_main-medium">{categoryNames[category]}</p>
 
       <IngredientsItems ingredientsIds={ingredientsIds} />
-    </section>
+    </li>
   )
 }

@@ -65,7 +65,7 @@ export const IngredientCard: FC<IngredientItemProps> = ({ ingredient }) => {
   return (
     <Fragment>
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-      <div
+      <li
         ref={dragRef}
         className={classNames(styles.ingredientCard, { [styles.drag]: isDrag })}
         onClick={handleDetailsClick}
@@ -92,7 +92,7 @@ export const IngredientCard: FC<IngredientItemProps> = ({ ingredient }) => {
         >
           {name}
         </p>
-      </div>
+      </li>
 
       {openDetails && <IngredientDetails closeModal={handleCloseDetails} />}
     </Fragment>

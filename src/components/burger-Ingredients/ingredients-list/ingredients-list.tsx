@@ -18,7 +18,7 @@ export const IngredientsList: FC<IngredientsListProps> = ({
   ingredients,
   setActiveTab,
 }) => (
-  <section className={styles.ingredientsList}>
+  <ul className={styles.ingredientsList}>
     {Object.entries(ingredients).map(([category, ingredientsIds]) => (
       <IngredientsCategory
         setActiveTab={setActiveTab}
@@ -27,5 +27,5 @@ export const IngredientsList: FC<IngredientsListProps> = ({
         ingredientsIds={ingredientsIds}
       />
     ))}
-  </section>
+  </ul>
 )
