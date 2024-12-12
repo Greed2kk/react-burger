@@ -66,6 +66,13 @@ export const BurgerIngredients: FC = () => {
     }
   }, [categoriesInView, categoriesInView.length])
 
+  const onTabClick = (tabName: string): void => {
+    setActive(tabName as IngredientType)
+    const categoryEl = document.getElementById(tabName)
+
+    categoryEl && categoryEl.scrollIntoView()
+  }
+
   if (error) {
     return <h1>{error}</h1>
   }
@@ -74,7 +81,7 @@ export const BurgerIngredients: FC = () => {
     <section className="mt-10">
       <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
 
-      <Tabs tabs={ingredientsTabs} currentTab={activeTab} className="mb-10" />
+      <Tabs tabs={ingredientsTabs} currentTab={activeTab} className="mb-10" tabClickHandler={onTabClick}/>
 
       {!isLoading ? (
         <IngredientsList

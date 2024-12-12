@@ -20,12 +20,12 @@ export const IngredientsItems: FC<IngredientsItemsProps> = ({
   const ingredients = useAppSelector(getIngredientsByIds(ingredientsIds))
 
   return (
-    <section
+    <ul
       className={classNames(styles.ingredientsItems, 'pt-6 pl-4 pb-10 pr-4')}
     >
       {ingredients.map(ingredient => (
         <IngredientCard key={ingredient._id} ingredient={ingredient} />
       ))}
-    </section>
+    </ul>
   )
 }

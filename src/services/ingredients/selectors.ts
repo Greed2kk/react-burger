@@ -23,19 +23,18 @@ export const getIngredientQuantity = (_id: string) => (state: RootState) =>
 export const getIngredients = createSelector(
   selectAllIngredients,
   ingredients => {
-    const categories: Categories = {
-      [IngredientType.BUN]: [],
-      [IngredientType.SAUCE]: [],
-      [IngredientType.MAIN]: [],
-    }
+    const filterIngredients = (
+      filterType: IngredientType,
+    ): Ingredient['_id'][] =>
+      ingredients
+        .filter(({ type }) => type === filterType)
+        .map(({ _id }) => _id)
 
-    ingredients.forEach(
-      ingredient =>
-        (categories[ingredient.type] = [
-          ...categories[ingredient.type],
-          ingredient._id,
-        ]),
-    )
+    const categories: Categories = {
+      [IngredientType.BUN]: filterIngredients(IngredientType.BUN),
+      [IngredientType.MAIN]: filterIngredients(IngredientType.MAIN),
+      [IngredientType.SAUCE]: filterIngredients(IngredientType.SAUCE),
+    }
 
     return categories
   },

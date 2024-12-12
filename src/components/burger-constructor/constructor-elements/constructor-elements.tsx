@@ -72,7 +72,7 @@ export const ConstructorElements: FC = () => {
   }
 
   return (
-    <section className={styles.constructorElements} ref={dropTarget}>
+    <ul className={styles.constructorElements} ref={dropTarget}>
       {bun ? (
         <ConstructorElement
           type={ConstructorElementType.TOP}
@@ -87,7 +87,7 @@ export const ConstructorElements: FC = () => {
         <ConstructorPlaceholder isBun isTop />
       )}
 
-      <section className={styles.editableConstructorElements}>
+      <ul className={styles.editableConstructorElements}>
         {!!ingredients.length ? (
           ingredients.map(({ price, imageMobile, name, id, _id }, index) => (
             <ConstructorElement
@@ -104,7 +104,7 @@ export const ConstructorElements: FC = () => {
         ) : (
           <ConstructorPlaceholder />
         )}
-      </section>
+      </ul>
 
       {bun ? (
         <ConstructorElement
@@ -119,6 +119,6 @@ export const ConstructorElements: FC = () => {
       ) : (
         <ConstructorPlaceholder isBun />
       )}
-    </section>
+    </ul>
   )
 }

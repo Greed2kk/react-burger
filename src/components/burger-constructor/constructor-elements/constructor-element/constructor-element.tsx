@@ -61,7 +61,7 @@ export const ConstructorElement: FC<ConstructorElementProps> = props => {
   }
 
   return (
-    <div
+    <li
       className={classNames(styles.constructorElement, {
         [styles.isDragging]: isDragging,
       })}
@@ -85,6 +85,6 @@ export const ConstructorElement: FC<ConstructorElementProps> = props => {
         )}
         {...otherProps}
       />
-    </div>
+    </li>
   )
 }
