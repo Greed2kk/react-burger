@@ -1,29 +1,31 @@
-import { FC, Fragment, useState } from 'react'
+import { FC, Fragment, useMemo, useState } from 'react'
 
 import classNames from 'classnames'
-
-import { useDrag } from 'react-dnd'
-
-import { useAppDispatch, useAppSelector } from '../../../../app/store/store'
 
 import {
   Counter,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { addIngredientData } from '../../../../../services/ingredient-details/ingredient-details-slice'
 
-import { getIngredientQuantity } from '../../../../../services/ingredients/selectors'
+import { useDrag } from 'react-dnd'
+import {
+  selectBunId,
+  selectIngredientsIds,
+} from '../../../../../services/burger-constructor/selectors'
+import { addIngredientData } from '../../../../../services/ingredient-details/ingredient-details-slice'
 
 import {
   type Ingredient,
   IngredientType,
 } from '../../../../../services/ingredients/types'
 
+import { useAppDispatch, useAppSelector } from '../../../../app/store/store'
+
 import { IngredientDetails } from '../../../../ingredient-details/ingredient-details'
 
-import { DndType } from './types'
-
 import styles from './ingredient-card.module.css'
+
+import { DndType } from './types'
 
 interface IngredientItemProps {
   ingredient: Ingredient
@@ -33,9 +35,24 @@ export const IngredientCard: FC<IngredientItemProps> = ({ ingredient }) => {
   const { image, name, price, _id, type, image_mobile } = ingredient
   const [openDetails, setOpenDetails] = useState(false)
 
-  const dispatch = useAppDispatch()
+  const ingredientsIds = useAppSelector(selectIngredientsIds)
+  const bunId = useAppSelector(selectBunId)
 
-  const quantity = useAppSelector(getIngredientQuantity(_id))
+  const count = useMemo(() => {
+    if (type === IngredientType.BUN && bunId === _id) {
+      return 2
+    }
+
+    if (type !== IngredientType.BUN && ingredientsIds.length) {
+      return ingredientsIds.filter(id => id === _id).length
+    }
+
+    return null
+  }, [_id, bunId, ingredientsIds, type])
+
+  console.log(ingredientsIds, bunId)
+
+  const dispatch = useAppDispatch()
 
   const [{ isDrag }, dragRef] = useDrag(() => ({
     type: type === IngredientType.BUN ? DndType.BUN : DndType.INGREDIENT,
@@ -73,13 +90,10 @@ export const IngredientCard: FC<IngredientItemProps> = ({ ingredient }) => {
       >
         <div className={classNames(styles.imageContainer, 'mb-1 pl-4 pr-4')}>
           <img src={image} alt={image} />
-          {!!quantity && (
-            <Counter
-              count={quantity}
-              size="default"
-              extraClass={styles.counter}
-            />
-          )}
+
+          {count ? (
+            <Counter count={count} size="default" extraClass={styles.counter} />
+          ) : null}
         </div>
 
         <span className={classNames(styles.price, 'mb-1')}>

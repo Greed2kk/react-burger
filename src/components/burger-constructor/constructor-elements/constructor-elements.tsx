@@ -16,13 +16,6 @@ import {
 
 import { BurgerIngredient } from '../../../services/burger-constructor/types'
 
-import {
-  decreaseQuantity,
-  increaseQuantity,
-} from '../../../services/ingredients/ingredient-slice'
-
-import { IngredientType } from '../../../services/ingredients/types'
-
 import { useAppDispatch, useAppSelector } from '../../app/store/store'
 
 import { DndType } from '../../burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
@@ -47,13 +40,8 @@ export const ConstructorElements: FC = () => {
       dispatch(
         addIngredient({ id: uuidv4(), _id, price, type, imageMobile, name }),
       )
-      if (bun && type === IngredientType.BUN) {
-        dispatch(decreaseQuantity({ _id: bun._id }))
-      }
-
-      dispatch(increaseQuantity({ _id }))
     },
-    [bun, dispatch],
+    [dispatch],
   )
 
   const [, dropTarget] = useDrop({
