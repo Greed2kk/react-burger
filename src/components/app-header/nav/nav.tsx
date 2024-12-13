@@ -1,15 +1,14 @@
 import { FC } from 'react'
 
-import classNames from 'classnames'
-
 import {
   BurgerIcon,
   ListIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
+import classNames from 'classnames'
 
-import { Link } from '../../link/link'
+import { Link } from '@/components/link/link'
 
-import styles from './nav.module.css'
+import styles from '@/components/app-header/nav/nav.module.css'
 
 export const Nav: FC = () => (
   <nav className={classNames(styles.nav)}>

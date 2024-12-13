@@ -1,21 +1,17 @@
 import { FC, useCallback, useEffect, useState } from 'react'
 
-import { fetchIngredients } from '../../services/ingredients/fetch-ingredients'
-
+import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
+import { IngredientsList } from '@/components/burger-Ingredients/ingredients-list/ingredients-list'
+import type { TabsOptions } from '@/components/tabs/tabs'
+import { Tabs } from '@/components/tabs/tabs'
+import { fetchIngredients } from '@/services/ingredients/fetch-ingredients'
 import {
   getIngredients,
   getIngredientsError,
   getIngredientsIsLoading,
-} from '../../services/ingredients/selectors'
+} from '@/services/ingredients/selectors'
 
-import { IngredientType } from '../../services/ingredients/types'
-
-import { useAppDispatch, useAppSelector } from '../app/store/store'
-
-import type { TabsOptions } from '../tabs/tabs'
-import { Tabs } from '../tabs/tabs'
-
-import { IngredientsList } from './ingredients-list/ingredients-list'
+import { IngredientType } from '@/services/ingredients/types'
 
 const ingredientsOrder = ['bun', 'sauce', 'main']
 
@@ -81,7 +77,12 @@ export const BurgerIngredients: FC = () => {
     <section className="mt-10">
       <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
 
-      <Tabs tabs={ingredientsTabs} currentTab={activeTab} className="mb-10" tabClickHandler={onTabClick}/>
+      <Tabs
+        tabs={ingredientsTabs}
+        currentTab={activeTab}
+        className="mb-10"
+        tabClickHandler={onTabClick}
+      />
 
       {!isLoading ? (
         <IngredientsList

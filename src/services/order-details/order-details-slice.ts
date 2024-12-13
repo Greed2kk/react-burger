@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { createOrder } from './create-order'
+import { createOrder } from '@/services/order-details/create-order'
 
-import type { OrderDetailsSchema } from './types'
+import type { OrderDetailsSchema } from '@/services/order-details/types'
 
 const initialState: OrderDetailsSchema = {
   isLoading: false,

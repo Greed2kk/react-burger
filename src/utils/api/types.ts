@@ -1,4 +1,4 @@
 export enum ApiResources {
   INGREDIENTS = 'ingredients',
-  ORDERS = 'orders'
+  ORDERS = 'orders',
 }

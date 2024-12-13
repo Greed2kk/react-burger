@@ -25,9 +25,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject",
     "format": "prettier --write .",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'"
@@ -52,7 +52,13 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@craco/craco": "^7.1.0",
     "classnames": "^2.5.1",
+    "eslint": "^8.57.1",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-typescript": "^3.7.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
     "prettier": "^3.3.3"
   }
 }

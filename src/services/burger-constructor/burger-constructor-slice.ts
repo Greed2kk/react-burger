@@ -1,10 +1,13 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
-import { StateSchema } from '../../components/app/store/types'
-import { ingredientsAdapter } from '../ingredients/ingredient-slice'
-import { IngredientType } from '../ingredients/types'
+import { ingredientsAdapter } from '@/services/ingredients/ingredient-slice'
 
-import { BurgerConstructorSchema, BurgerIngredient } from './types'
+import { StateSchema } from '@/components/app/store/types'
+import {
+  BurgerConstructorSchema,
+  BurgerIngredient,
+} from '@/services/burger-constructor/types'
+import { IngredientType } from '@/services/ingredients/types'
 
 export const burgerConstructorAdapter = createEntityAdapter({
   selectId: (burgerIngredient: BurgerIngredient) => burgerIngredient.id,

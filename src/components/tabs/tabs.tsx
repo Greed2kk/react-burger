@@ -1,10 +1,9 @@
 import { ReactElement } from 'react'
 
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames'
 
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-
-import styles from './tabs.module.css'
+import styles from '@/components/tabs/tabs.module.css'
 
 export interface TabsOptions<T = string> {
   value: T

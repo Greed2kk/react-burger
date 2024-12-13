@@ -1,12 +1,11 @@
 import { FC } from 'react'
 
+import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames'
 
-import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Link } from '@/components/link/link'
 
-import { Link } from '../../link/link'
-
-import styles from '../nav/nav.module.css'
+import styles from '@/components/app-header/nav/nav.module.css'
 
 export const AuthButton: FC = () => (
   <Link ariaLabel="Ссылка на личный кабинет" className="pl-5 pr-5 pt-4 pb-4">

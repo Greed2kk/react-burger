@@ -1,31 +1,24 @@
 import { FC, Fragment, useMemo, useState } from 'react'
-
-import classNames from 'classnames'
+import { useDrag } from 'react-dnd'
 
 import {
   Counter,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
+import classNames from 'classnames'
 
-import { useDrag } from 'react-dnd'
+import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
+import { IngredientDetails } from '@/components/ingredient-details/ingredient-details'
 import {
   selectBunId,
   selectIngredientsIds,
-} from '../../../../../services/burger-constructor/selectors'
-import { addIngredientData } from '../../../../../services/ingredient-details/ingredient-details-slice'
+} from '@/services/burger-constructor/selectors'
+import { addIngredientData } from '@/services/ingredient-details/ingredient-details-slice'
 
-import {
-  type Ingredient,
-  IngredientType,
-} from '../../../../../services/ingredients/types'
+import styles from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/ingredient-card.module.css'
 
-import { useAppDispatch, useAppSelector } from '../../../../app/store/store'
-
-import { IngredientDetails } from '../../../../ingredient-details/ingredient-details'
-
-import styles from './ingredient-card.module.css'
-
-import { DndType } from './types'
+import { DndType } from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
+import { type Ingredient, IngredientType } from '@/services/ingredients/types'
 
 interface IngredientItemProps {
   ingredient: Ingredient
@@ -49,8 +42,6 @@ export const IngredientCard: FC<IngredientItemProps> = ({ ingredient }) => {
 
     return null
   }, [_id, bunId, ingredientsIds, type])
-
-  console.log(ingredientsIds, bunId)
 
   const dispatch = useAppDispatch()
 

@@ -1,6 +1,6 @@
-import { baseApiUrl } from './constants'
+import { baseApiUrl } from '@/utils/api/constants'
 
-import type { ApiResources } from './types'
+import type { ApiResources } from '@/utils/api/types'
 
 export interface CustomApi {
   get: <T>(slug: ApiResources, options?: RequestInit) => Promise<T>

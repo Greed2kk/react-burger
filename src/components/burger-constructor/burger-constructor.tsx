@@ -2,26 +2,21 @@ import { FC, useState } from 'react'
 
 import classNames from 'classnames'
 
-import { clearIngredients } from '../../services/burger-constructor/burger-constructor-slice'
-
-import { createOrder } from '../../services/order-details/create-order'
-import { clearDetailsData } from '../../services/order-details/order-details-slice'
-import { getOrderIsLoading } from '../../services/order-details/selectors'
-
-import { useAppDispatch, useAppSelector } from '../app/store/store'
-
+import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
+import { ConstructorElements } from '@/components/burger-constructor/constructor-elements/constructor-elements'
+import { TotalPrice } from '@/components/burger-constructor/total-price/total-price'
+import { Modal } from '@/components/modal/modal'
+import { OrderDetails } from '@/components/order-details/order-details'
+import { clearIngredients } from '@/services/burger-constructor/burger-constructor-slice'
 import {
   selectBunId,
   selectIngredientsIds,
-} from '../../services/burger-constructor/selectors'
+} from '@/services/burger-constructor/selectors'
+import { createOrder } from '@/services/order-details/create-order'
+import { clearDetailsData } from '@/services/order-details/order-details-slice'
+import { getOrderIsLoading } from '@/services/order-details/selectors'
 
-import { Modal } from '../modal/modal'
-
-import { OrderDetails } from '../order-details/order-details'
-import { ConstructorElements } from './constructor-elements/constructor-elements'
-import { TotalPrice } from './total-price/total-price'
-
-import styles from './burger-constructor.module.css'
+import styles from '@/components/burger-constructor/burger-constructor.module.css'
 
 export const BurgerConstructor: FC = () => {
   const [orderComplete, setOrderComplete] = useState(false)

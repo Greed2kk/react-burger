@@ -1,13 +1,16 @@
 import { createSelector, Selector } from '@reduxjs/toolkit'
 
-import { type StateSchema } from '../../components/app/store/types'
-
 import {
   selectAllIngredients,
   selectIngredientEntities,
-} from './ingredient-slice'
+} from '@/services/ingredients/ingredient-slice'
 
-import { Categories, Ingredient, IngredientType } from './types'
+import { type StateSchema } from '@/components/app/store/types'
+import {
+  Categories,
+  Ingredient,
+  IngredientType,
+} from '@/services/ingredients/types'
 
 export const getIngredientsError = (state: StateSchema): string | undefined =>
   state.ingredients?.error

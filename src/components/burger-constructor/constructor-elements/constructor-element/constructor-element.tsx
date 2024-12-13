@@ -1,22 +1,19 @@
 import { FC } from 'react'
-
-import classNames from 'classnames'
-
 import { useDrag, useDrop } from 'react-dnd'
 
 import {
   ConstructorElement as YaConstructorElement,
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
+import classNames from 'classnames'
 
-import { removeIngredient } from '../../../../services/burger-constructor/burger-constructor-slice'
-import { useAppDispatch } from '../../../app/store/store'
+import { useAppDispatch } from '@/components/app/store/store'
+import { removeIngredient } from '@/services/burger-constructor/burger-constructor-slice'
 
-import { DndType } from '../../../burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
+import styles from '@/components/burger-constructor/constructor-elements/constructor-element/constructor-element.module.css'
 
-import styles from './constructor-element.module.css'
-
-import { ConstructorElementType } from './types'
+import { ConstructorElementType } from '@/components/burger-constructor/constructor-elements/constructor-element/types'
+import { DndType } from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
 
 interface ConstructorElementProps {
   _id: string
@@ -32,7 +29,15 @@ interface ConstructorElementProps {
 }
 
 export const ConstructorElement: FC<ConstructorElementProps> = props => {
-  const { id, _id, index = 0, moveIngredient, isLocked, className, ...otherProps } = props
+  const {
+    id,
+    _id,
+    index = 0,
+    moveIngredient,
+    isLocked,
+    className,
+    ...otherProps
+  } = props
 
   const dispatch = useAppDispatch()
 

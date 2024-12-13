@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import { Link } from '../link/link'
+import { Link } from '@/components/link/link'
 
 interface BurgerLogoProps {
   className?: string

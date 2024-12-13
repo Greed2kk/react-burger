@@ -1,17 +1,14 @@
 import React, { FC } from 'react'
 
-import { Categories, IngredientType } from '../../../services/ingredients/types'
+import { IngredientsCategory } from '@/components/burger-Ingredients/ingredients-list/ingredients-category/Ingredients-category'
 
-import { IngredientsCategory } from './ingredients-category/Ingredients-category'
+import styles from '@/components/burger-Ingredients/ingredients-list/ingredients-list.module.css'
 
-import styles from './ingredients-list.module.css'
+import { Categories, IngredientType } from '@/services/ingredients/types'
 
 interface IngredientsListProps {
   ingredients: Categories
-  setActiveTab: (
-    category: IngredientType,
-    inView: boolean,
-  ) => void
+  setActiveTab: (category: IngredientType, inView: boolean) => void
 }
 
 export const IngredientsList: FC<IngredientsListProps> = ({

@@ -1,9 +1,9 @@
 import { combineReducers } from '@reduxjs/toolkit'
 
-import burgerConstructorReducer from './burger-constructor/burger-constructor-slice'
-import ingredientDetailsReducer from './ingredient-details/ingredient-details-slice'
-import  orderDetailsReducer  from './order-details/order-details-slice'
-import  ingredientReducer  from './ingredients/ingredient-slice'
+import burgerConstructorReducer from '@/services/burger-constructor/burger-constructor-slice'
+import ingredientDetailsReducer from '@/services/ingredient-details/ingredient-details-slice'
+import ingredientReducer from '@/services/ingredients/ingredient-slice'
+import orderDetailsReducer from '@/services/order-details/order-details-slice'
 
 export const rootReducers = combineReducers({
   ingredients: ingredientReducer,

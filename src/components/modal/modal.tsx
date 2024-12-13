@@ -1,14 +1,12 @@
 import { FC, MouseEvent, ReactNode, useCallback, useEffect } from 'react'
-
 import { createPortal } from 'react-dom'
 
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames'
 
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { ModalOverlay } from '@/components/modal-overlay/modal-overlay'
 
-import { ModalOverlay } from '../modal-overlay/modal-overlay'
-
-import styles from './modal.module.css'
+import styles from '@/components/modal/modal.module.css'
 
 interface ModalProps {
   children: ReactNode

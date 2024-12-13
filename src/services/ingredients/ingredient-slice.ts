@@ -1,13 +1,9 @@
-import {
-  createEntityAdapter,
-  createSlice,
-} from '@reduxjs/toolkit'
+import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
-import { StateSchema } from '../../components/app/store/types'
+import { fetchIngredients } from '@/services/ingredients/fetch-ingredients'
 
-import { fetchIngredients } from './fetch-ingredients'
-
-import { Ingredient, IngredientsSchema } from './types'
+import { StateSchema } from '@/components/app/store/types'
+import { Ingredient, IngredientsSchema } from '@/services/ingredients/types'
 
 export const ingredientsAdapter = createEntityAdapter<Ingredient, string>({
   selectId: (ingredient: Ingredient) => ingredient._id,

@@ -1,15 +1,13 @@
 import { FC } from 'react'
 
-import { useAppDispatch, useAppSelector } from '../app/store/store'
+import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
+import { Modal } from '@/components/modal/modal'
+import { clearIngredientData } from '@/services/ingredient-details/ingredient-details-slice'
+import { getIngredientData } from '@/services/ingredient-details/selectors'
 
-import { Modal } from '../modal/modal'
+import styles from '@/components/ingredient-details/ingredient-details.module.css'
 
-import { getIngredientData } from '../../services/ingredient-details/selectors'
-import { clearIngredientData } from '../../services/ingredient-details/ingredient-details-slice'
-
-import type { Ingredient } from '../../services/ingredients/types'
-
-import styles from './ingredient-details.module.css'
+import type { Ingredient } from '@/services/ingredients/types'
 
 interface IngredientEnergyValue
   extends Pick<Ingredient, 'carbohydrates' | 'proteins' | 'fat' | 'calories'> {}

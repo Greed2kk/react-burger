@@ -1,6 +1,6 @@
 import { EntityState } from '@reduxjs/toolkit'
 
-import { Ingredient } from '../ingredients/types'
+import { Ingredient } from '@/services/ingredients/types'
 
 export interface BurgerIngredient {
   id: string
