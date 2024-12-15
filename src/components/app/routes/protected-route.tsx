@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import Layout from '@/pages/layout/layout'
 
-import { rootPath } from './routePaths'
+import { rootPath } from './route-paths'
 
 const ProtectedRoute: FC = () => {
   const navigate = useNavigate()

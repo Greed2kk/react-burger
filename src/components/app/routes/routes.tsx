@@ -9,10 +9,14 @@ import {
 import Layout from '@/pages/layout/layout'
 
 import ProtectedRoute from './protected-route'
-import { profilePath, rootPath } from './routePaths'
+import { profilePath, rootPath } from './route-paths'
 
 const BurgerConstructor = lazy(
   () => import('@/pages/burger-constructor-page/burger-constructor-page'),
+)
+
+const NotFound = lazy(
+  () => import('@/pages/not-found-page/not-found-page'),
 )
 
 const Profile = lazy(() => import('@/pages/profile-page/profile-page'))
@@ -21,14 +25,16 @@ const AllRoutes: FC = () => (
   <Suspense fallback="Загрузка...">
     <Router>
       <Routes>
-        <Route path={rootPath} element={<Outlet />} />
+        <Route path={rootPath} element={<Outlet />}>
+          <Route element={<Layout />}>
+            <Route index element={<BurgerConstructor />} />
+          </Route>
 
-        <Route element={<Layout />}>
-          <Route index element={<BurgerConstructor />} />
-        </Route>
+          <Route element={<ProtectedRoute />}>
+            <Route path={profilePath} element={<Profile />} />
+          </Route>
 
-        <Route element={<ProtectedRoute />}>
-          <Route path={profilePath} element={<Profile />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </Router>
