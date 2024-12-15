@@ -7,6 +7,7 @@ import {
 import classNames from 'classnames'
 
 import { Link } from '@/components/link/link'
+import { orders, rootPath } from '@/utils/route-paths'
 
 import styles from '@/components/app-header/nav/nav.module.css'
 
@@ -15,32 +16,19 @@ export const Nav: FC = () => (
     <Link
       ariaLabel="Страница Конструктора"
       className={classNames(styles.linkItem, 'mr-2 pl-5 pr-5 pt-4 pb-4')}
+      to={rootPath}
     >
-      <BurgerIcon type="primary" className={classNames('mr-2')} />
-      <p
-        className={classNames('text text_type_main-default', {
-          [styles.active]: true, // refactor
-        })}
-      >
-        Конструктор
-      </p>
+      <BurgerIcon type="secondary" className={classNames('mr-2')} />
+      <p className="text text_type_main-default">Конструктор</p>
     </Link>
 
     <Link
       ariaLabel="Страница Ленты заказов"
       className={classNames(styles.linkItem, 'pl-5 pr-5 pt-4 pb-4')}
+      to={orders}
     >
-      <ListIcon
-        className={classNames('mr-2')}
-        type="secondary" // refactor
-      />
-      <p
-        className={classNames('text text_type_main-default', {
-          [styles.inactive]: true, // refactor
-        })}
-      >
-        Лента заказов
-      </p>
+      <ListIcon className={classNames('mr-2')} type="secondary" />
+      <p className="text text_type_main-default">Лента заказов</p>
     </Link>
   </nav>
 )

@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import { Link } from '@/components/link/link'
+import { rootPath } from '@/utils/route-paths'
 
 interface BurgerLogoProps {
   className?: string
@@ -13,8 +13,8 @@ export const BurgerLogo: FC<BurgerLogoProps> = props => {
 
   return (
     // eslint-disable-next-line jsx-a11y/anchor-is-valid
-    <Link ariaLabel="Обновить стриницу" className={className}>
+    <a aria-label="Обновить стриницу" className={className} href={rootPath}>
       <Logo />
-    </Link>
+    </a>
   )
 }
