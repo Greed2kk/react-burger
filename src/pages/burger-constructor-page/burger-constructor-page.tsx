@@ -1,4 +1,6 @@
-import { FC, memo } from 'react'
+import React, { FC, memo } from 'react'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 import classNames from 'classnames'
 
@@ -9,14 +11,14 @@ import { ContentWrapper } from '@/components/content-wrapper/content-wrapper'
 import styles from '@/pages/burger-constructor-page/burger-constructor-page.module.css'
 
 const BurgerConstructorPage: FC = () => (
-  <ContentWrapper as="main">
-    <ContentWrapper
-      className={classNames(styles.burgerConstructorPage, 'pl-5 pr-5')}
-    >
+  <ContentWrapper
+    className={classNames(styles.burgerConstructorPage, 'pl-5 pr-5')}
+  >
+    <DndProvider backend={HTML5Backend}>
       <BurgerIngredients />
 
       <BurgerConstructor />
-    </ContentWrapper>
+    </DndProvider>
   </ContentWrapper>
 )
 

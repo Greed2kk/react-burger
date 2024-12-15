@@ -9,7 +9,7 @@ import { BurgerLogo } from '@/components/logo/burger-logo'
 
 import styles from '@/components/app-header/app-header.module.css'
 
-export const AppHeader: FC = () => (
+const AppHeader: FC = () => (
   <header className={classNames(styles.appHeader, 'p-4')}>
     <ContentWrapper>
       <Nav />
@@ -18,3 +18,5 @@ export const AppHeader: FC = () => (
     </ContentWrapper>
   </header>
 )
+
+export default AppHeader
