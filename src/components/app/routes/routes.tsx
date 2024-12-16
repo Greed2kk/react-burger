@@ -6,11 +6,17 @@ import {
   Routes,
 } from 'react-router-dom'
 
-import Layout from '@/pages/layout/layout'
+import { AuthLayout, BaseLayout } from 'components/layout'
+
+import ForgotPasswordPage from '@/pages/forgot-password-page/forgot-password-page'
+import ResetPasswordPage from '@/pages/reset-password-page/reset-password-page'
 import {
-  loginPath, orders,
+  forgotPasswordPath,
+  loginPath,
+  orders,
   profilePath,
   registerPath,
+  resetPasswordPath,
   rootPath,
 } from '@/utils/route-paths'
 
@@ -32,10 +38,15 @@ const AllRoutes: FC = () => (
     <Router>
       <Routes>
         <Route path={rootPath} element={<Outlet />}>
-          <Route element={<Layout />}>
+          <Route element={<BaseLayout />}>
             <Route index element={<BurgerConstructor />} />
+          </Route>
+
+          <Route element={<AuthLayout />}>
             <Route path={loginPath} element={<LoginPage />} />
             <Route path={registerPath} element={<RegisterPage />} />
+            <Route path={forgotPasswordPath} element={<ForgotPasswordPage />} />
+            <Route path={resetPasswordPath} element={<ResetPasswordPage />} />
           </Route>
 
           <Route element={<ProtectedRoute />}>

@@ -10,39 +10,40 @@ import AuthActions from '@/components/auth/auth-actions/auth-actions'
 import AuthForm from '@/components/auth/auth-form/auth-form'
 import { loginPath } from '@/utils/route-paths'
 
-const RegisterPage: FC = () => {
+
+const ResetPasswordPage: FC = () => {
   const navigate = useNavigate()
 
   const onSubmit = (): void => {
     console.log('call')
   }
 
-  const toLoginPage = (): void => {
+  const toLogin = (): void => {
     navigate(loginPath)
   }
 
   return (
     <Fragment>
       <AuthForm
-        title="Регистрация"
+        title="Восстановление пароля"
         onSubmit={onSubmit}
-        submitText="Зарегистрироваться"
+        submitText="Сохранить"
       >
         <PasswordInput
           onChange={() => {}}
-          value=""
+          value={''}
           placeholder="Введите новый пароль"
           name="password"
           extraClass="mb-6"
         />
 
         <Input
-          type="text"
-          placeholder="Введите код из письма"
+          type={'text'}
+          placeholder={'Введите код из письма'}
           onChange={() => {}}
-          value=""
-          name="name"
-          size="default"
+          value={''}
+          name={'emailCode'}
+          size={'default'}
           extraClass="mb-6"
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
@@ -55,7 +56,7 @@ const RegisterPage: FC = () => {
             text: 'Вспомнили пароль?',
             action: {
               text: 'Войти',
-              onClick: toLoginPage,
+              onClick: toLogin,
             },
           },
         ]}
@@ -64,4 +65,4 @@ const RegisterPage: FC = () => {
   )
 }
 
-export default RegisterPage
+export default ResetPasswordPage

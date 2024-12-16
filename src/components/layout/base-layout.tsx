@@ -6,11 +6,10 @@ import ErrorBoundary from '@/components/error-boundary/error-boundary'
 
 const AppHeader = lazy(() => import('@/components/app-header/app-header'))
 
-const Layout: FC = () => (
+export const BaseLayout: FC = () => (
   <ErrorBoundary>
     <AppHeader />
     <ContentWrapper as="main">{<Outlet />}</ContentWrapper>
   </ErrorBoundary>
 )
 
-export default Layout

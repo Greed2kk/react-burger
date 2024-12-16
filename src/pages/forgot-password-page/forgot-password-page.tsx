@@ -1,51 +1,37 @@
 import { FC, Fragment } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import {
-  Input,
-  PasswordInput,
-} from '@ya.praktikum/react-developer-burger-ui-components'
+import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import AuthActions from '@/components/auth/auth-actions/auth-actions'
 import AuthForm from '@/components/auth/auth-form/auth-form'
 import { loginPath } from '@/utils/route-paths'
 
-const RegisterPage: FC = () => {
+
+const ForgotPasswordPage: FC = () => {
   const navigate = useNavigate()
 
   const onSubmit = (): void => {
     console.log('call')
   }
 
-  const toLoginPage = (): void => {
+  const toLogin = (): void => {
     navigate(loginPath)
   }
 
   return (
     <Fragment>
       <AuthForm
-        title="Регистрация"
+        title="Восстановление пароля"
         onSubmit={onSubmit}
-        submitText="Зарегистрироваться"
+        submitText="Восстановить"
       >
-        <PasswordInput
+        <EmailInput
           onChange={() => {}}
-          value=""
-          placeholder="Введите новый пароль"
-          name="password"
+          value={''}
+          name={'email'}
+          isIcon={false}
           extraClass="mb-6"
-        />
-
-        <Input
-          type="text"
-          placeholder="Введите код из письма"
-          onChange={() => {}}
-          value=""
-          name="name"
-          size="default"
-          extraClass="mb-6"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
         />
       </AuthForm>
 
@@ -55,7 +41,7 @@ const RegisterPage: FC = () => {
             text: 'Вспомнили пароль?',
             action: {
               text: 'Войти',
-              onClick: toLoginPage,
+              onClick: toLogin,
             },
           },
         ]}
@@ -64,4 +50,4 @@ const RegisterPage: FC = () => {
   )
 }
 
-export default RegisterPage
+export default ForgotPasswordPage
