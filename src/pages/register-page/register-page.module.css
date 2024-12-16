@@ -1,0 +1,31 @@
+.registerPage {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 180px;
+}
+
+.registerForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.registerActions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.registerAction {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.resetPadding {
+    padding: 0;
+}

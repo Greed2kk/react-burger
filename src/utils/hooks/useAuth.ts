@@ -6,7 +6,7 @@ type UseAuth = {
 }
 
 export const useAuth = (): UseAuth => {
-  const [authenticated, setAuthenticated] = useState(true)
+  const [authenticated, setAuthenticated] = useState(false)
 
   const toggleAuth = (): void => {
     setAuthenticated(!authenticated)

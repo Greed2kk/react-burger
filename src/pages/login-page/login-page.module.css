@@ -1,0 +1,31 @@
+.loginPage {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 180px;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginActions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.loginAction {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.resetPadding {
+    padding: 0;
+}
