@@ -16,18 +16,17 @@ import { IngredientType } from '@/services/ingredients/types'
 const ingredientsOrder = ['bun', 'sauce', 'main']
 
 export const BurgerIngredients: FC = () => {
+  const dispatch = useAppDispatch()
   const [activeTab, setActive] = useState(IngredientType.BUN)
   const [categoriesInView, setCategoriesInView] = useState<IngredientType[]>([])
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(fetchIngredients())
-  }, [dispatch])
 
   const ingredients = useAppSelector(getIngredients)
-
   const error = useAppSelector(getIngredientsError)
   const isLoading = useAppSelector(getIngredientsIsLoading)
+
+  useEffect(() => {
+    if (!ingredients[IngredientType.MAIN].length) dispatch(fetchIngredients())
+  }, [dispatch, ingredients])
 
   const ingredientsTabs: TabsOptions[] = [
     { value: IngredientType.BUN, name: 'Булки' },

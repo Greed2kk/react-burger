@@ -43,7 +43,6 @@ const { reducer: ingredientReducer } = ingredientSlice
 
 export const {
   selectAll: selectAllIngredients,
-  selectById,
   selectEntities: selectIngredientEntities,
 } = ingredientsAdapter.getSelectors((state: StateSchema) => state.ingredients)
 
