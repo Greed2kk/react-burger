@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react'
 
 import classNames from 'classnames'
 
-import styles from '@/components/content-wrapper/content-wrapper.module.css'
+import styles from './content-wrapper.module.css'
 
 interface ContentWrapperProps {
   children: ReactNode

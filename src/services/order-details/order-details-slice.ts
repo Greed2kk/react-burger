@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { createOrder } from '@/services/order-details/create-order'
-
 import type { OrderDetailsSchema } from '@/services/order-details/types'
 
 const initialState: OrderDetailsSchema = {
@@ -15,7 +14,7 @@ const initialState: OrderDetailsSchema = {
   },
 }
 
-export const orderDetailsSlice = createSlice({
+const orderDetailsSlice = createSlice({
   name: 'orderDetails',
   initialState,
   reducers: {
@@ -41,8 +40,8 @@ export const orderDetailsSlice = createSlice({
   },
 })
 
-const { reducer: orderDetailsReducer, actions } = orderDetailsSlice
+const { reducer: orderDetailsReducer, actions: orderActions } = orderDetailsSlice
 
-export const { clearDetailsData } = actions
+export const { clearDetailsData } = orderActions
 
 export default orderDetailsReducer

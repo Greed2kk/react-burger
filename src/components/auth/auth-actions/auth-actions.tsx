@@ -1,14 +1,13 @@
 import { FC } from 'react'
 
 import { Button } from '@/components/button/button'
-
-import styles from './auth-actions.module.css'
-
 import {
   HtmlTypeButton,
   SizeButton,
   TypeButton,
 } from '@/components/button/types'
+
+import styles from './auth-actions.module.css'
 
 type AuthAction = {
   text: string

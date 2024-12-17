@@ -1,12 +1,12 @@
 import React, { FC, HTMLProps, ReactNode } from 'react'
 
-import { Button as YaButton } from '@ya.praktikum/react-developer-burger-ui-components'
-
 import {
   HtmlTypeButton,
   SizeButton,
   TypeButton,
 } from '@/components/button/types'
+
+import { Button as YaButton } from '@ya.praktikum/react-developer-burger-ui-components'
 
 interface ButtonProps
   extends Omit<HTMLProps<HTMLButtonElement>, 'type' | 'size'> {

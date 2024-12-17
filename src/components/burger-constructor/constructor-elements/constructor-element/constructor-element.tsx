@@ -1,19 +1,20 @@
 import { FC } from 'react'
+
+import classNames from 'classnames'
 import { useDrag, useDrop } from 'react-dnd'
+
+import { useAppDispatch } from '@/components/app/store/store'
+import { ConstructorElementType } from '@/components/burger-constructor/constructor-elements/constructor-element/types'
+import { DndType } from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
+
+import { removeIngredient } from '@/services/burger-constructor/burger-constructor-slice'
 
 import {
   ConstructorElement as YaConstructorElement,
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import classNames from 'classnames'
 
-import { useAppDispatch } from '@/components/app/store/store'
-import { removeIngredient } from '@/services/burger-constructor/burger-constructor-slice'
-
-import styles from '@/components/burger-constructor/constructor-elements/constructor-element/constructor-element.module.css'
-
-import { ConstructorElementType } from '@/components/burger-constructor/constructor-elements/constructor-element/types'
-import { DndType } from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
+import styles from './constructor-element.module.css'
 
 interface ConstructorElementProps {
   _id: string

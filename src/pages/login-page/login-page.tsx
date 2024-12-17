@@ -1,14 +1,16 @@
 import { FC, Fragment } from 'react'
+
 import { useNavigate } from 'react-router-dom'
+
+import AuthActions from '@/components/auth/auth-actions/auth-actions'
+import AuthForm from '@/components/auth/auth-form/auth-form'
+
+import { forgotPasswordPath, registerPath } from '@/utils/route-paths'
 
 import {
   EmailInput,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-
-import AuthActions from '@/components/auth/auth-actions/auth-actions'
-import AuthForm from '@/components/auth/auth-form/auth-form'
-import { forgotPasswordPath, registerPath } from '@/utils/route-paths'
 
 
 const LoginPage: FC = () => {

@@ -1,8 +1,10 @@
 import React, { FC, lazy } from 'react'
+
 import { Navigate, Outlet } from 'react-router-dom'
 
 import { ContentWrapper } from '@/components/content-wrapper/content-wrapper'
 import ErrorBoundary from '@/components/error-boundary/error-boundary'
+
 import { useAuth } from '@/utils/hooks'
 import { profilePath } from '@/utils/route-paths'
 

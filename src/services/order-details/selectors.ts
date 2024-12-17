@@ -1,4 +1,5 @@
 import type { StateSchema } from '@/components/app/store/types'
+
 import { Order, OrderDetailsSchema } from '@/services/order-details/types'
 
 export const getOrderNumber = (state: StateSchema): Order['number'] =>

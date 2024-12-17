@@ -1,11 +1,13 @@
 import React, { FC } from 'react'
+
 import { Navigate } from 'react-router-dom'
 
 import { BaseLayout } from '@/components/layout/base-layout'
+
 import { useAuth } from '@/utils/hooks'
 import { loginPath } from '@/utils/route-paths'
 
-const ProtectedRoute: FC = () => {
+const ProtectedRouteElement: FC = () => {
   const { isAuth } = useAuth()
 
   if (!isAuth) {
@@ -15,4 +17,4 @@ const ProtectedRoute: FC = () => {
   return <BaseLayout />
 }
 
-export default ProtectedRoute
+export default ProtectedRouteElement

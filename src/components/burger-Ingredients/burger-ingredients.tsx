@@ -4,13 +4,13 @@ import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
 import { IngredientsList } from '@/components/burger-Ingredients/ingredients-list/ingredients-list'
 import type { TabsOptions } from '@/components/tabs/tabs'
 import { Tabs } from '@/components/tabs/tabs'
+
 import { fetchIngredients } from '@/services/ingredients/fetch-ingredients'
 import {
   getIngredients,
   getIngredientsError,
   getIngredientsIsLoading,
 } from '@/services/ingredients/selectors'
-
 import { IngredientType } from '@/services/ingredients/types'
 
 const ingredientsOrder = ['bun', 'sauce', 'main']

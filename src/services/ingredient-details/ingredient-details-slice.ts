@@ -20,7 +20,7 @@ const initialState: IngredientDetailsSchema = {
   },
 }
 
-export const ingredientDetailsSlice = createSlice({
+const ingredientDetailsSlice = createSlice({
   name: 'ingredientDetails',
   initialState,
   reducers: {

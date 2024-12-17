@@ -1,5 +1,4 @@
 import { baseApiUrl } from '@/utils/api/constants'
-
 import type { ApiResources } from '@/utils/api/types'
 
 export interface CustomApi {

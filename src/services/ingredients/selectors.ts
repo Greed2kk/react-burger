@@ -1,16 +1,18 @@
 import { createSelector, Selector } from '@reduxjs/toolkit'
 
-import {
-  selectAllIngredients,
-  selectIngredientEntities,
-} from '@/services/ingredients/ingredient-slice'
-
 import { type StateSchema } from '@/components/app/store/types'
+
 import {
   Categories,
   Ingredient,
   IngredientType,
-} from '@/services/ingredients/types'
+} from './types'
+
+import {
+  selectAllIngredients,
+  selectIngredientById,
+  selectIngredientEntities,
+} from './ingredient-slice'
 
 export const getIngredientsError = (state: StateSchema): string | undefined =>
   state.ingredients?.error
@@ -43,4 +45,12 @@ export const getIngredientsByIds = (
 ): Selector<StateSchema, Ingredient[]> =>
   createSelector([selectIngredientEntities], (entities): Ingredient[] =>
     ids.map(id => entities[id]).filter(ingredient => ingredient !== undefined),
+  )
+
+export const createAppSelector = createSelector.withTypes<StateSchema>()
+
+export const getIngredientsById = (id: string): Selector<StateSchema, Ingredient>  =>
+  createAppSelector(
+    (state: StateSchema) => state,
+    ingredientsState => selectIngredientById(ingredientsState, id),
   )

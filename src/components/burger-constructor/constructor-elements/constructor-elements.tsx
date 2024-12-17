@@ -1,11 +1,14 @@
 import { FC, useCallback } from 'react'
-import { useDrop } from 'react-dnd'
 
+import { useDrop } from 'react-dnd'
 import { v4 as uuidv4 } from 'uuid'
 
 import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
 import { ConstructorElement } from '@/components/burger-constructor/constructor-elements/constructor-element/constructor-element'
+import { ConstructorElementType } from '@/components/burger-constructor/constructor-elements/constructor-element/types'
 import { ConstructorPlaceholder } from '@/components/burger-constructor/constructor-elements/constructor-placeholder/constructor-placeholder'
+import { DndType } from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
+
 import {
   addIngredient,
   setIngredientsOrder,
@@ -14,12 +17,9 @@ import {
   selectBun,
   selectIngredients,
 } from '@/services/burger-constructor/selectors'
-
-import styles from '@/components/burger-constructor/constructor-elements/constructor-elements.module.css'
-
-import { ConstructorElementType } from '@/components/burger-constructor/constructor-elements/constructor-element/types'
-import { DndType } from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
 import { BurgerIngredient } from '@/services/burger-constructor/types'
+
+import styles from './constructor-elements.module.css'
 
 export const ConstructorElements: FC = () => {
   const dispatch = useAppDispatch()

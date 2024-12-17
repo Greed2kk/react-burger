@@ -2,9 +2,10 @@ import React, { FC } from 'react'
 
 import { IngredientsCategory } from '@/components/burger-Ingredients/ingredients-list/ingredients-category/Ingredients-category'
 
-import styles from '@/components/burger-Ingredients/ingredients-list/ingredients-list.module.css'
-
 import { Categories, IngredientType } from '@/services/ingredients/types'
+
+import styles from './ingredients-list.module.css'
+
 
 interface IngredientsListProps {
   ingredients: Categories

@@ -1,13 +1,15 @@
 import { FC, Fragment } from 'react'
 
 import { useAppSelector } from '@/components/app/store/store'
-import { ReactComponent as OrderDone } from '@/images/order-done.svg'
+
 import {
   getOrderError,
   getOrderNumber,
 } from '@/services/order-details/selectors'
 
-import styles from '@/components/order-details/order-details.module.css'
+import { ReactComponent as OrderDone } from '@/images/order-done.svg'
+
+import styles from './order-details.module.css'
 
 export const OrderDetails: FC = () => {
   const orderNumber = useAppSelector(getOrderNumber)

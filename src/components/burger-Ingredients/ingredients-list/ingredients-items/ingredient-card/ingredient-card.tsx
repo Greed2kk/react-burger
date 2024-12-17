@@ -1,24 +1,26 @@
-import { FC, Fragment, useMemo, useState } from 'react'
+import { FC, Fragment, useMemo } from 'react'
+
+import classNames from 'classnames'
 import { useDrag } from 'react-dnd'
+import { useLocation, useNavigate } from 'react-router-dom'
+
+import { useAppSelector } from '@/components/app/store/store'
+import { DndType } from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
+
+import {
+  selectBunId,
+  selectIngredientsIds,
+} from '@/services/burger-constructor/selectors'
+import { type Ingredient, IngredientType } from '@/services/ingredients/types'
+
+import { ingredientsPath } from '@/utils/route-paths'
 
 import {
   Counter,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import classNames from 'classnames'
 
-import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
-import { IngredientDetails } from '@/components/ingredient-details/ingredient-details'
-import {
-  selectBunId,
-  selectIngredientsIds,
-} from '@/services/burger-constructor/selectors'
-import { addIngredientData } from '@/services/ingredient-details/ingredient-details-slice'
-
-import styles from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/ingredient-card.module.css'
-
-import { DndType } from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
-import { type Ingredient, IngredientType } from '@/services/ingredients/types'
+import styles from './ingredient-card.module.css'
 
 interface IngredientItemProps {
   ingredient: Ingredient
@@ -26,7 +28,8 @@ interface IngredientItemProps {
 
 export const IngredientCard: FC<IngredientItemProps> = ({ ingredient }) => {
   const { image, name, price, _id, type, image_mobile } = ingredient
-  const [openDetails, setOpenDetails] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const ingredientsIds = useAppSelector(selectIngredientsIds)
   const bunId = useAppSelector(selectBunId)
@@ -42,8 +45,6 @@ export const IngredientCard: FC<IngredientItemProps> = ({ ingredient }) => {
 
     return null
   }, [_id, bunId, ingredientsIds, type])
-
-  const dispatch = useAppDispatch()
 
   const [{ isDrag }, dragRef] = useDrag(() => ({
     type: type === IngredientType.BUN ? DndType.BUN : DndType.INGREDIENT,
@@ -61,13 +62,9 @@ export const IngredientCard: FC<IngredientItemProps> = ({ ingredient }) => {
   }))
 
   const handleDetailsClick = (): void => {
-    dispatch(addIngredientData(ingredient))
-
-    setOpenDetails(true)
-  }
-
-  const handleCloseDetails = (): void => {
-    setOpenDetails(false)
+    navigate(`${ingredientsPath}/${_id}`, {
+      state: { backgroundLocation: location },
+    })
   }
 
   return (
@@ -98,8 +95,6 @@ export const IngredientCard: FC<IngredientItemProps> = ({ ingredient }) => {
           {name}
         </p>
       </li>
-
-      {openDetails && <IngredientDetails closeModal={handleCloseDetails} />}
     </Fragment>
   )
 }

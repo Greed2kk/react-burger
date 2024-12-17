@@ -1,11 +1,11 @@
 import { FC } from 'react'
-import { useDrop } from 'react-dnd'
 
 import classNames from 'classnames'
-
-import styles from '@/components/burger-constructor/constructor-elements/constructor-placeholder/constructor-placeholder.module.css'
+import { useDrop } from 'react-dnd'
 
 import { DndType } from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
+
+import styles from './constructor-placeholder.module.css'
 
 interface ConstructorPlaceholderProps {
   isBun?: boolean

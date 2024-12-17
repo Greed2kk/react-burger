@@ -1,8 +1,8 @@
 import { FC } from 'react'
 
-import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
-
 import { rootPath } from '@/utils/route-paths'
+
+import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 
 interface BurgerLogoProps {
   className?: string

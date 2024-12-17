@@ -1,16 +1,16 @@
 import {
-  Children,
-  cloneElement,
+  // Children,
+  // cloneElement,
   FC,
-  isValidElement,
+  // isValidElement,
   ReactNode,
-  useState,
+  // useState,
 } from 'react'
-import { NavLink } from 'react-router-dom'
 
 import classNames from 'classnames'
+import { NavLink } from 'react-router-dom'
 
-import styles from '@/components/link/link.module.css'
+import styles from './link.module.css'
 
 interface LinkProps {
   children: ReactNode
@@ -21,16 +21,16 @@ interface LinkProps {
 
 export const Link: FC<LinkProps> = props => {
   const { className, children, to, ariaLabel = 'Ссылка' } = props
-  const [isActiveLink, setIsActiveLink] = useState(false)
+  // const [isActiveLink, setIsActiveLink] = useState(false)
 
-  const modifiedChildren = Children.map(children, child => {
-    if (isValidElement(child) && child.type !== 'p' && isActiveLink) {
-      // @ts-ignore // REFACTORING
-      return cloneElement(child, { type: 'primary' })
-    }
-
-    return child
-  })
+  // const modifiedChildren = Children.map(children, child => {
+  //   if (isValidElement(child) && child.type !== 'p' && isActiveLink) {
+  //     // @ts-ignore // REFACTORING
+  //     return cloneElement(child, { type: 'primary' })
+  //   }
+  //
+  //   return child
+  // })
 
   return (
     <NavLink
@@ -40,11 +40,12 @@ export const Link: FC<LinkProps> = props => {
       }
       aria-label={ariaLabel}
     >
-      {({ isActive }) => {
-        setIsActiveLink(isActive)
+      {children}
+      {/* {({ isActive }) => { */}
+      {/*   setIsActiveLink(isActive) */}
 
-        return modifiedChildren
-      }}
+      {/*   return modifiedChildren */}
+      {/* }} */}
     </NavLink>
   )
 }

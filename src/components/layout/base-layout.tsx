@@ -1,4 +1,5 @@
 import { FC, lazy } from 'react'
+
 import { Outlet } from 'react-router-dom'
 
 import { ContentWrapper } from '@/components/content-wrapper/content-wrapper'

@@ -1,12 +1,12 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
-import { ingredientsAdapter } from '@/services/ingredients/ingredient-slice'
-
 import { StateSchema } from '@/components/app/store/types'
+
 import {
   BurgerConstructorSchema,
   BurgerIngredient,
 } from '@/services/burger-constructor/types'
+import { ingredientsAdapter } from '@/services/ingredients/ingredient-slice'
 import { IngredientType } from '@/services/ingredients/types'
 
 export const burgerConstructorAdapter = createEntityAdapter({
@@ -20,7 +20,7 @@ export const initialState =
     totalPrice: 0,
   })
 
-export const burgerConstructorSlice = createSlice({
+const burgerConstructorSlice = createSlice({
   name: 'burgerConstructor',
   initialState,
   reducers: {

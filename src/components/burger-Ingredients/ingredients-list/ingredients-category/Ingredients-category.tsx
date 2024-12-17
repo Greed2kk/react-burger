@@ -1,11 +1,12 @@
 import { FC, useEffect } from 'react'
+
 import { useInView } from 'react-intersection-observer'
 
 import { IngredientsItems } from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredients-items'
 
-import styles from '@/components/burger-Ingredients/ingredients-list/ingredients-category/ingredients-category.module.css'
-
 import { Ingredient, IngredientType } from '@/services/ingredients/types'
+
+import styles from './ingredients-category.module.css'
 
 interface IngredientsCategoryProps {
   category: IngredientType

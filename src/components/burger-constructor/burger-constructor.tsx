@@ -7,6 +7,7 @@ import { ConstructorElements } from '@/components/burger-constructor/constructor
 import { TotalPrice } from '@/components/burger-constructor/total-price/total-price'
 import { Modal } from '@/components/modal/modal'
 import { OrderDetails } from '@/components/order-details/order-details'
+
 import { clearIngredients } from '@/services/burger-constructor/burger-constructor-slice'
 import {
   selectBunId,
@@ -16,7 +17,7 @@ import { createOrder } from '@/services/order-details/create-order'
 import { clearDetailsData } from '@/services/order-details/order-details-slice'
 import { getOrderIsLoading } from '@/services/order-details/selectors'
 
-import styles from '@/components/burger-constructor/burger-constructor.module.css'
+import styles from './burger-constructor.module.css'
 
 export const BurgerConstructor: FC = () => {
   const [orderComplete, setOrderComplete] = useState(false)

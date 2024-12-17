@@ -4,9 +4,10 @@ import classNames from 'classnames'
 
 import { useAppSelector } from '@/components/app/store/store'
 import { IngredientCard } from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/ingredient-card'
+
 import { getIngredientsByIds } from '@/services/ingredients/selectors'
 
-import styles from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredients-items.module.css'
+import styles from './ingredients-items.module.css'
 
 interface IngredientsItemsProps {
   ingredientsIds: string[]

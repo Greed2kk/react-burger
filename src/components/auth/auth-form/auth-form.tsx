@@ -3,10 +3,9 @@ import { FC, ReactNode } from 'react'
 import classNames from 'classnames'
 
 import { Button } from '@/components/button/button'
+import { HtmlTypeButton } from '@/components/button/types'
 
 import styles from './auth-form.module.css'
-
-import { HtmlTypeButton } from '@/components/button/types'
 
 interface AuthFormProps {
   children: ReactNode

@@ -1,15 +1,16 @@
 import { FC } from 'react'
 
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames'
 
 import { useAppSelector } from '@/components/app/store/store'
 import { Button } from '@/components/button/button'
+import { HtmlTypeButton, SizeButton } from '@/components/button/types'
+
 import { selectTotalPrice } from '@/services/burger-constructor/selectors'
 
-import styles from '@/components/burger-constructor/total-price/total-price.module.css'
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import { HtmlTypeButton, SizeButton } from '@/components/button/types'
+import styles from './total-price.module.css'
 
 interface TotalPriceProps {
   onOrderAccept: () => void

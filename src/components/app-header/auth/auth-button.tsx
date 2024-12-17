@@ -1,9 +1,10 @@
 import { FC } from 'react'
 
-import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-
 import { Link } from '@/components/link/link'
+
 import { profilePath } from '@/utils/route-paths'
+
+import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 export const AuthButton: FC = () => (
   <Link

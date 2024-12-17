@@ -1,11 +1,13 @@
 import { FC, Fragment } from 'react'
-import { useNavigate } from 'react-router-dom'
 
-import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components'
+import { useNavigate } from 'react-router-dom'
 
 import AuthActions from '@/components/auth/auth-actions/auth-actions'
 import AuthForm from '@/components/auth/auth-form/auth-form'
+
 import { loginPath } from '@/utils/route-paths'
+
+import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components'
 
 
 const ForgotPasswordPage: FC = () => {
