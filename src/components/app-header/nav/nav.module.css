@@ -3,3 +3,16 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
+
+.link {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-decoration: none;
+    color: var(--colors-button-inactive);
+}
+
+
+.active {
+    color: var(--primary-text-light);
+}

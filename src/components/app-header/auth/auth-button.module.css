@@ -2,9 +2,10 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    color: var(--colors-button-inactive);
     text-decoration: none;
+    color: var(--colors-button-inactive);
 }
+
 
 .active {
     color: var(--primary-text-light);
