@@ -1,23 +1,20 @@
 import { FC } from 'react'
 
 import classNames from 'classnames'
-
 import { useDrag, useDrop } from 'react-dnd'
+
+import { useAppDispatch } from '@/components/app/store/store'
+import { ConstructorElementType } from '@/components/burger-constructor/constructor-elements/constructor-element/types'
+import { DndType } from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
+
+import { removeIngredient } from '@/services/burger-constructor/burger-constructor-slice'
 
 import {
   ConstructorElement as YaConstructorElement,
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import { removeIngredient } from '../../../../services/burger-constructor/burger-constructor-slice'
-import { decreaseQuantity } from '../../../../services/ingredients/ingredient-slice'
-import { useAppDispatch } from '../../../app/store/store'
-
-import { DndType } from '../../../burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
-
 import styles from './constructor-element.module.css'
-
-import { ConstructorElementType } from './types'
 
 interface ConstructorElementProps {
   _id: string
@@ -33,7 +30,15 @@ interface ConstructorElementProps {
 }
 
 export const ConstructorElement: FC<ConstructorElementProps> = props => {
-  const { id, _id, index = 0, moveIngredient, isLocked, className, ...otherProps } = props
+  const {
+    id,
+    _id,
+    index = 0,
+    moveIngredient,
+    isLocked,
+    className,
+    ...otherProps
+  } = props
 
   const dispatch = useAppDispatch()
 
@@ -57,11 +62,10 @@ export const ConstructorElement: FC<ConstructorElementProps> = props => {
 
   const handleDelete = (): void => {
     dispatch(removeIngredient(id))
-    dispatch(decreaseQuantity({ _id }))
   }
 
   return (
-    <div
+    <li
       className={classNames(styles.constructorElement, {
         [styles.isDragging]: isDragging,
       })}
@@ -85,6 +89,6 @@ export const ConstructorElement: FC<ConstructorElementProps> = props => {
         )}
         {...otherProps}
       />
-    </div>
+    </li>
   )
 }

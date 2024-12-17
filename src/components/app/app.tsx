@@ -1,20 +1,13 @@
-import React, { FC, Fragment } from 'react'
+import React, { FC } from 'react'
 
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+import { BrowserRouter as Router } from 'react-router-dom'
 
-import { AppHeader } from '../app-header/app-header'
-
-import BurgerConstructorPage from '../../pages/burger-constructor-page/burger-constructor-page'
+import Routes from '@/components/app/routes/routes'
 
 const App: FC = () => (
-  <Fragment>
-    <AppHeader />
-
-    <DndProvider backend={HTML5Backend}>
-      <BurgerConstructorPage />
-    </DndProvider>
-  </Fragment>
+  <Router>
+    <Routes />
+  </Router>
 )
 
 export default App

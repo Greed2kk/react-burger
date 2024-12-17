@@ -1,4 +1,4 @@
-import { Ingredient } from '../../../services/ingredients/types'
+import { Ingredient } from '@/services/ingredients/types'
 
 export interface OrderData {
   id: string
