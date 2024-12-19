@@ -8,6 +8,7 @@ import AuthForm from '@/components/auth/auth-form/auth-form'
 import { loginPath } from '@/utils/route-paths'
 
 import {
+  EmailInput,
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -30,24 +31,31 @@ const RegisterPage: FC = () => {
         onSubmit={onSubmit}
         submitText="Зарегистрироваться"
       >
-        <PasswordInput
-          onChange={() => {}}
-          value=""
-          placeholder="Введите новый пароль"
-          name="password"
-          extraClass="mb-6"
-        />
-
         <Input
-          type="text"
-          placeholder="Введите код из письма"
+          type={'text'}
+          placeholder={'Имя'}
           onChange={() => {}}
-          value=""
-          name="name"
-          size="default"
+          value={''}
+          name={'name'}
+          size={'default'}
           extraClass="mb-6"
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
+        />
+
+        <EmailInput
+          onChange={() => {}}
+          value={''}
+          name={'email'}
+          isIcon={false}
+          extraClass="mb-6"
+        />
+
+        <PasswordInput
+          onChange={() => {}}
+          value={''}
+          name={'password'}
+          extraClass="mb-6"
         />
       </AuthForm>
 
