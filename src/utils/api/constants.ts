@@ -1,4 +1,4 @@
-import { ApiResources } from './types'
+import { ApiResources } from '@/utils/api/types'
 
 export const baseApiUrl = 'https://norma.nomoreparties.space/api'
 

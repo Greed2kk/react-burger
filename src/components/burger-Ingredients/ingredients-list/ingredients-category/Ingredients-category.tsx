@@ -2,22 +2,16 @@ import { FC, useEffect } from 'react'
 
 import { useInView } from 'react-intersection-observer'
 
-import {
-  Ingredient,
-  IngredientType,
-} from '../../../../services/ingredients/types'
+import { IngredientsItems } from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredients-items'
 
-import { IngredientsItems } from '../ingredients-items/ingredients-items'
+import { Ingredient, IngredientType } from '@/services/ingredients/types'
 
 import styles from './ingredients-category.module.css'
 
 interface IngredientsCategoryProps {
   category: IngredientType
   ingredientsIds: Ingredient['_id'][]
-  setActiveTab: (
-    category: IngredientType,
-    inView: boolean,
-  ) => void
+  setActiveTab: (category: IngredientType, inView: boolean) => void
 }
 
 const categoryNames = {
@@ -38,10 +32,10 @@ export const IngredientsCategory: FC<IngredientsCategoryProps> = ({
   }, [category, inView, setActiveTab])
 
   return (
-    <section className={styles.ingredientsCategory} ref={ref}>
+    <li className={styles.ingredientsCategory} ref={ref} id={category}>
       <p className="text text_type_main-medium">{categoryNames[category]}</p>
 
       <IngredientsItems ingredientsIds={ingredientsIds} />
-    </section>
+    </li>
   )
 }

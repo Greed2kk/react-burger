@@ -1,0 +1,7 @@
+.authLayout {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 180px;
+    align-items: center;
+}

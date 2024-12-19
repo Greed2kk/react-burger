@@ -1,24 +1,22 @@
 import React, { FC } from 'react'
 
-import { Categories, IngredientType } from '../../../services/ingredients/types'
+import { IngredientsCategory } from '@/components/burger-Ingredients/ingredients-list/ingredients-category/Ingredients-category'
 
-import { IngredientsCategory } from './ingredients-category/Ingredients-category'
+import { Categories, IngredientType } from '@/services/ingredients/types'
 
 import styles from './ingredients-list.module.css'
 
+
 interface IngredientsListProps {
   ingredients: Categories
-  setActiveTab: (
-    category: IngredientType,
-    inView: boolean,
-  ) => void
+  setActiveTab: (category: IngredientType, inView: boolean) => void
 }
 
 export const IngredientsList: FC<IngredientsListProps> = ({
   ingredients,
   setActiveTab,
 }) => (
-  <section className={styles.ingredientsList}>
+  <ul className={styles.ingredientsList}>
     {Object.entries(ingredients).map(([category, ingredientsIds]) => (
       <IngredientsCategory
         setActiveTab={setActiveTab}
@@ -27,5 +25,5 @@ export const IngredientsList: FC<IngredientsListProps> = ({
         ingredientsIds={ingredientsIds}
       />
     ))}
-  </section>
+  </ul>
 )

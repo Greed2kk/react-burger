@@ -1,8 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-import { type Ingredient, IngredientType } from '../ingredients/types'
-
-import type { IngredientDetailsSchema } from './types'
+import type { IngredientDetailsSchema } from '@/services/ingredient-details/types'
+import { type Ingredient, IngredientType } from '@/services/ingredients/types'
 
 const initialState: IngredientDetailsSchema = {
   ingredientDetails: {
@@ -21,7 +20,7 @@ const initialState: IngredientDetailsSchema = {
   },
 }
 
-export const ingredientDetailsSlice = createSlice({
+const ingredientDetailsSlice = createSlice({
   name: 'ingredientDetails',
   initialState,
   reducers: {

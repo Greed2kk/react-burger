@@ -2,13 +2,13 @@ import { FC } from 'react'
 
 import classNames from 'classnames'
 
+import { useAppSelector } from '@/components/app/store/store'
+import { Button } from '@/components/button/button'
+import { HtmlTypeButton, SizeButton } from '@/components/button/types'
+
+import { selectTotalPrice } from '@/services/burger-constructor/selectors'
+
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { selectTotalPrice } from '../../../services/burger-constructor/selectors'
-
-import { useAppSelector } from '../../app/store/store'
-
-import { Button } from '../../button/button'
-import { HtmlTypeButton, SizeButton } from '../../button/types'
 
 import styles from './total-price.module.css'
 
