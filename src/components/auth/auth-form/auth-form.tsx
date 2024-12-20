@@ -3,15 +3,18 @@ import { FC, ReactNode } from 'react'
 import classNames from 'classnames'
 
 import { Button } from '@/components/button/button'
-import { HtmlTypeButton } from '@/components/button/types'
+import { HtmlTypeButton, TypeButton } from '@/components/button/types'
 
 import styles from './auth-form.module.css'
 
 interface AuthFormProps {
   children: ReactNode
-  title: string
-  submitText: string
+  title?: string
   onSubmit: () => void
+  onCancel?: () => void
+  submitText?: string
+  cancelText?: string
+  displayActions?: boolean
 }
 
 const AuthForm: FC<AuthFormProps> = ({
@@ -19,9 +22,16 @@ const AuthForm: FC<AuthFormProps> = ({
   title,
   onSubmit,
   submitText,
+  onCancel,
+  cancelText,
+  displayActions = true,
 }) => {
   const handleSubmit = (): void => {
     onSubmit()
+  }
+
+  const handleCancel = (): void => {
+    onCancel && onCancel()
   }
 
   return (
@@ -29,10 +39,24 @@ const AuthForm: FC<AuthFormProps> = ({
       className={classNames(styles.authForm, 'mb-20')}
       onSubmit={handleSubmit}
     >
-      <p className="text text_type_main-medium mb-6">{title}</p>
+      {title && <p className="text text_type_main-medium mb-6">{title}</p>}
       {children}
 
-      <Button htmlType={HtmlTypeButton.SUBMIT}>{submitText}</Button>
+      {displayActions && (
+        <div className={styles.actions}>
+          {cancelText && (
+            <Button
+              htmlType={HtmlTypeButton.BUTTON}
+              type={TypeButton.SECONDARY}
+              onClick={handleCancel}
+            >
+              {cancelText}
+            </Button>
+          )}
+
+          <Button htmlType={HtmlTypeButton.SUBMIT}>{submitText}</Button>
+        </div>
+      )}
     </form>
   )
 }

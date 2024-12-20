@@ -16,6 +16,7 @@ import {
   forgotPasswordPath,
   ingredientsPath,
   loginPath,
+  logoutPath,
   ordersPath,
   profilePath,
   registerPath,
@@ -44,6 +45,16 @@ const ForgotPasswordPage = lazy(
   () => import('@/pages/forgot-password-page/forgot-password-page'),
 )
 
+const ProfileForm = lazy(
+  () => import('@/pages/profile-page/profile-form/profile-form'),
+)
+
+const ProfileOrders = lazy(() => import('@/pages/profile-page/orders/orders'))
+
+const ProfileOrder = lazy(() => import('@/pages/profile-page/order/order'))
+
+const ProfileLogout = lazy(() => import('@/pages/profile-page/logout/logout'))
+
 const AllRoutes: FC = () => {
   const location = useLocation()
   const navigate = useNavigate()
@@ -64,6 +75,8 @@ const AllRoutes: FC = () => {
               path={`${ingredientsPath}/:id`}
               element={<IngredientsPage />}
             />
+
+            <Route path={ordersPath} element={<OrdersPage />} />
           </Route>
 
           <Route element={<AuthLayout />}>
@@ -74,9 +87,14 @@ const AllRoutes: FC = () => {
           </Route>
 
           <Route element={<ProtectedRouteElement />}>
-            <Route path={profilePath} element={<Profile />} />
-            <Route path={ordersPath} element={<OrdersPage />} />
+            <Route path={profilePath} element={<Profile />}>
+              <Route index element={<ProfileForm />} />
+              <Route path={ordersPath} element={<ProfileOrders />} />
+
+              <Route path={`${ordersPath}/:id`} element={<ProfileOrder />} />
+            </Route>
           </Route>
+          <Route path={logoutPath} element={<ProfileLogout />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
