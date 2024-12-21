@@ -16,9 +16,7 @@ const initialState: AuthSchema = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-
-  },
+  reducers: {},
   extraReducers: builder => {
     builder
       .addCase(register.pending, state => {
@@ -30,9 +28,9 @@ const authSlice = createSlice({
         state.refreshToken = action.payload.refreshToken
         state.accessToken = action.payload.accessToken
       })
-      .addCase(register.rejected, state => {
+      .addCase(register.rejected, (state, action) => {
         state.isLoading = false
-        state.error = 'Something went wrong'
+        state.error = action.error.message || ''
       })
   },
 })

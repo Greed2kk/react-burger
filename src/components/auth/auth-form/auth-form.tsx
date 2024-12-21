@@ -15,6 +15,7 @@ interface AuthFormProps {
   submitText?: string
   cancelText?: string
   displayActions?: boolean
+  isLoading?: boolean
 }
 
 const AuthForm: FC<AuthFormProps> = ({
@@ -25,10 +26,10 @@ const AuthForm: FC<AuthFormProps> = ({
   onCancel,
   cancelText,
   displayActions = true,
+  isLoading = false,
 }) => {
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault()
-
 
     onSubmit()
   }
@@ -58,7 +59,9 @@ const AuthForm: FC<AuthFormProps> = ({
             </Button>
           )}
 
-          <Button htmlType={HtmlTypeButton.SUBMIT}>{submitText}</Button>
+          <Button htmlType={HtmlTypeButton.SUBMIT} disabled={isLoading}>
+            {submitText}
+          </Button>
         </div>
       )}
     </form>

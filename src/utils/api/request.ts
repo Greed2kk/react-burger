@@ -22,11 +22,9 @@ const customFetch = async <T>(
     })
 
     if (!response.ok) {
-      const errorDetails = await response.text()
+      const errorDetails = await response.json()
 
-      throw new Error(
-        `Request to ${slug} failed with status: ${response.status} - ${errorDetails}`,
-      )
+      throw new Error(errorDetails.message)
     }
 
     return await response.json()

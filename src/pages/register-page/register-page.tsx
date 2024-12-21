@@ -2,11 +2,16 @@ import { FC, Fragment, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
-import { useAppDispatch } from '@/components/app/store/store'
+import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
 import AuthActions from '@/components/auth/auth-actions/auth-actions'
 import AuthForm from '@/components/auth/auth-form/auth-form'
 
 import { register } from '@/services/auth/regester'
+import {
+  getAuthError,
+  getAuthLoading,
+  getIsAuthenticated,
+} from '@/services/auth/selectors'
 
 import { loginPath } from '@/utils/route-paths'
 
@@ -19,15 +24,20 @@ import {
 const RegisterPage: FC = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const isLoading = useAppSelector(getAuthLoading)
+  const isError = useAppSelector(getAuthError)
+  const isAuthenticated = useAppSelector(getIsAuthenticated)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
 
   const clearForm = (): void => {
-    setEmail('')
-    setPassword('')
-    setName('')
+    if (isAuthenticated) {
+      setEmail('')
+      setPassword('')
+      setName('')
+    }
   }
 
   const onSubmit = (): void => {
@@ -45,7 +55,9 @@ const RegisterPage: FC = () => {
         title="Регистрация"
         onSubmit={onSubmit}
         submitText="Зарегистрироваться"
+        isLoading={isLoading}
       >
+        {isError && <p className="text text_type_main-medium">{isError}</p>}
         {/* @ts-expect-error: onPointerEnterCapture, onPointerLeaveCapture warnings otherwise */}
         <Input
           onChange={e => setName(e.target.value)}
