@@ -2,10 +2,12 @@ import React, { FC, lazy } from 'react'
 
 import { Navigate, Outlet } from 'react-router-dom'
 
+import { useAppSelector } from '@/components/app/store/store'
 import { ContentWrapper } from '@/components/content-wrapper/content-wrapper'
 import ErrorBoundary from '@/components/error-boundary/error-boundary'
 
-import { useAuth } from '@/utils/hooks'
+import { getIsAuthenticated } from '@/services/auth/selectors'
+
 import { profilePath } from '@/utils/route-paths'
 
 import styles from './auth-layout.module.css'
@@ -13,9 +15,9 @@ import styles from './auth-layout.module.css'
 const AppHeader = lazy(() => import('@/components/app-header/app-header'))
 
 export const AuthLayout: FC = () => {
-  const { isAuth } = useAuth()
+  const isAuthenticated = useAppSelector(getIsAuthenticated)
 
-  if (isAuth) {
+  if (isAuthenticated) {
     return <Navigate to={profilePath} replace={true} />
   }
 

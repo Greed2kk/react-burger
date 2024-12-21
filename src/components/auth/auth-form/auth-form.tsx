@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { FC, FormEvent, ReactNode } from 'react'
 
 import classNames from 'classnames'
 
@@ -26,7 +26,10 @@ const AuthForm: FC<AuthFormProps> = ({
   cancelText,
   displayActions = true,
 }) => {
-  const handleSubmit = (): void => {
+  const handleSubmit = (e: FormEvent): void => {
+    e.preventDefault()
+
+
     onSubmit()
   }
 
@@ -38,6 +41,7 @@ const AuthForm: FC<AuthFormProps> = ({
     <form
       className={classNames(styles.authForm, 'mb-20')}
       onSubmit={handleSubmit}
+      method="POST"
     >
       {title && <p className="text text_type_main-medium mb-6">{title}</p>}
       {children}

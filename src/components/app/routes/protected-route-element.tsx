@@ -2,15 +2,17 @@ import React, { FC } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
+import { useAppSelector } from '@/components/app/store/store'
 import { BaseLayout } from '@/components/layout/base-layout'
 
-import { useAuth } from '@/utils/hooks'
+import { getIsAuthenticated } from '@/services/auth/selectors'
+
 import { loginPath } from '@/utils/route-paths'
 
 const ProtectedRouteElement: FC = () => {
-  const { isAuth } = useAuth()
+  const isAuthenticated = useAppSelector(getIsAuthenticated)
 
-  if (!isAuth) {
+  if (!isAuthenticated) {
     return <Navigate to={loginPath} replace={true} />
   }
 

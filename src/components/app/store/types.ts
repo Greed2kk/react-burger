@@ -1,3 +1,4 @@
+import { type  AuthSchema } from '@/services/auth/types'
 import { type BurgerConstructorSchema } from '@/services/burger-constructor/types'
 import { type IngredientDetailsSchema } from '@/services/ingredient-details/types'
 import { type IngredientsSchema } from '@/services/ingredients/types'
@@ -8,4 +9,5 @@ export interface StateSchema {
   burgerConstructor: BurgerConstructorSchema
   orderDetails: OrderDetailsSchema
   ingredientDetails: IngredientDetailsSchema
+  auth: AuthSchema
 }

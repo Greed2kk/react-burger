@@ -1,10 +1,10 @@
 export const rootPath = '/'
 
-export const loginPath = 'login'
-export const registerPath = 'register'
+export const loginPath = '/login'
+export const registerPath = '/register'
 
-export const forgotPasswordPath = 'forgot-password'
-export const resetPasswordPath = 'reset-password'
+export const forgotPasswordPath = '/forgot-password'
+export const resetPasswordPath = '/reset-password'
 
 export const ordersPath = 'orders'
 
