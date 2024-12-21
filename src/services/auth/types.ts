@@ -12,7 +12,7 @@ export interface AuthSchema {
   error: string | null
 }
 
-export interface RegisterResponse {
+export interface AuthResponse {
   success: boolean
   user: {
     email: string
@@ -23,8 +23,11 @@ export interface RegisterResponse {
   message?: string
 }
 
-export type RegisterData = {
+export interface AuthData {
   email: string
   password: string
+}
+
+export interface RegisterData extends AuthData {
   name: string
 }

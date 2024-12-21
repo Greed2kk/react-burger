@@ -1,9 +1,13 @@
-import { FC, Fragment } from 'react'
+import { FC, Fragment, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
+import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
 import AuthActions from '@/components/auth/auth-actions/auth-actions'
 import AuthForm from '@/components/auth/auth-form/auth-form'
+
+import { login } from '@/services/auth/login'
+import { getIsAuthenticated } from '@/services/auth/selectors'
 
 import { forgotPasswordPath, registerPath } from '@/utils/route-paths'
 
@@ -12,12 +16,24 @@ import {
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 
-
 const LoginPage: FC = () => {
   const navigate = useNavigate()
+  const isAuthenticated = useAppSelector(getIsAuthenticated)
+  const dispatch = useAppDispatch()
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const clearForm = (): void => {
+    if (isAuthenticated) {
+      setEmail('')
+      setPassword('')
+    }
+  }
 
   const onSubmit = (): void => {
-    console.log('call')
+    dispatch(login({ email, password }))
+    clearForm()
   }
 
   const toRegistration = (): void => {
@@ -32,17 +48,17 @@ const LoginPage: FC = () => {
     <Fragment>
       <AuthForm title="Вход" onSubmit={onSubmit} submitText="Войти">
         <EmailInput
-          onChange={() => {}}
-          value={''}
-          name={'email'}
+          onChange={e => setEmail(e.target.value)}
+          value={email}
+          name="email"
           isIcon={false}
           extraClass="mb-6"
         />
 
         <PasswordInput
-          onChange={() => {}}
-          value={''}
-          name={'password'}
+          onChange={e => setPassword(e.target.value)}
+          value={password}
+          name="password"
           extraClass="mb-6"
         />
       </AuthForm>

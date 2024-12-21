@@ -8,7 +8,7 @@ import ErrorBoundary from '@/components/error-boundary/error-boundary'
 
 import { getIsAuthenticated } from '@/services/auth/selectors'
 
-import { profilePath } from '@/utils/route-paths'
+import { rootPath } from '@/utils/route-paths'
 
 import styles from './auth-layout.module.css'
 
@@ -18,7 +18,7 @@ export const AuthLayout: FC = () => {
   const isAuthenticated = useAppSelector(getIsAuthenticated)
 
   if (isAuthenticated) {
-    return <Navigate to={profilePath} replace={true} />
+    return <Navigate to={rootPath} replace={true} />
   }
 
   return (

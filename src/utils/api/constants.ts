@@ -7,3 +7,5 @@ export const ingredientsSlug: ApiResources = ApiResources.INGREDIENTS
 export const ordersSlug: ApiResources = ApiResources.ORDERS
 
 export const registerPath: ApiResources = ApiResources.REGISTER
+
+export const loginPath: ApiResources = ApiResources.LOGIN

@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
 import AuthActions from '@/components/auth/auth-actions/auth-actions'
 import AuthForm from '@/components/auth/auth-form/auth-form'
 
-import { register } from '@/services/auth/regester'
+import { register } from '@/services/auth/register'
 import {
   getAuthError,
   getAuthLoading,

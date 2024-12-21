@@ -92,9 +92,9 @@ const AllRoutes: FC = () => {
               <Route path={ordersPath} element={<ProfileOrders />} />
 
               <Route path={`${ordersPath}/:id`} element={<ProfileOrder />} />
+              <Route path={logoutPath} element={<ProfileLogout />} />
             </Route>
           </Route>
-          <Route path={logoutPath} element={<ProfileLogout />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
