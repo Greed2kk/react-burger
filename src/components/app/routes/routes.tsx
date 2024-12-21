@@ -66,7 +66,7 @@ const AllRoutes: FC = () => {
   }
 
   return (
-    <Suspense fallback="Загрузка...">
+    <Suspense>
       <Routes location={state?.backgroundLocation || location}>
         <Route path={rootPath} element={<Outlet />}>
           <Route element={<BaseLayout />}>

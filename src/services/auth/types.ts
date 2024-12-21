@@ -10,6 +10,7 @@ export interface AuthSchema {
   isAuthenticated: boolean
   isLoading: boolean
   error: string | null
+  isResetPassword: boolean
 }
 
 export interface AuthResponse {

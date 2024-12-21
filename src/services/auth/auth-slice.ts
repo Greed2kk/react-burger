@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import type { AuthSchema } from './types'
 
@@ -7,11 +7,12 @@ import { register } from './register'
 
 const initialState: AuthSchema = {
   user: null,
-  accessToken: localStorage.getItem('accessToken') || null,
-  refreshToken: localStorage.getItem('refreshToken') || null,
+  accessToken: null,
+  refreshToken: null,
   isAuthenticated: false,
   isLoading: false,
   error: null,
+  isResetPassword: Boolean(localStorage.getItem('isResetPassword')) || false,
 }
 
 const updateTokens = (
@@ -31,7 +32,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setAccessToken(state, { payload }) {
+    setAccessToken(state, { payload }: PayloadAction<{ accessToken: string }>) {
       const { accessToken } = payload
 
       state.accessToken = accessToken
@@ -39,7 +40,10 @@ const authSlice = createSlice({
 
       localStorage.setItem('accessToken', accessToken)
     },
-    setRefreshToken(state, { payload }) {
+    setRefreshToken(
+      state,
+      { payload }: PayloadAction<{ refreshToken: string }>,
+    ) {
       const { refreshToken } = payload
 
       state.refreshToken = refreshToken
@@ -84,6 +88,8 @@ const authSlice = createSlice({
   },
 })
 
-const { reducer: authReducer } = authSlice
+const { reducer: authReducer, actions: authActions } = authSlice
+
+export const { setAccessToken, setRefreshToken } = authActions
 
 export default authReducer

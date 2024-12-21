@@ -30,7 +30,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
     if (hasError) {
       return (
-        <Suspense fallback="">
+        <Suspense>
           <h1>Обновите страницу</h1>
         </Suspense>
       )
