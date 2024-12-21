@@ -8,7 +8,6 @@ import { TotalPrice } from '@/components/burger-constructor/total-price/total-pr
 import { Modal } from '@/components/modal/modal'
 import { OrderDetails } from '@/components/order-details/order-details'
 
-import { clearIngredients } from '@/services/burger-constructor/burger-constructor-slice'
 import {
   selectBunId,
   selectIngredientsIds,
@@ -35,9 +34,7 @@ export const BurgerConstructor: FC = () => {
   const onOrderAccept = (): void => {
     setOrderComplete(!orderComplete)
 
-    dispatch(createOrder({ data: orderIngredients })).then(() => {
-      dispatch(clearIngredients())
-    })
+    dispatch(createOrder({ data: orderIngredients }))
   }
 
   const onCloseModal = (): void => {
