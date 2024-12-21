@@ -1,31 +1,31 @@
 import { FC, useState } from 'react'
 
 import classNames from 'classnames'
+import { useNavigate } from 'react-router-dom'
 
-import { clearIngredients } from '../../services/burger-constructor/burger-constructor-slice'
-import { clearQuantity } from '../../services/ingredients/ingredient-slice'
+import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
+import { ConstructorElements } from '@/components/burger-constructor/constructor-elements/constructor-elements'
+import { TotalPrice } from '@/components/burger-constructor/total-price/total-price'
+import { Modal } from '@/components/modal/modal'
+import { OrderDetails } from '@/components/order-details/order-details'
 
-import { createOrder } from '../../services/order-details/create-order'
-import { clearDetailsData } from '../../services/order-details/order-details-slice'
-import { getOrderIsLoading } from '../../services/order-details/selectors'
-
-import { useAppDispatch, useAppSelector } from '../app/store/store'
-
+import { getIsAuthenticated } from '@/services/auth/selectors'
 import {
   selectBunId,
   selectIngredientsIds,
-} from '../../services/burger-constructor/selectors'
+} from '@/services/burger-constructor/selectors'
+import { createOrder } from '@/services/order-details/create-order'
+import { clearDetailsData } from '@/services/order-details/order-details-slice'
+import { getOrderIsLoading } from '@/services/order-details/selectors'
 
-import { Modal } from '../modal/modal'
-
-import { OrderDetails } from '../order-details/order-details'
-import { ConstructorElements } from './constructor-elements/constructor-elements'
-import { TotalPrice } from './total-price/total-price'
+import { loginPath } from '@/utils/route-paths'
 
 import styles from './burger-constructor.module.css'
 
 export const BurgerConstructor: FC = () => {
   const [orderComplete, setOrderComplete] = useState(false)
+  const isAuthenticated = useAppSelector(getIsAuthenticated)
+  const navigate = useNavigate()
 
   const dispatch = useAppDispatch()
   const isLoading = useAppSelector(getOrderIsLoading)
@@ -38,12 +38,13 @@ export const BurgerConstructor: FC = () => {
   const disableOrder = isLoading || !bunId || !ingredientsIds.length
 
   const onOrderAccept = (): void => {
-    setOrderComplete(!orderComplete)
+    if (!isAuthenticated) {
+      navigate(loginPath)
+    } else {
+      setOrderComplete(!orderComplete)
 
-    dispatch(createOrder({ data: orderIngredients })).then(() => {
-      dispatch(clearQuantity())
-      dispatch(clearIngredients())
-    })
+      dispatch(createOrder({ data: orderIngredients }))
+    }
   }
 
   const onCloseModal = (): void => {
@@ -60,7 +61,7 @@ export const BurgerConstructor: FC = () => {
 
       <TotalPrice onOrderAccept={onOrderAccept} disabled={disableOrder} />
 
-      {!isLoading && orderComplete && (
+      {orderComplete && (
         <Modal onCloseHandler={onCloseModal}>
           <OrderDetails />
         </Modal>

@@ -1,6 +1,5 @@
-import { baseApiUrl } from './constants'
-
-import type { ApiResources } from './types'
+import { baseApiUrl } from '@/utils/api/constants'
+import type { ApiResources } from '@/utils/api/types'
 
 export interface CustomApi {
   get: <T>(slug: ApiResources, options?: RequestInit) => Promise<T>
@@ -11,9 +10,16 @@ const customFetch = async <T>(
   slug: ApiResources,
   options: RequestInit = {},
 ): Promise<T> => {
-  const headers = {
+  const headers: HeadersInit = {
     'Content-Type': 'application/json',
     ...(options.headers || {}),
+  }
+
+  const accessToken = localStorage.getItem('accessToken')
+
+  if (accessToken) {
+    //@ts-ignore
+    headers['Authorization'] = accessToken
   }
 
   try {
@@ -23,11 +29,9 @@ const customFetch = async <T>(
     })
 
     if (!response.ok) {
-      const errorDetails = await response.text()
+      const errorDetails = await response.json()
 
-      throw new Error(
-        `Request to ${slug} failed with status: ${response.status} - ${errorDetails}`,
-      )
+      throw new Error(errorDetails.message)
     }
 
     return await response.json()

@@ -1,19 +1,21 @@
 import { FC, Fragment } from 'react'
 
+import { useAppSelector } from '@/components/app/store/store'
+
 import {
   getOrderError,
+  getOrderIsLoading,
   getOrderNumber,
-} from '../../services/order-details/selectors'
+} from '@/services/order-details/selectors'
 
-import { useAppSelector } from '../app/store/store'
-
-import { ReactComponent as OrderDone } from '../../images/order-done.svg'
+import { ReactComponent as OrderDone } from '@/images/order-done.svg'
 
 import styles from './order-details.module.css'
 
 export const OrderDetails: FC = () => {
   const orderNumber = useAppSelector(getOrderNumber)
   const error = useAppSelector(getOrderError)
+  const isLoading = useAppSelector(getOrderIsLoading)
 
   if (!orderNumber && error) {
     return (
@@ -21,6 +23,10 @@ export const OrderDetails: FC = () => {
         Ошибка, попробуйте снова!
       </p>
     )
+  }
+
+  if (isLoading) {
+    return <p className="text text_type_main-large mt-15">Загрузка...</p>
   }
 
   return (

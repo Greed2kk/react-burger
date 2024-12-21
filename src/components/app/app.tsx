@@ -1,20 +1,24 @@
-import React, { FC, Fragment } from 'react'
+import React, { FC, useEffect } from 'react'
 
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+import Routes from '@/components/app/routes/routes'
+import { useAppDispatch } from '@/components/app/store/store'
 
-import { AppHeader } from '../app-header/app-header'
+import { setAccessToken, setRefreshToken } from '@/services/auth/auth-slice'
 
-import BurgerConstructorPage from '../../pages/burger-constructor-page/burger-constructor-page'
+const App: FC = () => {
+  const dispatch = useAppDispatch()
 
-const App: FC = () => (
-  <Fragment>
-    <AppHeader />
+  const accessToken = localStorage.getItem('accessToken')
+  const refreshToken = localStorage.getItem('refreshToken')
 
-    <DndProvider backend={HTML5Backend}>
-      <BurgerConstructorPage />
-    </DndProvider>
-  </Fragment>
-)
+  useEffect(() => {
+    if (accessToken && refreshToken) {
+      dispatch(setAccessToken({ accessToken }))
+      dispatch(setRefreshToken({ refreshToken }))
+    }
+  }, [accessToken, dispatch, refreshToken])
+
+  return <Routes />
+}
 
 export default App

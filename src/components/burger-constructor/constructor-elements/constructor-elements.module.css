@@ -1,9 +1,10 @@
 .constructorElements {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    width: 100%;
     align-items: flex-end;
+    width: 100%;
+    margin: 0;
+    row-gap: 16px;
 }
 
 .editableConstructorElements {

@@ -1,10 +1,15 @@
 import React, { FC, HTMLProps, ReactNode } from 'react'
 
+import {
+  HtmlTypeButton,
+  SizeButton,
+  TypeButton,
+} from '@/components/button/types'
+
 import { Button as YaButton } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import { HtmlTypeButton, SizeButton, TypeButton } from './types'
-
-interface ButtonProps extends Omit<HTMLProps<HTMLButtonElement>, 'type' | 'size'> {
+interface ButtonProps
+  extends Omit<HTMLProps<HTMLButtonElement>, 'type' | 'size'> {
   children: ReactNode
   type?: TypeButton
   htmlType?: HtmlTypeButton

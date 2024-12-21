@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { ordersSlug } from '../../utils/api/constants'
-import { api } from '../../utils/api/request'
+import { ordersSlug } from '@/utils/api/constants'
+import { api } from '@/utils/api/request'
 
 import type { OrderResponse } from './types'
 
