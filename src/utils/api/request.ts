@@ -10,9 +10,16 @@ const customFetch = async <T>(
   slug: ApiResources,
   options: RequestInit = {},
 ): Promise<T> => {
-  const headers = {
+  const headers: HeadersInit = {
     'Content-Type': 'application/json',
     ...(options.headers || {}),
+  }
+
+  const accessToken = localStorage.getItem('accessToken')
+
+  if (accessToken) {
+    //@ts-ignore
+    headers['Authorization'] = accessToken
   }
 
   try {

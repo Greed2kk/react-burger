@@ -9,7 +9,7 @@ import { getIsAuthenticated } from '@/services/auth/selectors'
 
 import { loginPath } from '@/utils/route-paths'
 
-const ProtectedRouteElement: FC = () => {
+const ProtectedRoute: FC = () => {
   const isAuthenticated = useAppSelector(getIsAuthenticated)
 
   if (!isAuthenticated) {
@@ -19,4 +19,4 @@ const ProtectedRouteElement: FC = () => {
   return <BaseLayout />
 }
 
-export default ProtectedRouteElement
+export default ProtectedRoute

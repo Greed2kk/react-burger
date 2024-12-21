@@ -24,7 +24,7 @@ import {
   rootPath,
 } from '@/utils/route-paths'
 
-import ProtectedRouteElement from './protected-route-element'
+import ProtectedRoute from './protected-route'
 
 const BurgerConstructor = lazy(
   () => import('@/pages/burger-constructor-page/burger-constructor-page'),
@@ -86,7 +86,7 @@ const AllRoutes: FC = () => {
             <Route path={resetPasswordPath} element={<ResetPasswordPage />} />
           </Route>
 
-          <Route element={<ProtectedRouteElement />}>
+          <Route element={<ProtectedRoute />}>
             <Route path={profilePath} element={<Profile />}>
               <Route index element={<ProfileForm />} />
               <Route path={ordersPath} element={<ProfileOrders />} />

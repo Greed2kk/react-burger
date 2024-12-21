@@ -61,7 +61,7 @@ export const BurgerConstructor: FC = () => {
 
       <TotalPrice onOrderAccept={onOrderAccept} disabled={disableOrder} />
 
-      {!isLoading && orderComplete && (
+      {orderComplete && (
         <Modal onCloseHandler={onCloseModal}>
           <OrderDetails />
         </Modal>
