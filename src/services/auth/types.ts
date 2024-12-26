@@ -1,10 +1,10 @@
-type User = {
+export type User = {
   email: string
   name: string
 }
 
 export interface AuthSchema {
-  user: User | null
+  user: User
   accessToken: string | null
   refreshToken: string | null
   isAuthenticated: boolean

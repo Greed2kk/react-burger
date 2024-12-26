@@ -11,3 +11,6 @@ export const getAuthLoading = (state: StateSchema): AuthSchema['isLoading'] =>
 export const getIsAuthenticated = (
   state: StateSchema,
 ): AuthSchema['isAuthenticated'] => state.auth.isAuthenticated
+
+export const getAuthUser = (state: StateSchema): AuthSchema['user'] =>
+  state.auth.user

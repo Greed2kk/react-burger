@@ -1,4 +1,9 @@
-import { baseApiUrl } from '@/utils/api/constants'
+import {
+  accessTokenKey,
+  baseApiUrl,
+  refreshTokenKey,
+  tokenPath,
+} from '@/utils/api/constants'
 import type { ApiResources } from '@/utils/api/types'
 
 export interface CustomApi {
@@ -6,41 +11,81 @@ export interface CustomApi {
   post: <T, B>(slug: ApiResources, body: B, options?: RequestInit) => Promise<T>
 }
 
+const refreshAccessToken = async (): Promise<string> => {
+  const refreshToken = localStorage.getItem(refreshTokenKey)
+
+  if (!refreshToken) {
+    throw new Error('Refresh token is missing')
+  }
+
+  const response = await fetch(`${baseApiUrl}/${tokenPath}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify({ token: refreshToken }),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to refresh token')
+  }
+
+  const data = await response.json()
+
+  localStorage.setItem(accessTokenKey, data.accessToken)
+  localStorage.setItem(refreshTokenKey, data.refreshToken)
+
+  return data.accessToken
+}
+
 const customFetch = async <T>(
   slug: ApiResources,
   options: RequestInit = {},
 ): Promise<T> => {
   const headers: HeadersInit = {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json;charset=utf-8',
     ...(options.headers || {}),
   }
 
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = localStorage.getItem(accessTokenKey)
 
   if (accessToken) {
-    //@ts-ignore
+    // @ts-ignore
     headers['Authorization'] = accessToken
   }
 
-  try {
+  const executeFetch = async <V>(): Promise<V> => {
     const response = await fetch(`${baseApiUrl}/${slug}`, {
       ...options,
       headers,
     })
 
     if (!response.ok) {
-      const errorDetails = await response.json()
+      const errorDetails = await response.json().catch(() => ({}))
 
-      throw new Error(errorDetails.message)
+      throw new Error(errorDetails.message || 'Request failed')
     }
 
-    return await response.json()
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error('API Error:', error.message)
-      throw error
+    return response.json()
+  }
+
+  try {
+    return await executeFetch<T>()
+  } catch (error: any) {
+    if (error.message === 'jwt expired') {
+      try {
+        // @ts-ignore
+        headers['Authorization'] = await refreshAccessToken()
+
+        return await executeFetch()
+      } catch (refreshError) {
+        localStorage.removeItem(accessTokenKey)
+        localStorage.removeItem(refreshTokenKey)
+        window.location.href = '/login'
+        throw new Error('Token refresh failed. Redirecting to login.')
+      }
     }
-    throw new Error('An unknown error occurred')
+    throw error
   }
 }
 

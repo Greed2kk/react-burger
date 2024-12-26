@@ -5,11 +5,13 @@ import { useAppDispatch } from '@/components/app/store/store'
 
 import { setAccessToken, setRefreshToken } from '@/services/auth/auth-slice'
 
+import { accessTokenKey, refreshTokenKey } from '@/utils/api/constants'
+
 const App: FC = () => {
   const dispatch = useAppDispatch()
 
-  const accessToken = localStorage.getItem('accessToken')
-  const refreshToken = localStorage.getItem('refreshToken')
+  const accessToken = localStorage.getItem(accessTokenKey)
+  const refreshToken = localStorage.getItem(refreshTokenKey)
 
   useEffect(() => {
     if (accessToken && refreshToken) {

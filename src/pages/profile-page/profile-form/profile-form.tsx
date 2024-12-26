@@ -1,6 +1,11 @@
-import { FC } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 
+import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
 import AuthForm from '@/components/auth/auth-form/auth-form'
+
+import { setUserEmail, setUserName } from '@/services/auth/auth-slice'
+import { getAuthUser } from '@/services/auth/selectors'
+import { user } from '@/services/auth/user'
 
 import {
   EmailInput,
@@ -9,6 +14,27 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components'
 
 const ProfileForm: FC = () => {
+  const dispatch = useAppDispatch()
+  const data = useAppSelector(getAuthUser)
+  const [disableName, setDisableName] = useState(true)
+  // const isLoading = useAppSelector(getAuthLoading)
+
+  const handleUserNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    dispatch(setUserName({ name: e.target.value }))
+  }
+
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    dispatch(setUserEmail({ email: e.target.value }))
+  }
+
+  useEffect(() => {
+    console.log('call')
+
+    dispatch(user())
+  }, [dispatch])
+
+  console.log(data)
+
   const onSubmit = (): void => {
     console.log('submit')
   }
@@ -24,23 +50,24 @@ const ProfileForm: FC = () => {
       onCancel={onCancel}
       cancelText="Отмена"
     >
+      {/* @ts-expect-error: onPointerEnterCapture, onPointerLeaveCapture warnings otherwise */}
       <Input
-        type={'text'}
-        placeholder={'Имя'}
-        onChange={() => {}}
-        value={'марк2'}
-        name={'name'}
-        size={'default'}
+        type="text"
+        placeholder="Имя"
+        onChange={handleUserNameChange}
+        value={data?.name || ''}
+        name="name"
+        size="default"
         extraClass="mb-6"
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
-        icon={'EditIcon'}
+        icon="EditIcon"
+        onIconClick={() => setDisableName(!disableName)}
+        disabled={disableName}
       />
 
       <EmailInput
-        onChange={() => {}}
-        value={'1'}
-        name={'Логин'}
+        onChange={handleEmailChange}
+        value={data?.email || ''}
+        name="Логин"
         isIcon={true}
         extraClass="mb-6"
       />
