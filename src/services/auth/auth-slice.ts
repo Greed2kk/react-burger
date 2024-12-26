@@ -1,10 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { logout } from '@/services/auth/logout'
+
 import {
   accessTokenKey,
   isResetPasswordKey,
   refreshTokenKey,
 } from '@/utils/api/constants'
+import resetStorage from '@/utils/helpers/resetStorage'
 
 import type { AuthSchema } from './types'
 
@@ -106,6 +109,17 @@ const authSlice = createSlice({
         state.isLoading = false
       })
       .addCase(user.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = action.error.message || ''
+      })
+      .addCase(logout.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(logout.fulfilled, state => {
+        resetStorage()
+        Object.assign(state, initialState)
+      })
+      .addCase(logout.rejected, (state, action) => {
         state.isLoading = false
         state.error = action.error.message || ''
       })

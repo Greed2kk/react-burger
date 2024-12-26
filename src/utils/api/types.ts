@@ -3,6 +3,7 @@ export enum ApiResources {
   ORDERS = 'orders',
   REGISTER = 'auth/register',
   LOGIN = 'auth/login',
+  LOGOUT = 'auth/logout',
   USER = 'auth/user',
   TOKEN = 'auth/token',
 }

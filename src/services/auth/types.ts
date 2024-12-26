@@ -32,3 +32,12 @@ export interface AuthData {
 export interface RegisterData extends AuthData {
   name: string
 }
+
+export interface LogoutResponse {
+  success: boolean
+  message: string
+}
+
+export interface LogoutData {
+  token: string
+}

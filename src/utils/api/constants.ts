@@ -10,6 +10,8 @@ export const registerPath: ApiResources = ApiResources.REGISTER
 
 export const loginPath: ApiResources = ApiResources.LOGIN
 
+export const logoutPath: ApiResources = ApiResources.LOGOUT
+
 export const userPath: ApiResources = ApiResources.USER
 
 export const tokenPath: ApiResources = ApiResources.TOKEN

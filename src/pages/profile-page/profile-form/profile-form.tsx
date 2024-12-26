@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, Fragment, useEffect, useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
 import AuthForm from '@/components/auth/auth-form/auth-form'
@@ -44,43 +44,49 @@ const ProfileForm: FC = () => {
   }
 
   return (
-    <AuthForm
-      onSubmit={onSubmit}
-      submitText="Сохранить"
-      onCancel={onCancel}
-      cancelText="Отмена"
-    >
-      {/* @ts-expect-error: onPointerEnterCapture, onPointerLeaveCapture warnings otherwise */}
-      <Input
-        type="text"
-        placeholder="Имя"
-        onChange={handleUserNameChange}
-        value={data?.name || ''}
-        name="name"
-        size="default"
-        extraClass="mb-6"
-        icon="EditIcon"
-        onIconClick={() => setDisableName(!disableName)}
-        disabled={disableName}
-      />
+    <Fragment>
+      <AuthForm
+        onSubmit={onSubmit}
+        submitText="Сохранить"
+        onCancel={onCancel}
+        cancelText="Отмена"
+      >
+        {/* @ts-expect-error: onPointerEnterCapture, onPointerLeaveCapture warnings otherwise */}
+        <Input
+          type="text"
+          placeholder="Имя"
+          onChange={handleUserNameChange}
+          value={data?.name || ''}
+          name="name"
+          size="default"
+          extraClass="mb-6"
+          icon="EditIcon"
+          onIconClick={() => setDisableName(!disableName)}
+          disabled={disableName}
+        />
 
-      <EmailInput
-        onChange={handleEmailChange}
-        value={data?.email || ''}
-        name="Логин"
-        isIcon={true}
-        extraClass="mb-6"
-      />
+        <EmailInput
+          onChange={handleEmailChange}
+          value={data?.email || ''}
+          name="Логин"
+          isIcon={true}
+          extraClass="mb-6"
+        />
 
-      <PasswordInput
-        onChange={() => {}}
-        value="1"
-        placeholder="Пароль"
-        name="password"
-        extraClass="mb-6"
-        icon={'EditIcon'}
-      />
-    </AuthForm>
+        <PasswordInput
+          onChange={() => {}}
+          value="1"
+          placeholder="Пароль"
+          name="password"
+          extraClass="mb-6"
+          icon={'EditIcon'}
+        />
+      </AuthForm>
+
+      <p className="text text_type_main-default text_color_inactive">
+        В этом разделе вы можете изменить свои персональные данные
+      </p>
+    </Fragment>
   )
 }
 

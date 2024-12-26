@@ -12,4 +12,4 @@ export const ingredientsPath = '/ingredients'
 
 export const profilePath = '/profile'
 export const profileOrdersPath = '/profile/orders'
-export const logoutPath = 'logout'
+export const logoutPath = '/profile/logout'

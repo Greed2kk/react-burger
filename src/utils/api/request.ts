@@ -5,6 +5,7 @@ import {
   tokenPath,
 } from '@/utils/api/constants'
 import type { ApiResources } from '@/utils/api/types'
+import resetStorage from '@/utils/helpers/resetStorage'
 
 export interface CustomApi {
   get: <T>(slug: ApiResources, options?: RequestInit) => Promise<T>
@@ -79,8 +80,7 @@ const customFetch = async <T>(
 
         return await executeFetch()
       } catch (refreshError) {
-        localStorage.removeItem(accessTokenKey)
-        localStorage.removeItem(refreshTokenKey)
+        resetStorage()
         window.location.href = '/login'
         throw new Error('Token refresh failed. Redirecting to login.')
       }
