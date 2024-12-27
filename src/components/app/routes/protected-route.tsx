@@ -5,14 +5,15 @@ import { Navigate } from 'react-router-dom'
 import { useAppSelector } from '@/components/app/store/store'
 import { BaseLayout } from '@/components/layout/base-layout'
 
-import { getIsAuthenticated } from '@/services/auth/selectors'
+import { getAuthLoading, getAuthUser } from '@/services/auth/selectors'
 
 import { loginPath } from '@/utils/route-paths'
 
 const ProtectedRoute: FC = () => {
-  const isAuthenticated = useAppSelector(getIsAuthenticated)
+  const user = useAppSelector(getAuthUser)
+  const isLoading = useAppSelector(getAuthLoading)
 
-  if (!isAuthenticated) {
+  if (!user && !isLoading) {
     return <Navigate to={loginPath} replace={true} />
   }
 
