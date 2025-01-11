@@ -1,10 +1,12 @@
 export type User = {
   email: string
   name: string
+  password?: string
 }
 
 export interface AuthSchema {
   user: User
+  userForm: User
   accessToken: string | null
   refreshToken: string | null
   isAuthenticated: boolean
@@ -32,7 +34,6 @@ export interface AuthData {
 export interface RegisterData extends AuthData {
   name: string
 }
-
 export interface LogoutResponse {
   success: boolean
   message: string

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { logout } from '@/services/auth/logout'
+import { userUpdate } from '@/services/auth/user-update'
 
 import {
   accessTokenKey,
@@ -16,7 +17,8 @@ import { register } from './register'
 import { user } from './user'
 
 const initialState: AuthSchema = {
-  user: { name: '', email: '' },
+  user: { name: '', email: '', password: '123456' },
+  userForm: { name: '', email: '', password: '123456' },
   accessToken: null,
   refreshToken: null,
   isAuthenticated: false,
@@ -42,11 +44,17 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    resetFormData(state) {
+      state.userForm = state.user
+    },
     setUserName(state, { payload }: PayloadAction<{ name: string }>) {
-      state.user.name = payload.name
+      state.userForm.name = payload.name
     },
     setUserEmail(state, { payload }: PayloadAction<{ email: string }>) {
-      state.user.email = payload.email
+      state.userForm.email = payload.email
+    },
+    setUserPassword(state, { payload }: PayloadAction<{ password: string }>) {
+      state.userForm.password = payload.password
     },
     setAccessToken(state, { payload }: PayloadAction<{ accessToken: string }>) {
       const { accessToken } = payload
@@ -75,6 +83,7 @@ const authSlice = createSlice({
       })
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload.user
+        state.userForm = action.payload.user
         updateTokens(
           state,
           action.payload.accessToken,
@@ -90,6 +99,7 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload.user
+        state.userForm = action.payload.user
 
         updateTokens(
           state,
@@ -106,6 +116,7 @@ const authSlice = createSlice({
       })
       .addCase(user.fulfilled, (state, action) => {
         state.user = action.payload.user
+        state.userForm = action.payload.user
         state.isLoading = false
       })
       .addCase(user.rejected, (state, action) => {
@@ -123,12 +134,31 @@ const authSlice = createSlice({
         state.isLoading = false
         state.error = action.error.message || ''
       })
+      .addCase(userUpdate.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(userUpdate.fulfilled, (state, action) => {
+        state.user = action.payload.user
+        state.userForm = action.payload.user
+
+        state.isLoading = false
+      })
+      .addCase(userUpdate.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = action.error.message || ''
+      })
   },
 })
 
 const { reducer: authReducer, actions: authActions } = authSlice
 
-export const { setAccessToken, setRefreshToken, setUserName, setUserEmail } =
-  authActions
+export const {
+  setAccessToken,
+  setRefreshToken,
+  setUserName,
+  setUserEmail,
+  setUserPassword,
+  resetFormData,
+} = authActions
 
 export default authReducer

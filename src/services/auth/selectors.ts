@@ -1,6 +1,8 @@
+import { createSelector } from '@reduxjs/toolkit'
+
 import type { StateSchema } from '@/components/app/store/types'
 
-import type { AuthSchema } from '@/services/auth/types'
+import { AuthSchema, User } from '@/services/auth/types'
 
 export const getAuthError = (state: StateSchema): AuthSchema['error'] =>
   state.auth.error
@@ -12,5 +14,29 @@ export const getIsAuthenticated = (
   state: StateSchema,
 ): AuthSchema['isAuthenticated'] => state.auth.isAuthenticated
 
-export const getAuthUser = (state: StateSchema): AuthSchema['user'] =>
-  state.auth.user
+const getAuthUser = (state: StateSchema): AuthSchema['user'] => state.auth.user
+
+export const getAuthUserForm = (state: StateSchema): AuthSchema['userForm'] =>
+  state.auth.userForm
+
+export const getFormIsChanged = createSelector(
+  getAuthUser,
+  getAuthUserForm,
+  (user, userForm) => JSON.stringify(user) !== JSON.stringify(userForm),
+)
+
+export const getChangedData = createSelector(
+  getAuthUser,
+  getAuthUserForm,
+  (user, userForm) => {
+    const changedFields: Partial<User> = {}
+
+    ;(Object.keys(user) as (keyof typeof user)[]).forEach(key => {
+      if (user[key] !== userForm[key]) {
+        changedFields[key] = userForm[key]
+      }
+    })
+
+    return changedFields
+  },
+)

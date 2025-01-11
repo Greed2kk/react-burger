@@ -10,6 +10,11 @@ import resetStorage from '@/utils/helpers/resetStorage'
 export interface CustomApi {
   get: <T>(slug: ApiResources, options?: RequestInit) => Promise<T>
   post: <T, B>(slug: ApiResources, body: B, options?: RequestInit) => Promise<T>
+  patch: <T, B>(
+    slug: ApiResources,
+    body: B,
+    options?: RequestInit,
+  ) => Promise<T>
 }
 
 const refreshAccessToken = async (): Promise<string> => {
@@ -105,7 +110,19 @@ export const post = async <T, B>(
     ...options,
   })
 
+export const patch = async <T, B>(
+  slug: ApiResources,
+  body: B,
+  options: RequestInit = {},
+): Promise<T> =>
+  customFetch<T>(slug, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+    ...options,
+  })
+
 export const api: CustomApi = {
   get,
   post,
+  patch,
 }

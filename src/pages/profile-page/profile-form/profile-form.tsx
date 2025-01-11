@@ -3,21 +3,36 @@ import { ChangeEvent, FC, Fragment, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
 import AuthForm from '@/components/auth/auth-form/auth-form'
 
-import { setUserEmail, setUserName } from '@/services/auth/auth-slice'
-import { getAuthUser } from '@/services/auth/selectors'
+import {
+  resetFormData,
+  setUserEmail,
+  setUserName,
+  setUserPassword,
+} from '@/services/auth/auth-slice'
+import {
+  getAuthLoading,
+  getAuthUserForm,
+  getChangedData,
+  getFormIsChanged,
+} from '@/services/auth/selectors'
 import { user } from '@/services/auth/user'
+import { userUpdate } from '@/services/auth/user-update'
 
 import {
-  EmailInput,
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 
 const ProfileForm: FC = () => {
   const dispatch = useAppDispatch()
-  const data = useAppSelector(getAuthUser)
+  const data = useAppSelector(getAuthUserForm)
   const [disableName, setDisableName] = useState(true)
-  // const isLoading = useAppSelector(getAuthLoading)
+  const [disableEmail, setDisableEmail] = useState(true)
+  const isLoading = useAppSelector(getAuthLoading)
+
+  const changedData = useAppSelector(getChangedData)
+
+  const formIsChanged = useAppSelector(getFormIsChanged)
 
   const handleUserNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
     dispatch(setUserName({ name: e.target.value }))
@@ -27,61 +42,77 @@ const ProfileForm: FC = () => {
     dispatch(setUserEmail({ email: e.target.value }))
   }
 
-  useEffect(() => {
-    console.log('call')
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    dispatch(setUserPassword({ password: e.target.value }))
+  }
 
+  useEffect(() => {
     dispatch(user())
   }, [dispatch])
 
-  console.log(data)
-
   const onSubmit = (): void => {
-    console.log('submit')
+    setDisableName(true)
+    setDisableEmail(true)
+    dispatch(userUpdate(changedData))
   }
 
   const onCancel = (): void => {
-    console.log('clear')
+    dispatch(resetFormData())
+    setDisableName(true)
+    setDisableEmail(true)
   }
 
   return (
     <Fragment>
-      <AuthForm
-        onSubmit={onSubmit}
-        submitText="Сохранить"
-        onCancel={onCancel}
-        cancelText="Отмена"
-      >
-        {/* @ts-expect-error: onPointerEnterCapture, onPointerLeaveCapture warnings otherwise */}
-        <Input
-          type="text"
-          placeholder="Имя"
-          onChange={handleUserNameChange}
-          value={data?.name || ''}
-          name="name"
-          size="default"
-          extraClass="mb-6"
-          icon="EditIcon"
-          onIconClick={() => setDisableName(!disableName)}
-          disabled={disableName}
-        />
+      {isLoading ? (
+        <h1 style={{ gridArea: 'right' }}>Загрузка...</h1>
+      ) : (
+        <AuthForm
+          onSubmit={onSubmit}
+          submitText="Сохранить"
+          onCancel={onCancel}
+          cancelText="Отмена"
+          displayActions={formIsChanged}
+        >
+          {/* @ts-expect-error: onPointerEnterCapture, onPointerLeaveCapture warnings otherwise */}
+          <Input
+            type="text"
+            placeholder="Имя"
+            onChange={handleUserNameChange}
+            value={data?.name || ''}
+            name="name"
+            size="default"
+            extraClass="mb-6"
+            icon={disableName ? 'EditIcon' : 'CloseIcon'}
+            onIconClick={() => setDisableName(!disableName)}
+            disabled={disableName}
+          />
 
-        <EmailInput
-          onChange={handleEmailChange}
-          value={data?.email || ''}
-          name="Логин"
-          isIcon={true}
-          extraClass="mb-6"
-        />
+          {/* @ts-expect-error: onPointerEnterCapture, onPointerLeaveCapture warnings otherwise */}
 
-        <PasswordInput
-          onChange={() => {}}
-          value="1"
-          placeholder="Пароль"
-          name="password"
-          extraClass="mb-6"
-          icon={'EditIcon'}
-        />
-      </AuthForm>
+          <Input
+            type="text"
+            placeholder="Логин"
+            name="email"
+            size="default"
+            onChange={handleEmailChange}
+            value={data?.email || ''}
+            icon={disableEmail ? 'EditIcon' : 'CloseIcon'}
+            onIconClick={() => setDisableEmail(!disableEmail)}
+            extraClass="mb-6"
+            disabled={disableEmail}
+          />
+
+          <PasswordInput
+            onChange={handlePasswordChange}
+            value={data?.password || '123456'}
+            placeholder="Пароль"
+            name="password"
+            extraClass="mb-6"
+            icon="EditIcon"
+          />
+        </AuthForm>
+      )}
 
       <p className="text text_type_main-default text_color_inactive">
         В этом разделе вы можете изменить свои персональные данные
