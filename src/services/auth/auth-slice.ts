@@ -71,7 +71,6 @@ const authSlice = createSlice({
       const { refreshToken } = payload
 
       state.refreshToken = refreshToken
-      state.isAuthenticated = true
 
       localStorage.setItem(refreshTokenKey, refreshToken)
     },

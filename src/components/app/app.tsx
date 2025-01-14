@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 
 import Routes from '@/components/app/routes/routes'
 import { useAppDispatch } from '@/components/app/store/store'
@@ -13,12 +13,10 @@ const App: FC = () => {
   const accessToken = localStorage.getItem(accessTokenKey)
   const refreshToken = localStorage.getItem(refreshTokenKey)
 
-  useEffect(() => {
-    if (accessToken && refreshToken) {
-      dispatch(setAccessToken({ accessToken }))
-      dispatch(setRefreshToken({ refreshToken }))
-    }
-  }, [accessToken, dispatch, refreshToken])
+  if (accessToken && refreshToken) {
+    dispatch(setAccessToken({ accessToken }))
+    dispatch(setRefreshToken({ refreshToken }))
+  }
 
   return <Routes />
 }
