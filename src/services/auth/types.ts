@@ -12,7 +12,7 @@ export interface AuthSchema {
   isAuthenticated: boolean
   isLoading: boolean
   error: string | null
-  isResetPassword: boolean
+  resetPasswordEmail?: string
 }
 
 export interface AuthResponse {
@@ -34,7 +34,8 @@ export interface AuthData {
 export interface RegisterData extends AuthData {
   name: string
 }
-export interface LogoutResponse {
+
+export interface SuccessResponse {
   success: boolean
   message: string
 }

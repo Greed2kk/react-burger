@@ -5,8 +5,8 @@ import { userUpdate } from '@/services/auth/user-update'
 
 import {
   accessTokenKey,
-  isResetPasswordKey,
   refreshTokenKey,
+  resetPasswordEmail,
 } from '@/utils/api/constants'
 import resetStorage from '@/utils/helpers/resetStorage'
 
@@ -24,7 +24,7 @@ const initialState: AuthSchema = {
   isAuthenticated: false,
   isLoading: false,
   error: null,
-  isResetPassword: Boolean(localStorage.getItem(isResetPasswordKey)) || false,
+  resetPasswordEmail: localStorage.getItem(resetPasswordEmail) || undefined,
 }
 
 const updateTokens = (

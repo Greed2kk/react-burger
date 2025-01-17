@@ -12,11 +12,13 @@ export const loginPath: ApiResources = ApiResources.LOGIN
 
 export const logoutPath: ApiResources = ApiResources.LOGOUT
 
+export const forgotPasswordPath: ApiResources = ApiResources.FORGOTPASSWORD
+
 export const userPath: ApiResources = ApiResources.USER
 
 export const tokenPath: ApiResources = ApiResources.TOKEN
 
 export const accessTokenKey: LocalStorageVars = LocalStorageVars.ACCESSTOKEN
 export const refreshTokenKey: LocalStorageVars = LocalStorageVars.REFRESHTOKEN
-export const isResetPasswordKey: LocalStorageVars =
-  LocalStorageVars.ISRESETPASSWORD
+export const resetPasswordEmail: LocalStorageVars =
+  LocalStorageVars.RESETPASSWORDEMAIL

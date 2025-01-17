@@ -4,6 +4,7 @@ export enum ApiResources {
   REGISTER = 'auth/register',
   LOGIN = 'auth/login',
   LOGOUT = 'auth/logout',
+  FORGOTPASSWORD = 'password-reset',
   USER = 'auth/user',
   TOKEN = 'auth/token',
 }
@@ -11,5 +12,5 @@ export enum ApiResources {
 export enum LocalStorageVars {
   ACCESSTOKEN = 'access-token',
   REFRESHTOKEN = 'refresh-token',
-  ISRESETPASSWORD = 'is-reset-password',
+  RESETPASSWORDEMAIL = 'reset-password-email',
 }

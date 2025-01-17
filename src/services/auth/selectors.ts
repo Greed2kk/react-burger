@@ -40,3 +40,7 @@ export const getChangedData = createSelector(
     return changedFields
   },
 )
+
+export const getResetPasswordEmail = (
+  state: StateSchema,
+): AuthSchema['resetPasswordEmail'] => state.auth.resetPasswordEmail
