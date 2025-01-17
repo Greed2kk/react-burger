@@ -1,10 +1,15 @@
-import { FC, Fragment } from 'react'
+import { ChangeEvent, FC, Fragment, useEffect, useState } from 'react'
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
+import { useAppSelector } from '@/components/app/store/store'
 import AuthActions from '@/components/auth/auth-actions/auth-actions'
 import AuthForm from '@/components/auth/auth-form/auth-form'
 
+import { getResetPasswordEmail } from '@/services/auth/selectors'
+
+import { resetPasswordEmail, resetPasswordPath } from '@/utils/api/constants'
+import { api } from '@/utils/api/request'
 import { loginPath } from '@/utils/route-paths'
 
 import {
@@ -12,16 +17,46 @@ import {
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 
-
 const ResetPasswordPage: FC = () => {
   const navigate = useNavigate()
+  const { token } = useParams()
+
+  const [password, setPassword] = useState('')
+  const [resetToken, setResetToken] = useState(token || '')
+  const [validError, setValidError] = useState(false)
+
+  const resetEmail = useAppSelector(getResetPasswordEmail)
+
+  useEffect(() => {
+    if (!resetEmail) {
+      navigate(loginPath)
+    }
+  }, [navigate, resetEmail])
 
   const onSubmit = (): void => {
-    console.log('call')
+    if (password && token && !validError) {
+      api.post(resetPasswordPath, { password, token }).then(() => {
+        localStorage.removeItem(resetPasswordEmail)
+        navigate(loginPath)
+      })
+    }
   }
 
   const toLogin = (): void => {
     navigate(loginPath)
+  }
+
+  const onChangePassword = (e: ChangeEvent<HTMLInputElement>): void => {
+    setPassword(e.target.value)
+    setValidError(false)
+  }
+
+  const onChangeToken = (e: ChangeEvent<HTMLInputElement>): void => {
+    setResetToken(e.target.value)
+  }
+
+  const validationHandler = (isValid: boolean): void => {
+    setValidError(!isValid)
   }
 
   return (
@@ -30,20 +65,23 @@ const ResetPasswordPage: FC = () => {
         title="Восстановление пароля"
         onSubmit={onSubmit}
         submitText="Сохранить"
+        isLoading={!resetToken || !password || validError}
       >
         <PasswordInput
-          onChange={() => {}}
-          value={''}
+          onChange={onChangePassword}
+          value={password}
           placeholder="Введите новый пароль"
           name="password"
           extraClass="mb-6"
+          errorText="Некорректный пароль"
+          checkValid={validationHandler}
         />
 
         <Input
           type={'text'}
           placeholder={'Введите код из письма'}
-          onChange={() => {}}
-          value={''}
+          onChange={onChangeToken}
+          value={resetToken}
           name={'emailCode'}
           size={'default'}
           extraClass="mb-6"

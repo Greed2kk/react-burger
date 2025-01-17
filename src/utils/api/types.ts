@@ -5,6 +5,7 @@ export enum ApiResources {
   LOGIN = 'auth/login',
   LOGOUT = 'auth/logout',
   FORGOTPASSWORD = 'password-reset',
+  RESETPASSWORD = 'password-reset/reset',
   USER = 'auth/user',
   TOKEN = 'auth/token',
 }

@@ -83,7 +83,10 @@ const AllRoutes: FC = () => {
             <Route path={loginPath} element={<LoginPage />} />
             <Route path={registerPath} element={<RegisterPage />} />
             <Route path={forgotPasswordPath} element={<ForgotPasswordPage />} />
-            <Route path={resetPasswordPath} element={<ResetPasswordPage />} />
+            <Route
+              path={`${resetPasswordPath}/:token?`}
+              element={<ResetPasswordPage />}
+            />
           </Route>
 
           <Route element={<ProtectedRoute />}>

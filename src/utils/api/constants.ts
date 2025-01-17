@@ -14,6 +14,8 @@ export const logoutPath: ApiResources = ApiResources.LOGOUT
 
 export const forgotPasswordPath: ApiResources = ApiResources.FORGOTPASSWORD
 
+export const resetPasswordPath: ApiResources = ApiResources.RESETPASSWORD
+
 export const userPath: ApiResources = ApiResources.USER
 
 export const tokenPath: ApiResources = ApiResources.TOKEN
