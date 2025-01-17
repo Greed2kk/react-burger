@@ -1,6 +1,6 @@
 import React, { FC, lazy } from 'react'
 
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
 import { useAppSelector } from '@/components/app/store/store'
 import { ContentWrapper } from '@/components/content-wrapper/content-wrapper'
@@ -16,9 +16,16 @@ const AppHeader = lazy(() => import('@/components/app-header/app-header'))
 
 export const AuthLayout: FC = () => {
   const isAuthenticated = useAppSelector(getIsAuthenticated)
+  const location = useLocation()
 
   if (isAuthenticated) {
-    return <Navigate to={rootPath} replace={true} />
+    return (
+      <Navigate
+        to={rootPath}
+        replace={true}
+        state={{ from: location.pathname }}
+      />
+    )
   }
 
   return (

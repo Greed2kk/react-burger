@@ -89,7 +89,7 @@ const AllRoutes: FC = () => {
             />
           </Route>
 
-          <Route element={<ProtectedRoute />}>
+          <Route element={<ProtectedRoute />} >
             <Route path={profilePath} element={<Profile />}>
               <Route index element={<ProfileForm />} />
               <Route path={ordersPath} element={<ProfileOrders />} />

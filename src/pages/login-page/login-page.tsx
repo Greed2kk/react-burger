@@ -28,8 +28,6 @@ const LoginPage: FC = () => {
   const dispatch = useAppDispatch()
   const [error, setError] = useState(false)
 
-  console.log(error, !!hasError)
-
   useEffect(() => {
     if (!!hasError) {
       setError(true)

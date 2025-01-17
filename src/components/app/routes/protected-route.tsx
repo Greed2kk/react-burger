@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { Navigate } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 
 import { useAppSelector } from '@/components/app/store/store'
 import { BaseLayout } from '@/components/layout/base-layout'
@@ -11,9 +11,12 @@ import { loginPath } from '@/utils/route-paths'
 
 const ProtectedRoute: FC = () => {
   const isAuthenticated = useAppSelector(getIsAuthenticated)
+  const location = useLocation()
 
   if (!isAuthenticated) {
-    return <Navigate to={loginPath} replace={true} />
+    return (
+      <Navigate to={loginPath} replace state={{ from: location.pathname }} />
+    )
   }
 
   return <BaseLayout />
