@@ -1,4 +1,4 @@
-import { FC, Fragment, useState } from 'react'
+import { ChangeEvent, FC, Fragment, useEffect, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -7,7 +7,11 @@ import AuthActions from '@/components/auth/auth-actions/auth-actions'
 import AuthForm from '@/components/auth/auth-form/auth-form'
 
 import { login } from '@/services/auth/login'
-import { getIsAuthenticated } from '@/services/auth/selectors'
+import {
+  getAuthError,
+  getAuthLoading,
+  getIsAuthenticated,
+} from '@/services/auth/selectors'
 
 import { forgotPasswordPath, registerPath } from '@/utils/route-paths'
 
@@ -19,7 +23,18 @@ import {
 const LoginPage: FC = () => {
   const navigate = useNavigate()
   const isAuthenticated = useAppSelector(getIsAuthenticated)
+  const isLoading = useAppSelector(getAuthLoading)
+  const hasError = useAppSelector(getAuthError)
   const dispatch = useAppDispatch()
+  const [error, setError] = useState(false)
+
+  console.log(error, !!hasError)
+
+  useEffect(() => {
+    if (!!hasError) {
+      setError(true)
+    }
+  }, [hasError])
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -28,6 +43,7 @@ const LoginPage: FC = () => {
     if (isAuthenticated) {
       setEmail('')
       setPassword('')
+      setError(false)
     }
   }
 
@@ -44,11 +60,32 @@ const LoginPage: FC = () => {
     navigate(forgotPasswordPath)
   }
 
+  const emailChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
+    setEmail(e.target.value)
+    setError(false)
+  }
+
+  const passwordChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
+    setPassword(e.target.value)
+    setError(false)
+  }
+
   return (
     <Fragment>
-      <AuthForm title="Вход" onSubmit={onSubmit} submitText="Войти">
+      {error && (
+        <p className="text text_type_main-small mb-4">
+          Неправильный логин или пароль
+        </p>
+      )}
+
+      <AuthForm
+        title="Вход"
+        onSubmit={onSubmit}
+        submitText="Войти"
+        isLoading={isLoading || error}
+      >
         <EmailInput
-          onChange={e => setEmail(e.target.value)}
+          onChange={emailChangeHandler}
           value={email}
           name="email"
           isIcon={false}
@@ -56,7 +93,7 @@ const LoginPage: FC = () => {
         />
 
         <PasswordInput
-          onChange={e => setPassword(e.target.value)}
+          onChange={passwordChangeHandler}
           value={password}
           name="password"
           extraClass="mb-6"
