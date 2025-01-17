@@ -31,7 +31,7 @@ export const getChangedData = createSelector(
   (user, userForm) => {
     const changedFields: Partial<User> = {}
 
-    ;(Object.keys(user) as (keyof typeof user)[]).forEach(key => {
+    ;(Object.keys(userForm) as (keyof typeof userForm)[]).forEach(key => {
       if (user[key] !== userForm[key]) {
         changedFields[key] = userForm[key]
       }

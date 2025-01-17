@@ -29,6 +29,7 @@ const ProfileForm: FC = () => {
   const [disableName, setDisableName] = useState(true)
   const [disableEmail, setDisableEmail] = useState(true)
   const isLoading = useAppSelector(getAuthLoading)
+  const [password, setPassword] = useState('123456')
 
   const changedData = useAppSelector(getChangedData)
 
@@ -43,6 +44,7 @@ const ProfileForm: FC = () => {
   }
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setPassword(e.target.value)
     dispatch(setUserPassword({ password: e.target.value }))
   }
 
@@ -53,6 +55,7 @@ const ProfileForm: FC = () => {
   const onSubmit = (): void => {
     setDisableName(true)
     setDisableEmail(true)
+
     dispatch(userUpdate(changedData))
   }
 
@@ -105,8 +108,7 @@ const ProfileForm: FC = () => {
 
           <PasswordInput
             onChange={handlePasswordChange}
-            value={data?.password || '123456'}
-            placeholder="Пароль"
+            value={password}
             name="password"
             extraClass="mb-6"
             icon="EditIcon"

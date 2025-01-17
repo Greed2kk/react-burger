@@ -24,6 +24,7 @@ const ResetPasswordPage: FC = () => {
   const [password, setPassword] = useState('')
   const [resetToken, setResetToken] = useState(token || '')
   const [validError, setValidError] = useState(false)
+  const [error, setError] = useState(false)
 
   const resetEmail = useAppSelector(getResetPasswordEmail)
 
@@ -35,10 +36,15 @@ const ResetPasswordPage: FC = () => {
 
   const onSubmit = (): void => {
     if (password && token && !validError) {
-      api.post(resetPasswordPath, { password, token }).then(() => {
-        localStorage.removeItem(resetPasswordEmail)
-        navigate(loginPath)
-      })
+      api
+        .post(resetPasswordPath, { password, token })
+        .then(() => {
+          localStorage.removeItem(resetPasswordEmail)
+          navigate(loginPath)
+        })
+        .catch(() => {
+          setError(true)
+        })
     }
   }
 
@@ -49,10 +55,12 @@ const ResetPasswordPage: FC = () => {
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>): void => {
     setPassword(e.target.value)
     setValidError(false)
+    setError(false)
   }
 
   const onChangeToken = (e: ChangeEvent<HTMLInputElement>): void => {
     setResetToken(e.target.value)
+    setError(false)
   }
 
   const validationHandler = (isValid: boolean): void => {
@@ -65,7 +73,7 @@ const ResetPasswordPage: FC = () => {
         title="Восстановление пароля"
         onSubmit={onSubmit}
         submitText="Сохранить"
-        isLoading={!resetToken || !password || validError}
+        isLoading={!resetToken || !password || validError || error}
       >
         <PasswordInput
           onChange={onChangePassword}
@@ -77,6 +85,7 @@ const ResetPasswordPage: FC = () => {
           checkValid={validationHandler}
         />
 
+        {/* @ts-expect-error: onPointerEnterCapture, onPointerLeaveCapture warnings otherwise */}
         <Input
           type={'text'}
           placeholder={'Введите код из письма'}
@@ -85,8 +94,8 @@ const ResetPasswordPage: FC = () => {
           name={'emailCode'}
           size={'default'}
           extraClass="mb-6"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
+          errorText="Некорректный токен"
+          error={error}
         />
       </AuthForm>
 

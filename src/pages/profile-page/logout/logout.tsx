@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, Fragment } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -25,15 +25,19 @@ const Logout: FC = () => {
     navigate(logoutPath)
   }
 
-  if (isLoading) {
-    return <p className="text text_type_main-medium">Загрузка...</p>
-  }
-
   return (
     <div className={styles.logout}>
-      <p className="text text_type_main-medium">Вы уверены что хотите выйти?</p>
+      {isLoading ? (
+        <p className="text text_type_main-medium">Загрузка...</p>
+      ) : (
+        <Fragment>
+          <p className="text text_type_main-medium">
+            Вы уверены что хотите выйти?
+          </p>
 
-      <Button onClick={handleLogout}>Да, выйти</Button>
+          <Button onClick={handleLogout}>Да, выйти</Button>
+        </Fragment>
+      )}
     </div>
   )
 }
