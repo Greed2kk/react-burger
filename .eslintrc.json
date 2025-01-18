@@ -1,7 +1,19 @@
 {
+  "plugins": ["simple-import-sort", "import"],
   "env": {
     "browser": true,
     "es2021": true
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [["@", "./src"]],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
   },
   "extends": ["react-app"],
   "parser": "@typescript-eslint/parser",
@@ -13,6 +25,22 @@
     "sourceType": "module"
   },
   "rules": {
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          ["^react$", "^@react$"],
+          ["^[a-z]", "@reduxjs"],
+          ["^@/components"],
+          ["^@/services"],
+          ["^@/utils"],
+          ["^import\\s+type\\s", "\\btypes\\b"],
+          ["^\\."],
+          ["^"],
+          ["\\.css$"]
+        ]
+      }
+    ],
     "semi": ["error", "never"],
     "jsx-a11y/anchor-is-valid": "off",
     "arrow-body-style": ["error", "as-needed"],

@@ -1,10 +1,9 @@
 import { FC } from 'react'
 
 import classNames from 'classnames'
-
 import { useDrop } from 'react-dnd'
 
-import { DndType } from '../../../burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
+import { DndType } from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
 
 import styles from './constructor-placeholder.module.css'
 

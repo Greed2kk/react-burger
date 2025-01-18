@@ -1,15 +1,18 @@
 import { createSelector, Selector } from '@reduxjs/toolkit'
 
-import { type RootState } from '../../components/app/store/store'
-import { type StateSchema } from '../../components/app/store/types'
+import { type StateSchema } from '@/components/app/store/types'
+
+import {
+  Categories,
+  Ingredient,
+  IngredientType,
+} from './types'
 
 import {
   selectAllIngredients,
+  selectIngredientById,
   selectIngredientEntities,
-  selectById,
 } from './ingredient-slice'
-
-import { Categories, Ingredient, IngredientType } from './types'
 
 export const getIngredientsError = (state: StateSchema): string | undefined =>
   state.ingredients?.error
@@ -17,25 +20,21 @@ export const getIngredientsError = (state: StateSchema): string | undefined =>
 export const getIngredientsIsLoading = (state: StateSchema): boolean =>
   state.ingredients.isLoading
 
-export const getIngredientQuantity = (_id: string) => (state: RootState) =>
-  selectById(state, _id).qty
-
 export const getIngredients = createSelector(
   selectAllIngredients,
   ingredients => {
-    const categories: Categories = {
-      [IngredientType.BUN]: [],
-      [IngredientType.SAUCE]: [],
-      [IngredientType.MAIN]: [],
-    }
+    const filterIngredients = (
+      filterType: IngredientType,
+    ): Ingredient['_id'][] =>
+      ingredients
+        .filter(({ type }) => type === filterType)
+        .map(({ _id }) => _id)
 
-    ingredients.forEach(
-      ingredient =>
-        (categories[ingredient.type] = [
-          ...categories[ingredient.type],
-          ingredient._id,
-        ]),
-    )
+    const categories: Categories = {
+      [IngredientType.BUN]: filterIngredients(IngredientType.BUN),
+      [IngredientType.MAIN]: filterIngredients(IngredientType.MAIN),
+      [IngredientType.SAUCE]: filterIngredients(IngredientType.SAUCE),
+    }
 
     return categories
   },
@@ -46,4 +45,12 @@ export const getIngredientsByIds = (
 ): Selector<StateSchema, Ingredient[]> =>
   createSelector([selectIngredientEntities], (entities): Ingredient[] =>
     ids.map(id => entities[id]).filter(ingredient => ingredient !== undefined),
+  )
+
+export const createAppSelector = createSelector.withTypes<StateSchema>()
+
+export const getIngredientsById = (id: string): Selector<StateSchema, Ingredient>  =>
+  createAppSelector(
+    (state: StateSchema) => state,
+    ingredientsState => selectIngredientById(ingredientsState, id),
   )

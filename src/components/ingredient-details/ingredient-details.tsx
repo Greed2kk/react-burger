@@ -1,22 +1,21 @@
-import { FC } from 'react'
+import { FC, Fragment, useEffect } from 'react'
 
-import { useAppDispatch, useAppSelector } from '../app/store/store'
+import { useParams } from 'react-router-dom'
 
-import { Modal } from '../modal/modal'
+import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
 
-import { getIngredientData } from '../../services/ingredient-details/selectors'
-import { clearIngredientData } from '../../services/ingredient-details/ingredient-details-slice'
-
-import type { Ingredient } from '../../services/ingredients/types'
+import {
+  addIngredientData,
+  clearIngredientData,
+} from '@/services/ingredient-details/ingredient-details-slice'
+import { getIngredientData } from '@/services/ingredient-details/selectors'
+import { getIngredientsById } from '@/services/ingredients/selectors'
+import type { Ingredient } from '@/services/ingredients/types'
 
 import styles from './ingredient-details.module.css'
 
 interface IngredientEnergyValue
   extends Pick<Ingredient, 'carbohydrates' | 'proteins' | 'fat' | 'calories'> {}
-
-interface IngredientDetailsProps {
-  closeModal: () => void
-}
 
 const humanNames: Record<keyof IngredientEnergyValue, string> = {
   calories: 'Калории,ккал',
@@ -25,13 +24,23 @@ const humanNames: Record<keyof IngredientEnergyValue, string> = {
   carbohydrates: 'Углеводы, г',
 }
 
-export const IngredientDetails: FC<IngredientDetailsProps> = ({
-  closeModal,
-}) => {
+export const IngredientDetails: FC = () => {
   const dispatch = useAppDispatch()
+
+  const { id = '' } = useParams<{ id: string }>()
 
   const { calories, proteins, fat, carbohydrates, name, image_large } =
     useAppSelector(getIngredientData)
+
+  const ingredient = useAppSelector(getIngredientsById(id))
+
+  useEffect(() => {
+    if (ingredient) dispatch(addIngredientData(ingredient))
+
+    return () => {
+      dispatch(clearIngredientData())
+    }
+  }, [dispatch, ingredient])
 
   const compound: [string, number][] = Object.entries({
     calories,
@@ -40,14 +49,8 @@ export const IngredientDetails: FC<IngredientDetailsProps> = ({
     carbohydrates,
   })
 
-  const onCloseHandler = (): void => {
-    closeModal()
-
-    dispatch(clearIngredientData())
-  }
-
   return (
-    <Modal headerText="Детали ингредиента" onCloseHandler={onCloseHandler}>
+    <Fragment>
       <img src={image_large} alt={name} className="pl-5 pr-5" />
 
       <p className="text text_type_main-medium mt-4 mb-8">{name}</p>
@@ -64,6 +67,6 @@ export const IngredientDetails: FC<IngredientDetailsProps> = ({
           </div>
         ))}
       </div>
-    </Modal>
+    </Fragment>
   )
 }

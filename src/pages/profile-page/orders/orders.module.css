@@ -1,0 +1,8 @@
+.orders {
+    grid-area: right;
+    height: 1600px;
+}
+
+.tip {
+    grid-area: left-bottom;
+}

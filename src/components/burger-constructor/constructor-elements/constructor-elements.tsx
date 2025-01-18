@@ -1,38 +1,25 @@
 import { FC, useCallback } from 'react'
 
 import { useDrop } from 'react-dnd'
-
 import { v4 as uuidv4 } from 'uuid'
+
+import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
+import { ConstructorElement } from '@/components/burger-constructor/constructor-elements/constructor-element/constructor-element'
+import { ConstructorElementType } from '@/components/burger-constructor/constructor-elements/constructor-element/types'
+import { ConstructorPlaceholder } from '@/components/burger-constructor/constructor-elements/constructor-placeholder/constructor-placeholder'
+import { DndType } from '@/components/burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
 
 import {
   addIngredient,
   setIngredientsOrder,
-} from '../../../services/burger-constructor/burger-constructor-slice'
-
+} from '@/services/burger-constructor/burger-constructor-slice'
 import {
   selectBun,
   selectIngredients,
-} from '../../../services/burger-constructor/selectors'
-
-import { BurgerIngredient } from '../../../services/burger-constructor/types'
-
-import {
-  decreaseQuantity,
-  increaseQuantity,
-} from '../../../services/ingredients/ingredient-slice'
-
-import { IngredientType } from '../../../services/ingredients/types'
-
-import { useAppDispatch, useAppSelector } from '../../app/store/store'
-
-import { DndType } from '../../burger-Ingredients/ingredients-list/ingredients-items/ingredient-card/types'
-
-import { ConstructorElement } from './constructor-element/constructor-element'
-import { ConstructorElementType } from './constructor-element/types'
+} from '@/services/burger-constructor/selectors'
+import { BurgerIngredient } from '@/services/burger-constructor/types'
 
 import styles from './constructor-elements.module.css'
-
-import { ConstructorPlaceholder } from './constructor-placeholder/constructor-placeholder'
 
 export const ConstructorElements: FC = () => {
   const dispatch = useAppDispatch()
@@ -47,13 +34,8 @@ export const ConstructorElements: FC = () => {
       dispatch(
         addIngredient({ id: uuidv4(), _id, price, type, imageMobile, name }),
       )
-      if (bun && type === IngredientType.BUN) {
-        dispatch(decreaseQuantity({ _id: bun._id }))
-      }
-
-      dispatch(increaseQuantity({ _id }))
     },
-    [bun, dispatch],
+    [dispatch],
   )
 
   const [, dropTarget] = useDrop({
@@ -72,7 +54,7 @@ export const ConstructorElements: FC = () => {
   }
 
   return (
-    <section className={styles.constructorElements} ref={dropTarget}>
+    <ul className={styles.constructorElements} ref={dropTarget}>
       {bun ? (
         <ConstructorElement
           type={ConstructorElementType.TOP}
@@ -87,7 +69,7 @@ export const ConstructorElements: FC = () => {
         <ConstructorPlaceholder isBun isTop />
       )}
 
-      <section className={styles.editableConstructorElements}>
+      <ul className={styles.editableConstructorElements}>
         {!!ingredients.length ? (
           ingredients.map(({ price, imageMobile, name, id, _id }, index) => (
             <ConstructorElement
@@ -104,7 +86,7 @@ export const ConstructorElements: FC = () => {
         ) : (
           <ConstructorPlaceholder />
         )}
-      </section>
+      </ul>
 
       {bun ? (
         <ConstructorElement
@@ -119,6 +101,6 @@ export const ConstructorElements: FC = () => {
       ) : (
         <ConstructorPlaceholder isBun />
       )}
-    </section>
+    </ul>
   )
 }

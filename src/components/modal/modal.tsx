@@ -1,12 +1,11 @@
 import { FC, MouseEvent, ReactNode, useCallback, useEffect } from 'react'
 
+import classNames from 'classnames'
 import { createPortal } from 'react-dom'
 
-import classNames from 'classnames'
+import { ModalOverlay } from '@/components/modal-overlay/modal-overlay'
 
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-
-import { ModalOverlay } from '../modal-overlay/modal-overlay'
 
 import styles from './modal.module.css'
 
@@ -23,6 +22,7 @@ export const Modal: FC<ModalProps> = ({
   headerText,
   onCloseHandler,
 }) => {
+
   const onEscPress = useCallback(
     (e: KeyboardEvent): void => {
       if (e.key === 'Escape') {

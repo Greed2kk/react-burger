@@ -1,7 +1,0 @@
-.link {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    color: var(--primary-text-light);
-    text-decoration: none;
-}

@@ -1,47 +1,61 @@
-import { FC } from 'react'
+import { FC, Fragment } from 'react'
 
 import classNames from 'classnames'
+import { NavLink } from 'react-router-dom'
+
+import { ordersPath, rootPath } from '@/utils/route-paths'
 
 import {
   BurgerIcon,
   ListIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import { Link } from '../../link/link'
-
 import styles from './nav.module.css'
 
 export const Nav: FC = () => (
   <nav className={classNames(styles.nav)}>
-    <Link
-      ariaLabel="Страница Конструктора"
-      className={classNames(styles.linkItem, 'mr-2 pl-5 pr-5 pt-4 pb-4')}
+    <NavLink
+      aria-label="Страница Конструктора"
+      className={classNames(styles.link, 'mr-2 pl-5 pr-5 pt-4 pb-4')}
+      to={rootPath}
     >
-      <BurgerIcon type="primary" className={classNames('mr-2')} />
-      <p
-        className={classNames('text text_type_main-default', {
-          [styles.active]: true, // refactor
-        })}
-      >
-        Конструктор
-      </p>
-    </Link>
+      {({ isActive }) => (
+        <Fragment>
+          <BurgerIcon
+            type={isActive ? 'primary' : 'secondary'}
+            className="mr-2"
+          />
+          <p
+            className={classNames('text text_type_main-default', {
+              [styles.active]: isActive,
+            })}
+          >
+            Конструктор
+          </p>
+        </Fragment>
+      )}
+    </NavLink>
 
-    <Link
-      ariaLabel="Страница Ленты заказов"
-      className={classNames(styles.linkItem, 'pl-5 pr-5 pt-4 pb-4')}
+    <NavLink
+      aria-label="Страница Ленты заказов"
+      className={classNames(styles.link, 'pl-5 pr-5 pt-4 pb-4')}
+      to={ordersPath}
     >
-      <ListIcon
-        className={classNames('mr-2')}
-        type="secondary" // refactor
-      />
-      <p
-        className={classNames('text text_type_main-default', {
-          [styles.inactive]: true, // refactor
-        })}
-      >
-        Лента заказов
-      </p>
-    </Link>
+      {({ isActive }) => (
+        <Fragment>
+          <ListIcon
+            type={isActive ? 'primary' : 'secondary'}
+            className="mr-2"
+          />
+          <p
+            className={classNames('text text_type_main-default', {
+              [styles.active]: isActive,
+            })}
+          >
+            Лента заказов
+          </p>
+        </Fragment>
+      )}
+    </NavLink>
   </nav>
 )
