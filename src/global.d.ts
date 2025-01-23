@@ -1,7 +1,10 @@
-declare module '*.module.css' {
-  const classes: { [key: string]: string }
+declare module '*.css' {
+  interface IClassNames {
+    [className: string]: string
+  }
+  const classNames: IClassNames
 
-  export default classes
+  export = classNames
 }
 
 declare module '*.svg' {
