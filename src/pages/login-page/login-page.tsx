@@ -29,7 +29,7 @@ const LoginPage: FC = () => {
   const [error, setError] = useState(false)
 
   useEffect(() => {
-    if (!!hasError) {
+    if (hasError) {
       setError(true)
     }
   }, [hasError])
@@ -45,8 +45,10 @@ const LoginPage: FC = () => {
     }
   }
 
-  const onSubmit = (): void => {
-    dispatch(login({ email, password }))
+  const onSubmit = async (): Promise<void> => {
+    await dispatch(login({ email, password }))
+      .unwrap()
+      .catch(() => setError(true))
     clearForm()
   }
 
@@ -71,7 +73,7 @@ const LoginPage: FC = () => {
   return (
     <Fragment>
       {error && (
-        <p className="text text_type_main-small mb-4">
+        <p className="text text_type_main-small mb-4" style={{ color: 'red' }}>
           Неправильный логин или пароль
         </p>
       )}
