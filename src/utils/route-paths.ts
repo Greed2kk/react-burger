@@ -6,6 +6,8 @@ export const registerPath = '/register'
 export const forgotPasswordPath = '/forgot-password'
 export const resetPasswordPath = '/reset-password'
 
+export const feedPath = '/feed'
+
 export const ordersPath = 'orders'
 
 export const ingredientsPath = '/ingredients'

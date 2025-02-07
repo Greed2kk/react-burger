@@ -3,7 +3,7 @@ import { FC, Fragment } from 'react'
 import classNames from 'classnames'
 import { NavLink } from 'react-router-dom'
 
-import { ordersPath, rootPath } from '@/utils/route-paths'
+import { feedPath, rootPath } from '@/utils/route-paths'
 
 import {
   BurgerIcon,
@@ -39,7 +39,7 @@ export const Nav: FC = () => (
     <NavLink
       aria-label="Страница Ленты заказов"
       className={classNames(styles.link, 'pl-5 pr-5 pt-4 pb-4')}
-      to={ordersPath}
+      to={feedPath}
     >
       {({ isActive }) => (
         <Fragment>

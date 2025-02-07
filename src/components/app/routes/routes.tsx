@@ -13,6 +13,7 @@ import { AuthLayout, BaseLayout } from '@/components/layout'
 import { Modal } from '@/components/modal/modal'
 
 import {
+  feedPath,
   forgotPasswordPath,
   ingredientsPath,
   loginPath,
@@ -33,7 +34,7 @@ const BurgerConstructor = lazy(
 const Profile = lazy(() => import('@/pages/profile-page/profile-page'))
 const NotFound = lazy(() => import('@/pages/not-found-page/not-found-page'))
 const LoginPage = lazy(() => import('@/pages/login-page/login-page'))
-const OrdersPage = lazy(() => import('@/pages/orders-page/orders-page'))
+const FeedPage = lazy(() => import('@/pages/feed-page/feed-page'))
 const RegisterPage = lazy(() => import('@/pages/register-page/register-page'))
 const IngredientsPage = lazy(
   () => import('@/pages/ingredients-page/ingredients-page'),
@@ -76,7 +77,7 @@ const AllRoutes: FC = () => {
               element={<IngredientsPage />}
             />
 
-            <Route path={ordersPath} element={<OrdersPage />} />
+            <Route path={`${feedPath}/:id?`} element={<FeedPage />} />
           </Route>
 
           <Route element={<AuthLayout />}>
@@ -89,7 +90,7 @@ const AllRoutes: FC = () => {
             />
           </Route>
 
-          <Route element={<ProtectedRoute />} >
+          <Route element={<ProtectedRoute />}>
             <Route path={profilePath} element={<Profile />}>
               <Route index element={<ProfileForm />} />
               <Route path={ordersPath} element={<ProfileOrders />} />
