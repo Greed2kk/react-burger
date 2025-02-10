@@ -30,9 +30,9 @@ const FeedPage: FC = () => {
       <h1 className="text text_type_main-large mb-5 mt-10">Лента заказов</h1>
 
       <ContentWrapper className={classNames(styles.feedPage)}>
-        <FeedItems feed={feed} />
+        <FeedItems ordersData={feed} />
 
-        <OrderStatuses />
+        <OrderStatuses ordersData={feed}/>
       </ContentWrapper>
     </ContentWrapper>
   )

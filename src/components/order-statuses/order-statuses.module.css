@@ -1,5 +1,30 @@
 .orderStatuses {
     height: 100vh;
     width: 100%;
-    background-color: blue;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.orderProgress {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+}
+
+.orderList {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+}
+
+.orderListItem li {
+    padding: 5px;
+}
+
+.orderDone {
+    color: var(--aqua-color);
 }

@@ -7,11 +7,11 @@ import { FeedItem } from './feed-item/feed-item'
 import styles from './feed-items.module.css'
 
 interface FeedItemsProps {
-  feed?: Feed
+  ordersData?: Feed
 }
 
-export const FeedItems: FC<FeedItemsProps> = ({ feed }) => {
-  const { orders } = feed || {}
+export const FeedItems: FC<FeedItemsProps> = ({ ordersData }) => {
+  const { orders } = ordersData || {}
 
   return (
     <div className={styles.feedItems}>
