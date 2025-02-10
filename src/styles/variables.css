@@ -13,4 +13,7 @@
     --modal-z-index: 1000;
     /*--modal-backdrop-z-index: 999;*/
     --modal-background-color: rgba(0, 0, 0, 0.6);
+
+
+    --default-border-radius: 40px;
 }

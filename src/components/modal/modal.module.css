@@ -1,5 +1,5 @@
 .modal {
-    border-radius: 40px;
+    border-radius: var(--default-border-radius);
     background-color: var(--interface-bg);
     z-index: var(--modal-z-index);
     width: 720px;

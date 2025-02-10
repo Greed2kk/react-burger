@@ -9,7 +9,7 @@ import {
   clearIngredientData,
 } from '@/services/ingredient-details/ingredient-details-slice'
 import { getIngredientData } from '@/services/ingredient-details/selectors'
-import { getIngredientsById } from '@/services/ingredients/selectors'
+import { getIngredientById } from '@/services/ingredients/selectors'
 import type { Ingredient } from '@/services/ingredients/types'
 
 import styles from './ingredient-details.module.css'
@@ -32,7 +32,7 @@ export const IngredientDetails: FC = () => {
   const { calories, proteins, fat, carbohydrates, name, image_large } =
     useAppSelector(getIngredientData)
 
-  const ingredient = useAppSelector(getIngredientsById(id))
+  const ingredient = useAppSelector(getIngredientById(id))
 
   useEffect(() => {
     if (ingredient) dispatch(addIngredientData(ingredient))

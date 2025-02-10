@@ -1,0 +1,8 @@
+.feedPage {
+    display: grid;
+    align-items: start;
+    grid-template-columns: 1fr 1fr;
+    justify-items: end;
+    gap: 60px;
+    overflow: hidden;
+}

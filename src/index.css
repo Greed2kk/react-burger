@@ -29,4 +29,5 @@ body {
 
     scrollbar-width: auto;
     scrollbar-color: var(--scroll-bar) var(--scroll-bar-background);
+    overflow: hidden;
 }

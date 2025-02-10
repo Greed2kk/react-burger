@@ -1,0 +1,19 @@
+.feedItem {
+    border-radius: var(--default-border-radius);
+    background-color: var(--interface-bg);
+}
+
+.itemSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.orderDate {
+    color: var(--secondary-text-dark);
+}
+
+.orderPrice {
+    display: flex;
+    gap: 9px;
+}
