@@ -18,4 +18,5 @@
 
 
     --default-border-radius: 40px;
+    --header-height: calc(100vh - 200px);
 }

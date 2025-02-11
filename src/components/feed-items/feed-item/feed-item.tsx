@@ -1,6 +1,7 @@
 import { FC, useMemo } from 'react'
 
 import classNames from 'classnames'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useAppSelector } from '@/components/app/store/store'
 
@@ -8,6 +9,7 @@ import { getIngredientsByIds } from '@/services/ingredients/selectors'
 
 import { getTotalPrice } from '@/utils/helpers/getTotalPrice'
 import { Order } from '@/utils/mockOrders'
+import { feedPath } from '@/utils/route-paths'
 
 import { FeedIngredients } from './feed-ingredients/feed-ingredients'
 
@@ -24,16 +26,25 @@ interface FeedItemProps {
 
 export const FeedItem: FC<FeedItemProps> = ({ order }) => {
   const { name, ingredients: orderIngredients, number, createdAt } = order
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const ingredients = useAppSelector(getIngredientsByIds(orderIngredients))
 
-  const price = useMemo(
-    () => getTotalPrice(ingredients),
-    [ingredients],
-  )
+  const handleDetailsClick = (): void => {
+    navigate(`${feedPath}/${number}`, {
+      state: { backgroundLocation: location },
+    })
+  }
+
+  const price = useMemo(() => getTotalPrice(ingredients), [ingredients])
 
   return (
-    <div className={classNames(styles.feedItem, 'p-6')}>
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div
+      className={classNames(styles.feedItem, 'p-6')}
+      onClick={handleDetailsClick}
+    >
       <section className={classNames(styles.itemSection, 'mb-6')}>
         <span className="text text_type_digits-default">{`#${number}`}</span>
         <span

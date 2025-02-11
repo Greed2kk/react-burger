@@ -11,6 +11,7 @@ import {
 import { IngredientDetails } from '@/components/ingredient-details/ingredient-details'
 import { AuthLayout, BaseLayout } from '@/components/layout'
 import { Modal } from '@/components/modal/modal'
+import { OrderComposition } from '@/components/order-composition/order-composition'
 
 import {
   feedPath,
@@ -39,6 +40,10 @@ const RegisterPage = lazy(() => import('@/pages/register-page/register-page'))
 const IngredientsPage = lazy(
   () => import('@/pages/ingredients-page/ingredients-page'),
 )
+const OrderCompositionPage = lazy(
+  () => import('@/pages/order-composition-page/order-composition-page'),
+)
+
 const ResetPasswordPage = lazy(
   () => import('@/pages/reset-password-page/reset-password-page'),
 )
@@ -77,7 +82,8 @@ const AllRoutes: FC = () => {
               element={<IngredientsPage />}
             />
 
-            <Route path={`${feedPath}/:id?`} element={<FeedPage />} />
+            <Route path={feedPath} element={<FeedPage />} />
+            <Route path={`${feedPath}/:id`} element={<OrderCompositionPage />} />
           </Route>
 
           <Route element={<AuthLayout />}>
@@ -114,6 +120,19 @@ const AllRoutes: FC = () => {
                 onCloseHandler={closeModal}
               >
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+
+      {state?.backgroundLocation && (
+        <Routes>
+          <Route
+            path={`${feedPath}/:id`}
+            element={
+              <Modal onCloseHandler={closeModal}>
+                <OrderComposition />
               </Modal>
             }
           />

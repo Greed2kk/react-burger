@@ -32,7 +32,7 @@ const FeedPage: FC = () => {
       <ContentWrapper className={classNames(styles.feedPage)}>
         <FeedItems ordersData={feed} />
 
-        <OrderStatuses ordersData={feed}/>
+        <OrderStatuses ordersData={feed} />
       </ContentWrapper>
     </ContentWrapper>
   )

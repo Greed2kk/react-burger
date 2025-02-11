@@ -1,9 +1,10 @@
 .orderStatuses {
-    height: 100vh;
+    max-height: var(--header-height);
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 60px;
+    overflow-y: scroll;
 }
 
 .orderProgress {
