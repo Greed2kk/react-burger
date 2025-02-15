@@ -83,7 +83,7 @@ const AllRoutes: FC = () => {
             />
 
             <Route path={feedPath} element={<FeedPage />} />
-            <Route path={`${feedPath}/:id`} element={<OrderCompositionPage />} />
+            <Route path={`${feedPath}/:orderNumber`} element={<OrderCompositionPage />} />
           </Route>
 
           <Route element={<AuthLayout />}>
@@ -129,7 +129,7 @@ const AllRoutes: FC = () => {
       {state?.backgroundLocation && (
         <Routes>
           <Route
-            path={`${feedPath}/:id`}
+            path={`${feedPath}/:orderNumber`}
             element={
               <Modal onCloseHandler={closeModal}>
                 <OrderComposition />

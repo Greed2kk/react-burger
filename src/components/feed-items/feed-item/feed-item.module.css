@@ -1,7 +1,9 @@
 .feedItem {
     border-radius: var(--default-border-radius);
     background-color: var(--interface-bg);
+    cursor: pointer;
 }
+
 
 .itemSection {
     display: flex;
@@ -16,4 +18,9 @@
 .orderPrice {
     display: flex;
     gap: 9px;
+    cursor: text;
+}
+
+span {
+    cursor: text;
 }

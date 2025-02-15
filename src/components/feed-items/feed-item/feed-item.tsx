@@ -3,9 +3,10 @@ import { FC, useMemo } from 'react'
 import classNames from 'classnames'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { useAppSelector } from '@/components/app/store/store'
+import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
 
 import { getIngredientsByIds } from '@/services/ingredients/selectors'
+import { addOrderCompositionData } from '@/services/order-composition/order-composition-slice'
 
 import { getTotalPrice } from '@/utils/helpers/getTotalPrice'
 import { Order } from '@/utils/mockOrders'
@@ -25,19 +26,42 @@ interface FeedItemProps {
 }
 
 export const FeedItem: FC<FeedItemProps> = ({ order }) => {
-  const { name, ingredients: orderIngredients, number, createdAt } = order
+  const {
+    name,
+    ingredients: orderIngredients,
+    number,
+    createdAt,
+    status,
+  } = order
   const location = useLocation()
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   const ingredients = useAppSelector(getIngredientsByIds(orderIngredients))
 
+  const price = useMemo(() => getTotalPrice(ingredients), [ingredients])
+
   const handleDetailsClick = (): void => {
+    const selection = window.getSelection()
+
+    if (selection && selection.toString().length > 0) {
+      return
+    }
+
+    dispatch(
+      addOrderCompositionData({
+        number,
+        name,
+        ingredients: orderIngredients,
+        status,
+        createdAt,
+      }),
+    )
+
     navigate(`${feedPath}/${number}`, {
       state: { backgroundLocation: location },
     })
   }
-
-  const price = useMemo(() => getTotalPrice(ingredients), [ingredients])
 
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions

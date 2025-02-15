@@ -8,7 +8,11 @@ import type { ApiResources } from '@/utils/api/types'
 import resetStorage from '@/utils/helpers/resetStorage'
 
 export interface CustomApi {
-  get: <T>(slug: ApiResources, options?: RequestInit) => Promise<T>
+  get: <T>(
+    slug: ApiResources,
+    options?: RequestInit,
+    params?: string,
+  ) => Promise<T>
   post: <T, B>(slug: ApiResources, body: B, options?: RequestInit) => Promise<T>
   patch: <T, B>(
     slug: ApiResources,
@@ -97,7 +101,19 @@ const customFetch = async <T>(
 export const get = async <T>(
   slug: ApiResources,
   options: RequestInit = {},
-): Promise<T> => customFetch<T>(slug, { method: 'GET', ...options })
+  params?: string,
+): Promise<T> => {
+  let url = slug
+
+  if (params) {
+    url = `${slug}/${params}` as ApiResources
+  }
+
+  return customFetch<T>(url, {
+    method: 'GET',
+    ...options,
+  })
+}
 
 export const post = async <T, B>(
   slug: ApiResources,
