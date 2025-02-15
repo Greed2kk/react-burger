@@ -7,6 +7,12 @@ import { rootReducers } from '@/services/root-reducer'
 export const store = configureStore({
   reducer: rootReducers,
   devTools: process.env.NODE_ENV === 'development',
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'], // Ignore redux-persist actions
+      },
+    }),
 })
 
 export type RootState = ReturnType<typeof store.getState>
