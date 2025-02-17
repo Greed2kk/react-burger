@@ -1,0 +1,8 @@
+.orderCompositionPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 122px;
+    width: 640px;
+    padding-bottom: 50px;
+}

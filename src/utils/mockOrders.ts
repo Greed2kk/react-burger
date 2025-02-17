@@ -1,7 +1,9 @@
+import { OrderStatus } from '@/services/order-composition/types'
+
 export type Order = {
   _id: string
   ingredients: string[]
-  status: string
+  status: OrderStatus
   name: string
   createdAt: string
   updatedAt: string

@@ -11,7 +11,7 @@ const initialState: OrderCompositionSchema = {
     number: 0,
     name: '',
     ingredients: [],
-    status: '',
+    status: 'done',
     createdAt: '',
   },
 }

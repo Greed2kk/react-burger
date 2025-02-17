@@ -1,0 +1,37 @@
+.orderComposition {
+    width: 100%;
+}
+
+.orderNumber {
+    text-align: center;
+}
+
+.name {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Ограничиваем до 3 строк */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.status {
+    color: var(--aqua-color);
+}
+
+.bottom {
+    display: flex;
+    justify-content: space-between;
+}
+
+.price {
+    display: flex;
+}
+
+.orderCompositionList {
+    padding: 0;
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+    overflow-y: scroll;
+    height: 300px;
+}
