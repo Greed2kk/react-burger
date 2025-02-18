@@ -8,9 +8,10 @@ import styles from './feed-items.module.css'
 
 interface FeedItemsProps {
   ordersData?: Feed
+  profile?: boolean
 }
 
-export const FeedItems: FC<FeedItemsProps> = ({ ordersData }) => {
+export const FeedItems: FC<FeedItemsProps> = ({ ordersData, profile }) => {
   const { orders } = ordersData || {}
 
   return (
@@ -20,7 +21,7 @@ export const FeedItems: FC<FeedItemsProps> = ({ ordersData }) => {
           return null
         }
 
-        return <FeedItem order={order} key={order._id} />
+        return <FeedItem order={order} key={order._id} profile={profile} />
       })}
     </div>
   )

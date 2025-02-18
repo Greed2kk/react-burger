@@ -20,6 +20,7 @@ import {
   loginPath,
   logoutPath,
   ordersPath,
+  profileOrdersPath,
   profilePath,
   registerPath,
   resetPasswordPath,
@@ -83,7 +84,10 @@ const AllRoutes: FC = () => {
             />
 
             <Route path={feedPath} element={<FeedPage />} />
-            <Route path={`${feedPath}/:orderNumber`} element={<OrderCompositionPage />} />
+            <Route
+              path={`${feedPath}/:orderNumber`}
+              element={<OrderCompositionPage />}
+            />
           </Route>
 
           <Route element={<AuthLayout />}>
@@ -97,6 +101,10 @@ const AllRoutes: FC = () => {
           </Route>
 
           <Route element={<ProtectedRoute />}>
+            <Route
+              path={`${profileOrdersPath}/:orderNumber`}
+              element={<OrderCompositionPage />}
+            />
             <Route path={profilePath} element={<Profile />}>
               <Route index element={<ProfileForm />} />
               <Route path={ordersPath} element={<ProfileOrders />} />
@@ -104,6 +112,8 @@ const AllRoutes: FC = () => {
               <Route path={`${ordersPath}/:id`} element={<ProfileOrder />} />
               <Route path={logoutPath} element={<ProfileLogout />} />
             </Route>
+
+
           </Route>
         </Route>
 
@@ -130,6 +140,19 @@ const AllRoutes: FC = () => {
         <Routes>
           <Route
             path={`${feedPath}/:orderNumber`}
+            element={
+              <Modal onCloseHandler={closeModal}>
+                <OrderComposition />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+
+      {state?.backgroundLocation && (
+        <Routes>
+          <Route
+            path={`${profileOrdersPath}/:orderNumber`}
             element={
               <Modal onCloseHandler={closeModal}>
                 <OrderComposition />

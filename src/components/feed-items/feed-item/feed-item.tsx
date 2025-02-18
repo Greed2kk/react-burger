@@ -10,7 +10,7 @@ import { addOrderCompositionData } from '@/services/order-composition/order-comp
 
 import { getTotalPrice } from '@/utils/helpers/getTotalPrice'
 import { Order } from '@/utils/mockOrders'
-import { feedPath } from '@/utils/route-paths'
+import { feedPath, profileOrdersPath } from '@/utils/route-paths'
 
 import { FeedIngredients } from './feed-ingredients/feed-ingredients'
 
@@ -23,9 +23,10 @@ import styles from './feed-item.module.css'
 
 interface FeedItemProps {
   order: Order
+  profile?: boolean
 }
 
-export const FeedItem: FC<FeedItemProps> = ({ order }) => {
+export const FeedItem: FC<FeedItemProps> = ({ order, profile }) => {
   const {
     name,
     ingredients: orderIngredients,
@@ -58,9 +59,17 @@ export const FeedItem: FC<FeedItemProps> = ({ order }) => {
       }),
     )
 
-    navigate(`${feedPath}/${number}`, {
-      state: { backgroundLocation: location },
-    })
+    if (profile) {
+      navigate(`${profileOrdersPath}/${number}`, {
+        state: { backgroundLocation: location },
+      })
+    } else {
+      navigate(`${feedPath}/${number}`, {
+        state: { backgroundLocation: location },
+      })
+    }
+
+
   }
 
   return (
