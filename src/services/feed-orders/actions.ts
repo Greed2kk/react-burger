@@ -6,8 +6,7 @@ import { Feed } from './types'
 
 export const feedOrdersWebSocketActions: WebSocketActions<Feed> = {
   connect: createAction<string>('feedOrders/wsConnect'),
-  // @ts-ignore
-  disconnect: createAction('feedOrders/wsDisconnect'),
+  disconnect: createAction<void>('feedOrders/wsDisconnect'),
   sendMessage: createAction<Feed>('feedOrders/wsSendMessage'),
   onConnected: createAction<Event>('feedOrders/wsConnected'),
   onDisconnected: createAction<CloseEvent>('feedOrders/wsDisconnected'),
