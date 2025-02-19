@@ -25,7 +25,7 @@ export const OrderCompositionPage: FC = () => {
   }, [dispatch, ingredientsData])
 
   if (isLoading) {
-    return <p className="text text_type_main-default">Загрузка...</p>
+    return <h1>Загрузка...</h1>
   }
 
   return (

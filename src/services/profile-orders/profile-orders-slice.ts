@@ -26,11 +26,11 @@ export const profileOrdersSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(profileOrdersWebSocketActions.onConnected, state => {
-        state.status = WebsocketStatus.OFFLINE
+        state.status = WebsocketStatus.ONLINE
         state.error = null
       })
       .addCase(profileOrdersWebSocketActions.onDisconnected, state => {
-        state.status = WebsocketStatus.ONLINE
+        state.status = WebsocketStatus.OFFLINE
       })
       .addCase(
         profileOrdersWebSocketActions.onMessageReceived,

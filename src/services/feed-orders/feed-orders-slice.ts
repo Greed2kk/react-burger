@@ -24,11 +24,11 @@ export const feedOrdersSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(feedOrdersWebSocketActions.onConnected, state => {
-        state.status = WebsocketStatus.OFFLINE
+        state.status = WebsocketStatus.ONLINE
         state.error = null
       })
       .addCase(feedOrdersWebSocketActions.onDisconnected, state => {
-        state.status = WebsocketStatus.ONLINE
+        state.status = WebsocketStatus.OFFLINE
       })
       .addCase(
         feedOrdersWebSocketActions.onMessageReceived,
@@ -45,8 +45,6 @@ export const feedOrdersSlice = createSlice({
   },
 })
 
-
 const { reducer: feedOrdersReducer } = feedOrdersSlice
-
 
 export default feedOrdersReducer

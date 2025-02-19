@@ -67,7 +67,7 @@ export const OrderComposition: FC = () => {
   }, [dispatch, number, orderNumber])
 
   if (isLoading) {
-    return <div>Загрузка...</div>
+    return <h1>Загрузка...</h1>
   }
 
   return (

@@ -27,9 +27,7 @@ const FeedPage: FC = () => {
   const feed = useSelector((state: RootState) => state.feedOrders.feed)
 
   useEffect(() => {
-    dispatch(
-      feedOrdersWebSocketActions.connect(wsFeedOrdersPath),
-    )
+    dispatch(feedOrdersWebSocketActions.connect(wsFeedOrdersPath))
 
     return () => {
       dispatch(feedOrdersWebSocketActions.disconnect())
@@ -42,6 +40,10 @@ const FeedPage: FC = () => {
     if (!ingredientsData[IngredientType.MAIN].length)
       dispatch(fetchIngredients())
   }, [dispatch, ingredientsData])
+
+  if (!feed.success) {
+    return <h1>Загрузка</h1>
+  }
 
   return (
     <ContentWrapper className="pl-5 pr-5">

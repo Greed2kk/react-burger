@@ -41,9 +41,13 @@ const ProfileOrders: FC = () => {
 
   return (
     <Fragment>
-      <div className={styles.orders}>
-        <FeedItems ordersData={feed} profile />
-      </div>
+      {!feed.success ? (
+        <h1>Загрузка...</h1>
+      ) : (
+        <div className={styles.orders}>
+          <FeedItems ordersData={feed} profile />
+        </div>
+      )}
 
       <p
         className={classNames(
