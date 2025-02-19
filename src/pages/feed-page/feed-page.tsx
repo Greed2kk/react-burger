@@ -1,22 +1,40 @@
 import { FC, useEffect } from 'react'
 
 import classNames from 'classnames'
+import { useSelector } from 'react-redux'
 
-import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
+import {
+  RootState,
+  useAppDispatch,
+  useAppSelector,
+} from '@/components/app/store/store'
 import { ContentWrapper } from '@/components/content-wrapper/content-wrapper'
 import { FeedItems } from '@/components/feed-items/feed-items'
 import { OrderStatuses } from '@/components/order-statuses/order-statuses'
 
+import { feedOrdersWebSocketActions } from '@/services/feed-orders/actions'
 import { fetchIngredients } from '@/services/ingredients/fetch-ingredients'
 import { getIngredients } from '@/services/ingredients/selectors'
 import { IngredientType } from '@/services/ingredients/types'
 
-import { feed } from '@/utils/mockOrders'
+import { wsFeedOrdersPath } from '@/utils/route-paths'
 
 import styles from './feed-page.module.css'
 
 const FeedPage: FC = () => {
   const dispatch = useAppDispatch()
+
+  const feed = useSelector((state: RootState) => state.feedOrders.feed)
+
+  useEffect(() => {
+    dispatch(
+      feedOrdersWebSocketActions.connect(wsFeedOrdersPath),
+    )
+
+    return () => {
+      dispatch(feedOrdersWebSocketActions.disconnect())
+    }
+  }, [dispatch])
 
   const ingredientsData = useAppSelector(getIngredients)
 

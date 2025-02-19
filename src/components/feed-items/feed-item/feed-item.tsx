@@ -5,11 +5,11 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
 
+import { Order } from '@/services/feed-orders/types'
 import { getIngredientsByIds } from '@/services/ingredients/selectors'
 import { addOrderCompositionData } from '@/services/order-composition/order-composition-slice'
 
 import { getTotalPrice } from '@/utils/helpers/getTotalPrice'
-import { Order } from '@/utils/mockOrders'
 import { feedPath, profileOrdersPath } from '@/utils/route-paths'
 
 import { FeedIngredients } from './feed-ingredients/feed-ingredients'

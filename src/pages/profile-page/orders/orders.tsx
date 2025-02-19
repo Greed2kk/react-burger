@@ -1,15 +1,21 @@
 import { FC, Fragment, useEffect } from 'react'
 
 import classNames from 'classnames'
+import { useSelector } from 'react-redux'
 
-import { useAppDispatch, useAppSelector } from '@/components/app/store/store'
+import {
+  RootState,
+  useAppDispatch,
+  useAppSelector,
+} from '@/components/app/store/store'
 import { FeedItems } from '@/components/feed-items/feed-items'
 
 import { fetchIngredients } from '@/services/ingredients/fetch-ingredients'
 import { getIngredients } from '@/services/ingredients/selectors'
 import { IngredientType } from '@/services/ingredients/types'
+import { profileOrdersWebSocketActions } from '@/services/profile-orders/actions'
 
-import { feed } from '@/utils/mockOrders'
+import { wsProfileOrdersPath } from '@/utils/route-paths'
 
 import styles from './orders.module.css'
 
@@ -17,6 +23,16 @@ const ProfileOrders: FC = () => {
   const dispatch = useAppDispatch()
 
   const ingredientsData = useAppSelector(getIngredients)
+
+  const feed = useSelector((state: RootState) => state.feedOrders.feed)
+
+  useEffect(() => {
+    dispatch(profileOrdersWebSocketActions.connect(wsProfileOrdersPath))
+
+    return () => {
+      dispatch(profileOrdersWebSocketActions.disconnect())
+    }
+  }, [dispatch])
 
   useEffect(() => {
     if (!ingredientsData[IngredientType.MAIN].length)

@@ -4,6 +4,10 @@
     cursor: pointer;
 }
 
+.feedItem:last-child {
+    margin-bottom: 50px;
+}
+
 
 .itemSection {
     display: flex;

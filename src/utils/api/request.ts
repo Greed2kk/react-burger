@@ -21,7 +21,7 @@ export interface CustomApi {
   ) => Promise<T>
 }
 
-const refreshAccessToken = async (): Promise<string> => {
+export const refreshAccessToken = async (): Promise<string> => {
   const refreshToken = localStorage.getItem(refreshTokenKey)
 
   if (!refreshToken) {

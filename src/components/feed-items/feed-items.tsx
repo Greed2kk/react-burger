@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Feed } from '@/utils/mockOrders'
+import { Feed } from '@/services/feed-orders/types'
 
 import { FeedItem } from './feed-item/feed-item'
 
@@ -12,11 +12,11 @@ interface FeedItemsProps {
 }
 
 export const FeedItems: FC<FeedItemsProps> = ({ ordersData, profile }) => {
-  const { orders } = ordersData || {}
+  const { orders = [] } = ordersData || {}
 
   return (
     <div className={styles.feedItems}>
-      {orders?.map(order => {
+      {orders.map(order => {
         if (!order.ingredients) {
           return null
         }

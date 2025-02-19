@@ -15,3 +15,6 @@ export const ingredientsPath = '/ingredients'
 export const profilePath = '/profile'
 export const profileOrdersPath = '/profile/orders'
 export const logoutPath = '/profile/logout'
+
+export const wsFeedOrdersPath = 'wss://norma.nomoreparties.space/orders/all'
+export const wsProfileOrdersPath = 'wss://norma.nomoreparties.space/orders'
