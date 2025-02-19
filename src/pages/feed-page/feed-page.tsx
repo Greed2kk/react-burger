@@ -45,6 +45,10 @@ const FeedPage: FC = () => {
     return <h1>Загрузка</h1>
   }
 
+  if (!feed.orders.length) {
+    return <h1>Заказов нет</h1>
+  }
+
   return (
     <ContentWrapper className="pl-5 pr-5">
       <h1 className="text text_type_main-large mb-5 mt-10">Лента заказов</h1>

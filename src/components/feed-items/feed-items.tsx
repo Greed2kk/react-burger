@@ -14,6 +14,10 @@ interface FeedItemsProps {
 export const FeedItems: FC<FeedItemsProps> = ({ ordersData, profile }) => {
   const { orders = [] } = ordersData || {}
 
+  if (!orders.length) {
+    return <h1>Заказов нет</h1>
+  }
+
   return (
     <div className={styles.feedItems}>
       {orders.map(order => {

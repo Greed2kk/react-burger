@@ -1,5 +1,6 @@
 .orders {
     grid-area: right;
+    width: 100%;
 }
 
 .tip {

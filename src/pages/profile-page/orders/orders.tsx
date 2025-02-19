@@ -24,7 +24,7 @@ const ProfileOrders: FC = () => {
 
   const ingredientsData = useAppSelector(getIngredients)
 
-  const feed = useSelector((state: RootState) => state.feedOrders.feed)
+  const feed = useSelector((state: RootState) => state.profileOrders.feed)
 
   useEffect(() => {
     dispatch(profileOrdersWebSocketActions.connect(wsProfileOrdersPath))
