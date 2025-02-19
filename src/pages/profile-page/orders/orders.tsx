@@ -1,7 +1,6 @@
 import { FC, Fragment, useEffect } from 'react'
 
 import classNames from 'classnames'
-import { useSelector } from 'react-redux'
 
 import {
   RootState,
@@ -24,7 +23,7 @@ const ProfileOrders: FC = () => {
 
   const ingredientsData = useAppSelector(getIngredients)
 
-  const feed = useSelector((state: RootState) => state.profileOrders.feed)
+  const feed = useAppSelector((state: RootState) => state.profileOrders.feed)
 
   useEffect(() => {
     dispatch(profileOrdersWebSocketActions.connect(wsProfileOrdersPath))

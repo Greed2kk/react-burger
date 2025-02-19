@@ -1,7 +1,6 @@
 import { FC, useEffect } from 'react'
 
 import classNames from 'classnames'
-import { useSelector } from 'react-redux'
 
 import {
   RootState,
@@ -24,7 +23,7 @@ import styles from './feed-page.module.css'
 const FeedPage: FC = () => {
   const dispatch = useAppDispatch()
 
-  const feed = useSelector((state: RootState) => state.feedOrders.feed)
+  const feed = useAppSelector((state: RootState) => state.feedOrders.feed)
 
   useEffect(() => {
     dispatch(feedOrdersWebSocketActions.connect(wsFeedOrdersPath))
