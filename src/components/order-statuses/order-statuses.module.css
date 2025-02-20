@@ -1,0 +1,31 @@
+.orderStatuses {
+    max-height: var(--header-height);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    overflow-y: scroll;
+}
+
+.orderProgress {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+}
+
+.orderList {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+}
+
+.orderListItem li {
+    padding: 5px;
+}
+
+.orderDone {
+    color: var(--aqua-color);
+}

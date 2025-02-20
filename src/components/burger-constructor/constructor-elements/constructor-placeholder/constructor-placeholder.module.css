@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 40px;
+    border-radius: var(--default-border-radius);
     max-width: 536px;
     width: 100%;
 }

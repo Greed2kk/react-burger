@@ -1,6 +1,6 @@
 .orders {
     grid-area: right;
-    height: 1600px;
+    width: 100%;
 }
 
 .tip {

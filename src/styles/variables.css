@@ -5,6 +5,8 @@
     --secondary-text-dark: #8585ad;
     --accent-color: #4c4cff;
 
+    --aqua-color: #00cccc;
+
     --scroll-bar-background: #2f2f37;
     --scroll-bar: #8585ad;
 
@@ -13,4 +15,8 @@
     --modal-z-index: 1000;
     /*--modal-backdrop-z-index: 999;*/
     --modal-background-color: rgba(0, 0, 0, 0.6);
+
+
+    --default-border-radius: 40px;
+    --header-height: calc(100vh - 200px);
 }

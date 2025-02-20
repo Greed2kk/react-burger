@@ -1,3 +1,5 @@
+import persistReducer from 'redux-persist/lib/persistReducer'
+import storage from 'redux-persist/lib/storage'
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
 import { StateSchema } from '@/components/app/store/types'
@@ -60,4 +62,7 @@ export const { selectAll: selectAllBurgerIngredients } =
     (state: StateSchema) => state.burgerConstructor,
   )
 
-export default burgerConstructorReducer
+export default persistReducer(
+  { key: 'react-burger/burger-constructor', storage },
+  burgerConstructorReducer,
+)

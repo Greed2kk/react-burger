@@ -49,7 +49,7 @@ export const getIngredientsByIds = (
 
 export const createAppSelector = createSelector.withTypes<StateSchema>()
 
-export const getIngredientsById = (id: string): Selector<StateSchema, Ingredient>  =>
+export const getIngredientById = (id: string): Selector<StateSchema, Ingredient>  =>
   createAppSelector(
     (state: StateSchema) => state,
     ingredientsState => selectIngredientById(ingredientsState, id),

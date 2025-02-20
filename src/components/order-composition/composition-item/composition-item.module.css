@@ -1,0 +1,35 @@
+.compositionItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.ingredientImageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 59px;
+    height: 59px;
+    padding: 0 2px;
+    background-color: var(--primary-bg);
+    border: 2px solid var(--accent-color);
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.ingredientImage {
+    position: relative;
+    width: auto;
+    height: 100%;
+    color: var(--interface-bg);
+}
+
+.totalPrice {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+}
