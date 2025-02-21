@@ -2,10 +2,6 @@
 @import url('./styles/variables.css');
 
 :root {
-    ::-webkit-scrollbar {
-        width: 8px;
-    }
-
     ::-webkit-scrollbar-track {
         background: var(--scroll-bar-background);
         border-radius: 0;
