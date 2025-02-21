@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkreact_burger=self.webpackChunkreact_burger||[]).push([[104],{8104:(e,r,c)=>{c.r(r),c.d(r,{default:()=>u});var s=c(579);const u=()=>(0,s.jsx)("h1",{children:"\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u0430 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u0430"})}}]);
+//# sourceMappingURL=104.043ec24c.chunk.js.map
