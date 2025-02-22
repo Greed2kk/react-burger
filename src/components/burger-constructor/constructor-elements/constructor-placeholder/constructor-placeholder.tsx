@@ -15,6 +15,7 @@ interface ConstructorPlaceholderProps {
 export const ConstructorPlaceholder: FC<ConstructorPlaceholderProps> = ({
   isBun,
   isTop,
+  ...props
 }) => {
   const [{ isOver, canDrop }, ref] = useDrop({
     accept: isBun ? DndType.BUN : DndType.INGREDIENT,
@@ -32,6 +33,7 @@ export const ConstructorPlaceholder: FC<ConstructorPlaceholderProps> = ({
 
   return (
     <div
+      {...props}
       ref={ref}
       className={classNames(
         styles.constructorPlaceholder,
