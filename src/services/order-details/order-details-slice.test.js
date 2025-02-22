@@ -1,17 +1,8 @@
 import { createOrder } from '@/services/order-details/create-order'
 
-import orderDetailsReducer, { clearDetailsData } from './order-details-slice'
+import orderDetailsReducer, { clearDetailsData, initialState } from './order-details-slice'
 
 describe('orderDetailsSlice', () => {
-  const initialState = {
-    isLoading: false,
-    orderDetails: {
-      order: { number: 0 },
-      name: '',
-      success: false,
-    },
-  }
-
   const mockOrderResponse = {
     order: { number: 69134 },
     name: 'Краторный spicy бургер\n',

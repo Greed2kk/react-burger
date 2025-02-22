@@ -1,4 +1,5 @@
 import authReducer, {
+  initialState,
   resetFormData,
   setAccessToken,
   setRefreshToken,
@@ -8,16 +9,7 @@ import authReducer, {
 } from './auth-slice'
 
 describe('authSlice', () => {
-  const initialState = {
-    user: { name: '', email: '', password: '123456' },
-    userForm: { name: '', email: '', password: '123456' },
-    accessToken: null,
-    refreshToken: null,
-    isAuthenticated: false,
-    isLoading: false,
-    error: null,
-    resetPasswordEmail: undefined,
-  }
+
 
   beforeEach(() => {
     Object.defineProperty(global, 'localStorage', {

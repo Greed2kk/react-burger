@@ -1,34 +1,15 @@
 import { fetchIngredients } from '@/services/ingredients/fetch-ingredients'
 
 import ingredientReducer, {
-  ingredientsAdapter,
+  initialState,
   selectAllIngredients,
 } from './ingredient-slice'
 
-describe('ingredientSlice', () => {
-  const initialState = ingredientsAdapter.getInitialState({
-    isLoading: false,
-    ids: [],
-    entities: {},
-    error: '',
-  })
+import { bun } from '@/__mocks__/ingredients'
 
-  const mockIngredients = [
-    {
-      id: '643d69a5c3f7b9001cfa093d',
-      name: 'Флюоресцентная булка R2-D3',
-      type: 'bun',
-      proteins: 44,
-      fat: 26,
-      carbohydrates: 85,
-      calories: 643,
-      price: 988,
-      image: 'https://code.s3.yandex.net/react/code/bun-01.png',
-      image_mobile: 'https://code.s3.yandex.net/react/code/bun-01-mobile.png',
-      image_large: 'https://code.s3.yandex.net/react/code/bun-01-large.png',
-      __v: 0,
-    }
-  ]
+describe('ingredientSlice', () => {
+
+  const mockIngredients = [bun]
 
   it('should return the initial state', () => {
     expect(ingredientReducer(undefined, { type: undefined })).toEqual(

@@ -16,7 +16,7 @@ import { login } from './login'
 import { register } from './register'
 import { user } from './user'
 
-const initialState: AuthSchema = {
+export const initialState: AuthSchema = {
   user: { name: '', email: '', password: '123456' },
   userForm: { name: '', email: '', password: '123456' },
   accessToken: null,

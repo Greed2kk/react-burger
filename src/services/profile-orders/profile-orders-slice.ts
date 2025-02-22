@@ -8,7 +8,7 @@ import { ProfileOrdersSchema } from './types'
 
 import { profileOrdersWebSocketActions } from './actions'
 
-const initialState: ProfileOrdersSchema = {
+export const initialState: ProfileOrdersSchema = {
   status: WebsocketStatus.OFFLINE,
   feed: {
     success: false,

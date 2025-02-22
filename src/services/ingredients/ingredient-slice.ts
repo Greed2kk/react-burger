@@ -9,7 +9,7 @@ export const ingredientsAdapter = createEntityAdapter<Ingredient, string>({
   selectId: (ingredient: Ingredient) => ingredient._id,
 })
 
-const initialState = ingredientsAdapter.getInitialState<IngredientsSchema>({
+export const initialState = ingredientsAdapter.getInitialState<IngredientsSchema>({
   isLoading: false,
   ids: [],
   entities: {},

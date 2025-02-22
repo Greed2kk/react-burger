@@ -2,29 +2,11 @@ import { feedOrdersWebSocketActions } from '@/services/feed-orders/actions'
 import { WebsocketStatus } from '@/services/middleware/socket-midleware'
 
 import { profileOrdersWebSocketActions } from './actions'
-import profileOrdersReducer from './profile-orders-slice'
+import profileOrdersReducer, { initialState } from './profile-orders-slice'
+
+import { mockFeed } from '@/__mocks__/feed'
 
 describe('profileOrdersSlice', () => {
-  const initialState = {
-    status: WebsocketStatus.OFFLINE,
-    feed: {
-      success: false,
-      orders: [],
-      total: 0,
-      totalToday: 0,
-    },
-    error: null,
-  }
-
-  const mockFeed = {
-    success: true,
-    orders: [
-      { id: 69134, name: 'Краторный люминесцентный метеоритный бургер' },
-    ],
-    total: 68760,
-    totalToday: 161,
-  }
-
   it('should return the initial state', () => {
     expect(profileOrdersReducer(undefined, { type: undefined })).toEqual(
       initialState,

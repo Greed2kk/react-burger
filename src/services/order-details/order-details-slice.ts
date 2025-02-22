@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { createOrder } from '@/services/order-details/create-order'
 import type { OrderDetailsSchema } from '@/services/order-details/types'
 
-const initialState: OrderDetailsSchema = {
+export const initialState: OrderDetailsSchema = {
   isLoading: false,
   orderDetails: {
     order: {

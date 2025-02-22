@@ -1,21 +1,10 @@
 import { WebsocketStatus } from '@/services/middleware/socket-midleware'
 
 import { feedOrdersWebSocketActions } from './actions'
-import { feedOrdersSlice } from './feed-orders-slice'
+import { feedOrdersSlice, initialState } from './feed-orders-slice'
 
 describe('feedOrdersSlice', () => {
   const { reducer } = feedOrdersSlice
-
-  const initialState = {
-    status: WebsocketStatus.OFFLINE,
-    feed: {
-      success: false,
-      orders: [],
-      total: 0,
-      totalToday: 0,
-    },
-    error: null,
-  }
 
   it('should return the initial state', () => {
     expect(reducer(undefined, { type: undefined })).toEqual(initialState)
