@@ -22,7 +22,6 @@ export const Modal: FC<ModalProps> = ({
   headerText,
   onCloseHandler,
 }) => {
-
   const onEscPress = useCallback(
     (e: KeyboardEvent): void => {
       if (e.key === 'Escape') {
@@ -51,14 +50,12 @@ export const Modal: FC<ModalProps> = ({
         className={classNames(styles.modal, 'pt-10 pr-10 pb-15 pl-10')}
         onClick={blockPropagationClick}
       >
-        <div className={styles.header}>
+        <div className={styles.header} data-testid="modal">
           <p className="text text_type_main-large">{headerText}</p>
 
-          <CloseIcon
-            type="primary"
-            onClick={onCloseHandler}
-            className={styles.closeModal}
-          />
+          <button onClick={onCloseHandler} className={styles.closeButtonWrapper} data-testid="modal-close-btn">
+            <CloseIcon type="primary" className={styles.closeModal} />
+          </button>
         </div>
 
         <div className={styles.modalBody}>{children}</div>

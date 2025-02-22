@@ -75,6 +75,7 @@ export const IngredientCard: FC<IngredientItemProps> = ({ ingredient }) => {
         className={classNames(styles.ingredientCard, { [styles.drag]: isDrag })}
         onClick={handleDetailsClick}
         draggable
+        data-testid="ingredient"
       >
         <div className={classNames(styles.imageContainer, 'mb-1 pl-4 pr-4')}>
           <img src={image} alt={image} />

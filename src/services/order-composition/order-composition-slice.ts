@@ -6,7 +6,7 @@ import {
   OrderCompositionSchema,
 } from '@/services/order-composition/types'
 
-const initialState: OrderCompositionSchema = {
+export const initialState: OrderCompositionSchema = {
   orderComposition: {
     number: 0,
     name: '',

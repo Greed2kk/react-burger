@@ -6,7 +6,7 @@ import { Feed, FeedOrdersSchema } from './types'
 
 import { feedOrdersWebSocketActions } from './actions'
 
-const initialState: FeedOrdersSchema = {
+export const initialState: FeedOrdersSchema = {
   status: WebsocketStatus.OFFLINE,
   feed: {
     success: false,

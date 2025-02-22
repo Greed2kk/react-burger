@@ -1,5 +1,5 @@
 {
-  "plugins": ["simple-import-sort", "import"],
+  "plugins": ["simple-import-sort", "import", "cypress"],
   "env": {
     "browser": true,
     "es2021": true
@@ -15,7 +15,7 @@
       }
     }
   },
-  "extends": ["react-app"],
+  "extends": ["react-app", "plugin:cypress/recommended"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -98,6 +98,7 @@
         "avoidEscape": true
       }
     ],
+    "cypress/no-unnecessary-waiting": "warn",
     "newline-before-return": "warn",
     "newline-after-var": "warn",
     "import/prefer-default-export": "off",

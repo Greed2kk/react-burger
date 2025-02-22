@@ -53,7 +53,12 @@ export const IngredientDetails: FC = () => {
     <Fragment>
       <img src={image_large} alt={name} className="pl-5 pr-5" />
 
-      <p className="text text_type_main-medium mt-4 mb-8">{name}</p>
+      <p
+        className="text text_type_main-medium mt-4 mb-8"
+        data-testid="ingredient-details-name"
+      >
+        {name}
+      </p>
 
       <div className={styles.energyValue}>
         {compound.map(([key, value]) => (

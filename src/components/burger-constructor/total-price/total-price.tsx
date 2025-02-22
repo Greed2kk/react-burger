@@ -32,6 +32,7 @@ export const TotalPrice: FC<TotalPriceProps> = ({
       />
 
       <Button
+        data-testid="complete-order-btn"
         htmlType={HtmlTypeButton.SUBMIT}
         size={SizeButton.LARGE}
         onClick={onOrderAccept}

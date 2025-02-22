@@ -54,9 +54,14 @@ export const ConstructorElements: FC = () => {
   }
 
   return (
-    <ul className={styles.constructorElements} ref={dropTarget}>
+    <ul
+      className={styles.constructorElements}
+      ref={dropTarget}
+      data-testid="constructor"
+    >
       {bun ? (
         <ConstructorElement
+          dataTestid="constructor-bun-top"
           type={ConstructorElementType.TOP}
           isLocked
           _id={bun._id}
@@ -66,10 +71,17 @@ export const ConstructorElements: FC = () => {
           thumbnail={bun.imageMobile}
         />
       ) : (
-        <ConstructorPlaceholder isBun isTop />
+        <ConstructorPlaceholder
+          isBun
+          isTop
+          data-testid="constructor-bun-placeholder"
+        />
       )}
 
-      <ul className={styles.editableConstructorElements}>
+      <ul
+        className={styles.editableConstructorElements}
+        data-testid="constructor-main"
+      >
         {!!ingredients.length ? (
           ingredients.map(({ price, imageMobile, name, id, _id }, index) => (
             <ConstructorElement
@@ -84,12 +96,13 @@ export const ConstructorElements: FC = () => {
             />
           ))
         ) : (
-          <ConstructorPlaceholder />
+          <ConstructorPlaceholder data-testid="constructor-main-placeholder" />
         )}
       </ul>
 
       {bun ? (
         <ConstructorElement
+          dataTestid="constructor-bun-bottom"
           _id={bun._id}
           id={bun._id}
           type={ConstructorElementType.BOTTOM}

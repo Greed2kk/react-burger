@@ -22,6 +22,7 @@ interface ConstructorElementProps {
   text: string
   price: number
   thumbnail: string
+  dataTestid?: string
   isLocked?: boolean
   type?: ConstructorElementType
   className?: string
@@ -37,6 +38,7 @@ export const ConstructorElement: FC<ConstructorElementProps> = props => {
     moveIngredient,
     isLocked,
     className,
+    dataTestid,
     ...otherProps
   } = props
 
@@ -66,6 +68,7 @@ export const ConstructorElement: FC<ConstructorElementProps> = props => {
 
   return (
     <li
+      data-testid={dataTestid}
       className={classNames(styles.constructorElement, {
         [styles.isDragging]: isDragging,
       })}
