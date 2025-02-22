@@ -1,3 +1,5 @@
+import { SELECTORS } from '../support/constants'
+
 describe('Order complete success', () => {
   beforeEach(() => {
     cy.visit('/')
@@ -11,9 +13,9 @@ describe('Order complete success', () => {
       JSON.stringify('FaS12EAS123D12'),
     )
 
-    cy.get('[data-testid=ingredient]').eq(4).as('ingredientMain')
-    cy.get('[data-testid=ingredient]').eq(5).as('ingredientMainSecond')
-    cy.get('[data-testid=ingredient]').first().as('bun')
+    cy.get(SELECTORS.INGREDIENT).eq(4).as('ingredientMain')
+    cy.get(SELECTORS.INGREDIENT).eq(5).as('ingredientMainSecond')
+    cy.get(SELECTORS.INGREDIENT).first().as('bun')
 
     cy.get('[data-testid=constructor-bun-placeholder]').as(
       'constructorBunPlaceholder',
@@ -32,6 +34,6 @@ describe('Order complete success', () => {
 
     cy.get('@completeOrderBtn').click()
 
-    cy.get('[data-testid=modal]').should('be.visible')
+    cy.get(SELECTORS.MODAL).should('be.visible')
   })
 })
